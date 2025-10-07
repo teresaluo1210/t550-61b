@@ -13,32 +13,10 @@
 
   <style id="jtd-nav-activation">
   
-
-    .site-nav > ul.nav-list:first-child > li > a,
-    .site-nav > ul.nav-list:first-child > li > ul > li > a,
-    
-    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li:not(:nth-child(1)) > a,
-    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li > ul > li a {
+    .site-nav ul li a {
       background-image: none;
     }
 
-    .site-nav > ul.nav-list:not(:first-child) a,
-    .site-nav li.external a {
-      background-image: none;
-    }
-
-    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(2) > ul > li:nth-child(1) > a {
-      font-weight: 600;
-      text-decoration: none;
-    }.site-nav > ul.nav-list:first-child > li:nth-child(4) > button svg,
-    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(2) > button svg,
-    .site-nav > ul.nav-list:first-child > li:nth-child(4) > ul > li:nth-child(2) > ul > li:nth-child(1) > button svg {
-      transform: rotate(-90deg);
-    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list,
-    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(2) > ul.nav-list,
-    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(4) > ul.nav-list > li.nav-list-item:nth-child(2) > ul.nav-list > li.nav-list-item:nth-child(1) > ul.nav-list {
-      display: block;
-    }
   </style>
 
   
@@ -58,20 +36,20 @@
 
 
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Homework 2: Percolation FAQ | Mock CS 61B (T550 Version)</title>
+<title>Mock CS 61B (T550 Version) | Data Structures Mock Site for T550 Final Project</title>
 <meta name="generator" content="Jekyll v3.9.5" />
-<meta property="og:title" content="Homework 2: Percolation FAQ" />
+<meta property="og:title" content="Mock CS 61B (T550 Version)" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Homework 2 FAQ." />
-<meta property="og:description" content="Homework 2 FAQ." />
-<link rel="canonical" href="http://localhost:4000/homeworks/hw2/faq/" />
-<meta property="og:url" content="http://localhost:4000/homeworks/hw2/faq/" />
+<meta name="description" content="Data Structures Mock Site for T550 Final Project" />
+<meta property="og:description" content="Data Structures Mock Site for T550 Final Project" />
+<link rel="canonical" href="http://localhost:4000/ais/" />
+<meta property="og:url" content="http://localhost:4000/ais/" />
 <meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Homework 2: Percolation FAQ" />
+<meta property="twitter:title" content="Mock CS 61B (T550 Version)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Homework 2 FAQ.","headline":"Homework 2: Percolation FAQ","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/homeworks/hw2/faq/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"Data Structures Mock Site for T550 Final Project","headline":"Mock CS 61B (T550 Version)","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/ais/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -317,129 +295,16 @@ function renderKaTeX() {
 </div>
 
     <div class="main-content-wrap">
-      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
-  <ol class="breadcrumb-nav-list">
-    <li class="breadcrumb-nav-list-item"><a href="/homeworks/">Homeworks</a></li>
-    <li class="breadcrumb-nav-list-item"><a href="/homeworks/hw2/">Homework 2: Percolation</a></li>
-    <li class="breadcrumb-nav-list-item"><span>Homework 2: Percolation FAQ</span></li>
-  </ol>
-</nav>
-
-
+      
       <div id="main-content" class="main-content">
         <main>
           
-            <nav class="content-nav nav-faq">
-      <ul class="nav-list js-toc"><li class="nav-list-item">Homework 2: Percolation FAQ<ul><li class="nav-list-item"><a href="#faq" class="nav-list-link">FAQ</a><ul><li class="nav-list-item"><a href="#what-should-stddev-return-if-t-equals-1" class="nav-list-link">What should stddev() return if T equals 1?</a></li><li class="nav-list-item"><a href="#after-the-system-has-percolated-percolationvisualizer-colors-in-light-blue-all-sites-connected-to-open-sites-on-the-bottom-in-addition-to-those-connected-to-open-sites-on-the-top-is-this-backwash-acceptable" class="nav-list-link">After the system has percolated, PercolationVisualizer colors in light blue all sites connected to open sites on the bottom (in addition to those connected to open sites on the top). Is this “backwash” acceptable?</a></li><li class="nav-list-item"><a href="#how-do-i-generate-a-site-uniformly-at-random-among-all-blocked-sites-for-use-in-percolationstats" class="nav-list-link">How do I generate a site uniformly at random among all blocked sites for use in PercolationStats?</a></li><li class="nav-list-item"><a href="#i-dont-get-reliable-timing-information-in-percolationstats-when-n--200-what-should-i-do" class="nav-list-link">I don’t get reliable timing information in PercolationStats when N = 200. What should I do?</a></li><li class="nav-list-item"><a href="#im-failing-the-chi-squared-test-but-passing-everything-else" class="nav-list-link">I’m failing the Chi Squared test but passing everything else.</a></li><li class="nav-list-item"><a href="#its-telling-me-that-my-code-reports-false-for-percolates-but-when-i-run-the-visualizer-im-getting-true" class="nav-list-link">It’s telling me that my code reports “false” for percolates() but when I run the visualizer I’m getting true!</a></li><li class="nav-list-item"><a href="#my-code-is-compiling-on-my-computer-but-not-on-the-autograder" class="nav-list-link">My code is compiling on my computer but not on the autograder.</a></li><li class="nav-list-item"><a href="#how-do-i-choose-which-file-to-run-how-do-i-pass-command-lineprogram-arguments-in-intellij" class="nav-list-link">How do I choose which file to run? How do I pass command line/program arguments in IntelliJ?</a></li></ul></li></ul></li></ul>
-    </nav>
-    <div class="content-container">
-<h1 class="title">
-  
-  
-    Homework 2: Percolation FAQ
-  
-  
-</h1>
-    
-<h2 id="faq">
-  
-  
-    <a href="#faq" class="anchor-heading" aria-labelledby="faq"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> FAQ
-  
-  
-</h2>
-    
-<h3 id="what-should-stddev-return-if-t-equals-1">
-  
-  
-    <a href="#what-should-stddev-return-if-t-equals-1" class="anchor-heading" aria-labelledby="what-should-stddev-return-if-t-equals-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What should <code class="language-plaintext highlighter-rouge">stddev()</code> return if T equals 1?
-  
-  
-</h3>
-    
-
-<p>The sample standard deviation is undefined. We recommend returning Double.NaN but we will not test this case.</p>
-<h3 id="after-the-system-has-percolated-percolationvisualizer-colors-in-light-blue-all-sites-connected-to-open-sites-on-the-bottom-in-addition-to-those-connected-to-open-sites-on-the-top-is-this-backwash-acceptable">
-  
-  
-    <a href="#after-the-system-has-percolated-percolationvisualizer-colors-in-light-blue-all-sites-connected-to-open-sites-on-the-bottom-in-addition-to-those-connected-to-open-sites-on-the-top-is-this-backwash-acceptable" class="anchor-heading" aria-labelledby="after-the-system-has-percolated-percolationvisualizer-colors-in-light-blue-all-sites-connected-to-open-sites-on-the-bottom-in-addition-to-those-connected-to-open-sites-on-the-top-is-this-backwash-acceptable"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> After the system has percolated, <code class="language-plaintext highlighter-rouge">PercolationVisualizer</code> colors in light blue all sites connected to open sites on the bottom (in addition to those connected to open sites on the top). Is this “backwash” acceptable?
-  
-  
-</h3>
-    
-
-<p>While allowing backwash does not strictly conform to the Percolation API, it requires quite a bit of ingenuity to fix and it leads to only a small deduction if you don’t.</p>
-
-<p><img src="/homeworks/hw2/images/percolation-backwash.png" alt="percolation" /></p>
-<h3 id="how-do-i-generate-a-site-uniformly-at-random-among-all-blocked-sites-for-use-in-percolationstats">
-  
-  
-    <a href="#how-do-i-generate-a-site-uniformly-at-random-among-all-blocked-sites-for-use-in-percolationstats" class="anchor-heading" aria-labelledby="how-do-i-generate-a-site-uniformly-at-random-among-all-blocked-sites-for-use-in-percolationstats"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How do I generate a site uniformly at random among all blocked sites for use in <code class="language-plaintext highlighter-rouge">PercolationStats</code>?
-  
-  
-</h3>
-    
-
-<p>Pick a site at random (by using <code class="language-plaintext highlighter-rouge">StdRandom</code> or some other library to generate two integers between 0 (inclusive) and N (exclusive) and use this site if it is blocked; if not, repeat.</p>
-<h3 id="i-dont-get-reliable-timing-information-in-percolationstats-when-n--200-what-should-i-do">
-  
-  
-    <a href="#i-dont-get-reliable-timing-information-in-percolationstats-when-n--200-what-should-i-do" class="anchor-heading" aria-labelledby="i-dont-get-reliable-timing-information-in-percolationstats-when-n--200-what-should-i-do"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> I don’t get reliable timing information in <code class="language-plaintext highlighter-rouge">PercolationStats</code> when N = 200. What should I do?
-  
-  
-</h3>
-    
-
-<p>Increase the size of N (say to 400, 800, and 1600), until the mean running time exceeds its standard deviation.</p>
-<h3 id="im-failing-the-chi-squared-test-but-passing-everything-else">
-  
-  
-    <a href="#im-failing-the-chi-squared-test-but-passing-everything-else" class="anchor-heading" aria-labelledby="im-failing-the-chi-squared-test-but-passing-everything-else"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> I’m failing the Chi Squared test but passing everything else.
-  
-  
-</h3>
-    
-
-<p>The issue is that you’re using the same random seed for multiple simulations, and the statistical test is catching the fact that they are the same.</p>
-
-<p>If you look at the code for <code class="language-plaintext highlighter-rouge">StdRandom</code>, you’ll see that it sets the seed just once (the first time <code class="language-plaintext highlighter-rouge">StdRandom</code> is used), which prevents this issue of seed reset. In short, don’t set the seed yourself.</p>
-
-<p>Alternately, make sure you’re not generating biased random numbers. You should be using the <code class="language-plaintext highlighter-rouge">StdRandom</code> method that generates integers, not doubles.</p>
-<h3 id="its-telling-me-that-my-code-reports-false-for-percolates-but-when-i-run-the-visualizer-im-getting-true">
-  
-  
-    <a href="#its-telling-me-that-my-code-reports-false-for-percolates-but-when-i-run-the-visualizer-im-getting-true" class="anchor-heading" aria-labelledby="its-telling-me-that-my-code-reports-false-for-percolates-but-when-i-run-the-visualizer-im-getting-true"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> It’s telling me that my code reports “false” for <code class="language-plaintext highlighter-rouge">percolates()</code> but when I run the visualizer I’m getting true!
-  
-  
-</h3>
-    
-
-<p>The visualizer does a very specific sequence of <code class="language-plaintext highlighter-rouge">isOpen()</code>/<code class="language-plaintext highlighter-rouge">isFull()</code>/<code class="language-plaintext highlighter-rouge">percolates()</code> calls. Try creating your own test that only opens sites and then calls <code class="language-plaintext highlighter-rouge">percolates()</code>. Alternately, disable all <code class="language-plaintext highlighter-rouge">isOpen()</code> and/or <code class="language-plaintext highlighter-rouge">isFull()</code> calls in the visualizer so you can focus on the <code class="language-plaintext highlighter-rouge">percolates()</code> behavior. Alternately, pay close attention to the test labeled <code class="language-plaintext highlighter-rouge">Random Operation Order</code>.</p>
-<h3 id="my-code-is-compiling-on-my-computer-but-not-on-the-autograder">
-  
-  
-    <a href="#my-code-is-compiling-on-my-computer-but-not-on-the-autograder" class="anchor-heading" aria-labelledby="my-code-is-compiling-on-my-computer-but-not-on-the-autograder"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> My code is compiling on my computer but not on the autograder.
-  
-  
-</h3>
-    
-
-<p>Your code must obey the API exactly. You may not add additional public methods or variables to the <code class="language-plaintext highlighter-rouge">Percolation</code> class. When we test your <code class="language-plaintext highlighter-rouge">PercolationStats</code>, we use a reference version of Percolation instead of your version to avoid cascading errors – which means you can’t assume that any additional public methods are available.</p>
-<h3 id="how-do-i-choose-which-file-to-run-how-do-i-pass-command-lineprogram-arguments-in-intellij">
-  
-  
-    <a href="#how-do-i-choose-which-file-to-run-how-do-i-pass-command-lineprogram-arguments-in-intellij" class="anchor-heading" aria-labelledby="how-do-i-choose-which-file-to-run-how-do-i-pass-command-lineprogram-arguments-in-intellij"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> How do I choose which file to run? How do I pass command line/program arguments in IntelliJ?
-  
-  
-</h3>
-    
-
-<p>First, navigate to Run -&gt; Edit Configurations. You can set up different debugging clients here to run different classes as your “main class” (meaning that the program will start and end with the “main” function inside of your main class). You can set up a new client with the small + sign on the upper left side - for the purposes of this class, you’ll only need to set up an Application. You can then name your configuration whatever you like, select the main class you want for that configuration, as well as set any command line/program arguments in the program arguments field. Input the program arguments into that field just like you would in the terminal - a single line with spaces separating the arguments.</p>
-
-</div>
+            <div>This page has not been released yet.</div>
 
           
 
+          
+            
           
         </main>
         

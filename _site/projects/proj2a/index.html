@@ -14,25 +14,28 @@
   <style id="jtd-nav-activation">
   
 
-.site-nav > ul.nav-list:first-child > li:not(:nth-child(3)) > a,
-.site-nav > ul.nav-list:first-child > li > ul > li > a,
-.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
-  background-image: none;
-}
+    .site-nav > ul.nav-list:first-child > li > a,
+    
+    .site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(5)) > a,
+    .site-nav > ul.nav-list:first-child > li > ul > li > ul > li a {
+      background-image: none;
+    }
 
-.site-nav > ul.nav-list:not(:first-child) a,
-.site-nav li.external a {
-  background-image: none;
-}
+    .site-nav > ul.nav-list:not(:first-child) a,
+    .site-nav li.external a {
+      background-image: none;
+    }
 
-.site-nav > ul.nav-list:first-child > li:nth-child(3) > a {
-  font-weight: 600;
-  text-decoration: none;
-}.site-nav > ul.nav-list:first-child > li:nth-child(3) > button svg {
-  transform: rotate(-90deg);
-}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(3) > ul.nav-list {
-  display: block;
-}
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(5) > a {
+      font-weight: 600;
+      text-decoration: none;
+    }.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+    .site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(5) > button svg {
+      transform: rotate(-90deg);
+    }.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+    .site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(5) > ul.nav-list {
+      display: block;
+    }
   </style>
 
   
@@ -53,7 +56,7 @@
 
   <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Project 2A: Ngordnet (NGrams) | Mock CS 61B (T550 Version)</title>
-<meta name="generator" content="Jekyll v4.3.3" />
+<meta name="generator" content="Jekyll v3.9.5" />
 <meta property="og:title" content="Project 2A: Ngordnet (NGrams)" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Project 2A spec." />
@@ -199,151 +202,64 @@ function renderKaTeX() {
   
   
     <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
-              </li><li class="nav-list-item">
-                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
-              </li><li class="nav-list-item">
-                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
-              </li><li class="nav-list-item">
-                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
-              </li><li class="nav-list-item">
-                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
-              </li><li class="nav-list-item">
-                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
-              </li><li class="nav-list-item">
-                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
-              </li><li class="nav-list-item">
-                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
-              </li><li class="nav-list-item">
-                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
-              </li><li class="nav-list-item">
-                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
-              </li><li class="nav-list-item">
-                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
-              </li><li class="nav-list-item">
-                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
-              </li><li class="nav-list-item">
-                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
-              </li><li class="nav-list-item">
-                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
-              </li><li class="nav-list-item">
-                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
-              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
-              </li><li class="nav-list-item">
-                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
-              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
-                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
-              </li><li class="nav-list-item">
-                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
-              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
-    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
-
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a></li><li class="nav-list-item"><a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a></li><li class="nav-list-item"><a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a></li><li class="nav-list-item"><a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a></li><li class="nav-list-item"><a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a></li><li class="nav-list-item"><a href="/labs/lab01/windows/" class="nav-list-link">Windows</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a></li><li class="nav-list-item"><a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a></li><li class="nav-list-item"><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 11: Comparison-Based Sorts (Optional) category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/lab11/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item"><a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a></li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item"><a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a></li><li class="nav-list-item"><a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"><li class="nav-list-item"><a href="/homeworks/hw2/faq/" class="nav-list-link">Homework 2: Percolation FAQ</a></li><li class="nav-list-item"><a href="/homeworks/hw2/outputs/" class="nav-list-link">"Expected Outputs - HW 2: Percolation"</a></li></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item"><a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item"><a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a></li><li class="nav-list-item"><a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item"><a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a></li><li class="nav-list-item"><a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item"><a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item"><a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item"><a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a></li><li class="nav-list-item"><a href="/projects/proj3/setup/" class="nav-list-link">Setup</a></li><li class="nav-list-item"><a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a></li><li class="nav-list-item"><a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a></li><li class="nav-list-item"><a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a></li><li class="nav-list-item"><a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a></li><li class="nav-list-item"><a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a></li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item"><a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a></li><li class="nav-list-item"><a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a></li><li class="nav-list-item"><a href="/resources/guides/debugging/" class="nav-list-link">Debugging Guide</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Ed Policies and Guidelines category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a><ul class="nav-list"><li class="nav-list-item"><a href="/resources/guides/ed/ed-guide/" class="nav-list-link">An Ed Guide for New Users</a></li></ul></li><li class="nav-list-item"><a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in IntelliJ category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a><ul class="nav-list"><li class="nav-list-item"><a href="/resources/guides/intellij/plugins/" class="nav-list-link">Installing and Using the IntelliJ Plugins</a></li><li class="nav-list-item"><a href="/resources/guides/intellij/wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li><li class="nav-list-item"><a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a></li><li class="nav-list-item"><a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a></li><li class="nav-list-item"><a href="/resources/guides/style/" class="nav-list-link">Style Guide</a></li><li class="nav-list-item"><a href="/resources/guides/git/" class="nav-list-link">Using Git</a></li><li class="nav-list-item"><a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a></li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a></li><li class="nav-list-item"><a href="/resources/exams/" class="nav-list-link">Exam Resources</a></li><li class="nav-list-item"><a href="/resources/support/" class="nav-list-link">Support Resources</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+      </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
   
 </nav>
+
+
 
 
     
@@ -404,6 +320,8 @@ function renderKaTeX() {
     <li class="breadcrumb-nav-list-item"><span>Project 2A: Ngordnet (NGrams)</span></li>
   </ol>
 </nav>
+
+
       <div id="main-content" class="main-content">
         <main>
           

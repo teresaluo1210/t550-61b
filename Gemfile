@@ -14,7 +14,6 @@ gem 'bigdecimal'
 gem 'logger'
 
 group :jekyll_plugins do
-  gem 'jekyll-github-metadata', '~> 2.16'
   gem 'jekyll-jupyter-notebook'
   gem 'jekyll-redirect-from'
   gem 'jekyll-sitemap'
@@ -36,8 +35,8 @@ group :development, :test do
   gem "webrick", "~> 1.7"
 end
 
-group :development, :rubocop do
-  gem 'rubocop', require: false
-  gem 'rubocop-capybara', require: false
-  gem 'rubocop-rspec', require: false
-end
+# group :development, :rubocop do
+#   gem 'rubocop', require: false
+#   gem 'rubocop-capybara', require: false
+#   gem 'rubocop-rspec', require: false
+# end
