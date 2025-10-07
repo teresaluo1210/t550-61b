@@ -2,8 +2,10 @@
 
 source 'https://rubygems.org'
 
+gem "github-pages", group: :jekyll_plugins
+gem "jekyll-remote-theme"
+
 # Gems at the top are used to build the site.
-gem 'jekyll', '~> 4'
 
 gem 'faraday-retry', '~> 2.2'
 gem 'kramdown-parser-gfm'

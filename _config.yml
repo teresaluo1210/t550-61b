@@ -38,7 +38,10 @@ links:
 max_nav_depth: 4
 
 # Theme settings
-theme: just-the-docs
+plugins:
+  - jekyll-remote-theme
+remote_theme: just-the-docs/just-the-docs
+# theme: just-the-docs
 color_scheme: light
 search_enabled: true
 heading_anchors: true
