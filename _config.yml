@@ -17,7 +17,7 @@ title: Mock CS 61B (T550 Version)
 logo: "/assets/images/bee.png"
 description: Data Structures Mock Site for T550 Final Project 
 baseurl: '' # (temporary) the subpath of your site, e.g. /blog
-url: https://t550.dev.example.com
+url:  https://teresaluo1210.github.io/t550-61b/
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE", "vendor"]
 
 # Semester variables
