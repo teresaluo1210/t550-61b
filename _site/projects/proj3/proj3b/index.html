@@ -1,0 +1,933 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(4)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(4) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(4) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(4) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>3B: Gameplay | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="3B: Gameplay" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Project 3B spec." />
+<meta property="og:description" content="Project 3B spec." />
+<link rel="canonical" href="http://localhost:4000/projects/proj3/proj3b/" />
+<meta property="og:url" content="http://localhost:4000/projects/proj3/proj3b/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="3B: Gameplay" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Project 3B spec.","headline":"3B: Gameplay","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/projects/proj3/proj3b/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/projects/">Projects</a></li>
+    <li class="breadcrumb-nav-list-item"><a href="/projects/proj3/">Project 3: Build Your Own World</a></li>
+    <li class="breadcrumb-nav-list-item"><span>3B: Gameplay</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">3B: Gameplay<ul><li class="nav-list-item"><a href="#deadlines" class="nav-list-link">Deadlines</a></li><li class="nav-list-item"><a href="#task-4-main-menu" class="nav-list-link">Task 4: Main Menu</a></li><li class="nav-list-item"><a href="#task-5-interactivity" class="nav-list-link">Task 5: Interactivity</a><ul><li class="nav-list-item"><a href="#overview-animating-the-game" class="nav-list-link">Overview: Animating the Game</a></li><li class="nav-list-item"><a href="#overview-determinism" class="nav-list-link">Overview: Determinism</a></li></ul></li><li class="nav-list-item"><a href="#task-6-hud" class="nav-list-link">Task 6: HUD</a></li><li class="nav-list-item"><a href="#task-7-saving-and-loading" class="nav-list-link">Task 7: Saving and Loading</a></li><li class="nav-list-item"><a href="#task-8-ambition-features" class="nav-list-link">Task 8: Ambition Features</a><ul><li class="nav-list-item"><a href="#clarifications" class="nav-list-link">Clarifications</a></li></ul></li><li class="nav-list-item"><a href="#deliverables" class="nav-list-link">Deliverables</a><ul><li class="nav-list-item"><a href="#gradescope" class="nav-list-link">Gradescope</a></li><li class="nav-list-item"><a href="#live-checkoff" class="nav-list-link">Live Checkoff</a></li><li class="nav-list-item"><a href="#post-project-partnership-form" class="nav-list-link">Post-Project Partnership Form</a></li><li class="nav-list-item"><a href="#style" class="nav-list-link">Style</a></li></ul></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    3B: Gameplay
+  
+  
+</h1>
+    
+<h2 id="deadlines">
+  
+  
+    <a href="#deadlines" class="anchor-heading" aria-labelledby="deadlines"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Deadlines
+  
+  
+</h2>
+    
+
+<div>
+
+<style type="text/css">
+
+.proj3-table {
+  all: revert;
+  border-collapse: collapse !important;
+}
+
+.proj3-header-cell {
+  border: 2px solid;
+  border-left: 2px solid !important;
+}
+
+.proj3-intro-cell {
+  border: 2px solid;
+  border-left: 2px solid !important;
+  border-bottom: 2px solid !important;
+  background-color:rgba(114,83,237,0.2);
+}
+
+.proj3a-cell {
+  border: 2px solid;
+  border-left: 2px solid !important;
+  border-bottom: 2px solid !important;
+  background-color:rgba(44,132,250,0.15);
+}
+
+.proj3b-cell {
+  border: 2px solid;
+  border-left: 2px solid !important;
+  border-bottom: 2px solid !important;
+  background-color:rgba(65,214,147,0.15);
+}
+
+</style>
+
+Warning: There are <b>3 deadlines</b> for this project, and some deadlines require you to submit <b>multiple deliverables</b>. Please double-check that you submitted everything!
+
+<div class="table-wrapper"><table class="proj3-table"><thead>
+  <tr>
+    <th class="proj3-header-cell">Assignment</th>
+    <th class="proj3-header-cell">Tasks</th>
+    <th class="proj3-header-cell">Deliverable</th>
+    <th class="proj3-header-cell">Points</th>
+    <th class="proj3-header-cell">Due Date</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="proj3-intro-cell">Team Formation</td>
+    <td class="proj3-intro-cell">- Task 0: Partnerships</td>
+    <td class="proj3-intro-cell">Pre-Project <b>Google Form</b></td>
+    <td class="proj3-intro-cell">2.5</td>
+    <td class="proj3-intro-cell">Wed, Apr 9<br />11:59pm PT</td>
+  </tr>
+  <tr>
+    <td class="proj3a-cell" rowspan="3">Project 3A</td>
+    <td class="proj3a-cell" rowspan="3">- Task 1: Setup<br />- Task 2: Design Document<br />- Task 3: World Generation</td>
+    <td class="proj3a-cell">World Screenshots on <b>Gradescope</b></td>
+    <td class="proj3a-cell">10</td>
+    <td class="proj3a-cell" rowspan="3">Fri, Apr 18<br />11:59pm PT</td>
+  </tr>
+  <tr>
+    <td class="proj3a-cell">Design Document</td>
+    <td class="proj3a-cell">7.5</td>
+  </tr>
+  <tr>
+    <td class="proj3a-cell">Mid-Project Google Form</td>
+    <td class="proj3a-cell">2.5</td>
+  </tr>
+  <tr>
+    <td class="proj3b-cell" rowspan="3">Project 3B</td>
+    <td class="proj3b-cell" rowspan="3">- Task 4: Main Menu<br />- Task 5: Interactivity<br />- Task 6: HUD<br />- Task 7: Saving and Loading<br />- Task 8: Ambition Features</td>
+    <td class="proj3b-cell">Code on <b>Gradescope</b><br />(0 pts, but required for checkoff)<br /></td>
+    <td class="proj3b-cell">0</td>
+    <td class="proj3b-cell" rowspan="3">Tue, Apr 29<br />11:59pm PT</td>
+  </tr>
+  <tr>
+    <td class="proj3b-cell"><b>Live Checkoff</b> with TA<br />(Checkoffs will happen 4/28 – 5/2)</td>
+    <td class="proj3b-cell">100</td>
+  </tr>
+  <tr>
+    <td class="proj3b-cell">Post-Project <b>Google Form</b></td>
+    <td class="proj3b-cell">2.5</td>
+  </tr>
+</tbody>
+</table></div>
+
+To request extensions on Project 3, <b>both partners</b> need to submit separate extension requests on Beacon.
+
+</div>
+<h2 id="task-4-main-menu">
+  
+  
+    <a href="#task-4-main-menu" class="anchor-heading" aria-labelledby="task-4-main-menu"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 4: Main Menu
+  
+  
+</h2>
+    
+
+<p>In Project 3A, when a user ran the <code class="language-plaintext highlighter-rouge">main</code> method in <code class="language-plaintext highlighter-rouge">Main.java</code>, they saw a world pop up. We’ll now change this to give the user a nice menu.</p>
+
+<p class="task">Implement a Main Menu that follows the requirements detailed below.</p>
+
+<p>Now, when a user runs <code class="language-plaintext highlighter-rouge">Main.main</code>, they should see some Main Menu text pop up, like this:</p>
+
+<p><img alt="Main menu with title CS 61B: The Game, and options New Game (N), Load Game (L), and Quit (Q)." src="../assets/proj3b/main-menu.png" /></p>
+
+<p>The menu should give the user these options:</p>
+<ul>
+  <li>Pressing <code class="language-plaintext highlighter-rouge">N</code> or <code class="language-plaintext highlighter-rouge">n</code> on the main menu creates a new game.</li>
+  <li>Pressing <code class="language-plaintext highlighter-rouge">L</code> or <code class="language-plaintext highlighter-rouge">l</code> on the main menu loads a saved game from the save file.</li>
+  <li>Pressing <code class="language-plaintext highlighter-rouge">Q</code> or <code class="language-plaintext highlighter-rouge">q</code> on the main menu closes the window. To close the window, run <code class="language-plaintext highlighter-rouge">System.exit(0)</code>.</li>
+</ul>
+
+<p>The user should be able to press the corresponding keys on the keyboard to select an option.</p>
+
+<p>Notice that the key presses are not case-sensitive. The user should be able to press either <code class="language-plaintext highlighter-rouge">N</code> or <code class="language-plaintext highlighter-rouge">n</code>, and the behavior should be the same (new game created).</p>
+
+<p>Besides the requirements above, you can customize the appearance of this menu however you like.</p>
+
+<p>If the user presses <code class="language-plaintext highlighter-rouge">N</code> or <code class="language-plaintext highlighter-rouge">n</code>, they should see a new screen that allows them to enter a seed, like this:</p>
+
+<p><img alt="Enter Seed menu, with user typing a numerical seed." src="../assets/proj3b/enter-seed.gif" /></p>
+
+<p>The screen should show the user the value that the user has entered so far. In other words, every time the user types a digit, that digit should immediately appear on screen (next to all the other digits typed).</p>
+
+<p>After the user is done typing their seed, the user should be able to press <code class="language-plaintext highlighter-rouge">S</code> or <code class="language-plaintext highlighter-rouge">s</code> to start the game. You should display a world generated from the user’s seed.</p>
+
+<p>Again, besides the requirements above, you can customize the appearance of this menu however you like.</p>
+
+<p>Here are some features you <em>don’t</em> need to support (unless you want to). The behavior of these cases is <em>undefined</em>, which means that your code can do anything in these cases (e.g. crash, or display an error, or anything else).</p>
+<ul>
+  <li>The user entering seeds outside of the range [0, 9223372036854775807] is undefined. These are the values representable by the <code class="language-plaintext highlighter-rouge">long</code> primitive data type in Java.</li>
+  <li>The user typing disallowed characters on the seed screen (i.e. anything except <code class="language-plaintext highlighter-rouge">0123456789sS</code>) is undefined. For example, the user pressing Backspace, or typing a comma, or typing <code class="language-plaintext highlighter-rouge">Q</code>, or typing other alphabetical characters on the seed screen, is undefined.</li>
+</ul>
+<h2 id="task-5-interactivity">
+  
+  
+    <a href="#task-5-interactivity" class="anchor-heading" aria-labelledby="task-5-interactivity"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 5: Interactivity
+  
+  
+</h2>
+    
+
+<p>Next, let’s give the user the ability to move an avatar around the world.</p>
+
+<p class="task">Implement an Avatar that follows the requirements detailed below.</p>
+
+<p>When the user starts the game, the world you generated should additionally include a single <em>avatar</em> tile representing the user. In the example below, the <code class="language-plaintext highlighter-rouge">@</code> tile is the avatar. Your avatar can look different, as long as there is a clear single avatar.</p>
+
+<p><img alt="World with a single avatar." src="../assets/proj3b/avatar-start.png" /></p>
+
+<p>The avatar can start on any floor square. The starting square doesn’t need to be randomly-chosen, e.g. it can always be the bottommost-leftmost floor square. However, the starting square does need to be deterministic, e.g. entering the same seed twice should result in the avatar in the same square. See the section below for more details on determinism.</p>
+
+<p>The user should be able to move the avatar around the world as follows:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">W</code> or <code class="language-plaintext highlighter-rouge">w</code> should move the avatar up one square.</li>
+  <li><code class="language-plaintext highlighter-rouge">A</code> or <code class="language-plaintext highlighter-rouge">a</code> should move the avatar left one square.</li>
+  <li><code class="language-plaintext highlighter-rouge">S</code> or <code class="language-plaintext highlighter-rouge">s</code> should move the avatar down one square.</li>
+  <li><code class="language-plaintext highlighter-rouge">D</code> or <code class="language-plaintext highlighter-rouge">d</code> should move the avatar right one square.</li>
+</ul>
+
+<p>If the user attempts to move into a wall, the avatar should stay in the same place, and the program should not crash. For example, in the sample world above, pressing <code class="language-plaintext highlighter-rouge">W</code> or <code class="language-plaintext highlighter-rouge">w</code> once should move the avatar up, and then pressing <code class="language-plaintext highlighter-rouge">W</code> or <code class="language-plaintext highlighter-rouge">w</code> again should not move the avatar.</p>
+
+<p>You don’t need to support pressing and holding down a key. It’s fine if holding down a key results in undefined behavior.</p>
+
+<p>Later in the project, you can add additional gameplay features if you’d like. For example, a power-up could allow the user to move through walls or move multiple squares at once. Or, the user could use an additional key <code class="language-plaintext highlighter-rouge">P</code> to push items around. Additional features are fine, as long as you follow the basic spirit of interactivity outlined here, where users can move around, but are limited by walls.</p>
+<h3 id="overview-animating-the-game">
+  
+  
+    <a href="#overview-animating-the-game" class="anchor-heading" aria-labelledby="overview-animating-the-game"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Overview: Animating the Game
+  
+  
+</h3>
+    
+
+<p>To animate your game, you need to continuously re-render updates to your game state. These updates will vary depending on the specific scene you are in. You can conceptualize this process as a “game loop.” Your world movement scene might be characterized by the following game loop:</p>
+
+<ol>
+  <li>Initialize the game window and the world state.</li>
+  <li>Update the movements of the avatar based on the player’s input.</li>
+  <li>Render the updated game state in the game window.</li>
+  <li>Repeat steps 2 and 3 until the player quits.</li>
+</ol>
+
+<p>Check out <code class="language-plaintext highlighter-rouge">GameLoopDemo.java</code>, located in the <code class="language-plaintext highlighter-rouge">demo</code> folder of your Project 3 repo, for an example of what this might look like. Note: <strong>lab 9, task 3A</strong> involves implementing a game loop, and is strongly recommended before tackling a game loop for your project 3.</p>
+
+<p>In general, good coding practice is to first build small procedures with explicit 
+purposes and then compose more complex methods using the basic ones. It will give you a clear path forward in development and will be easier to break down your logic for unit testing.</p>
+<h3 id="overview-determinism">
+  
+  
+    <a href="#overview-determinism" class="anchor-heading" aria-labelledby="overview-determinism"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Overview: Determinism
+  
+  
+</h3>
+    
+
+<p>Your game should be <strong>deterministic</strong>. This means that if two users press the exact same keys in the exact same sequence, the resulting state of their game should be exactly the same. For example, the 2D tile grid should be exactly the same, and any other features you add (e.g. points, health bar, etc.) should also be exactly the same.</p>
+
+<p>Recall that we already used pseudorandomness to make the new-game process deterministic. If two users type in the same seed, they’ll get the exact same world.</p>
+
+<p>As you start to add more features from now on, make sure that your game is still deterministic. You can still use pseudorandomness to help you ensure determinism.</p>
+
+<p><strong>Note on real-time gameplay:</strong></p>
+
+<p>The easiest way to produce deterministic behavior is for your game to not depend on real-time. Some examples of non-real-time behavior:</p>
+
+<ul>
+  <li>If the user presses the same sequence of keys very quickly, or very slowly, the resulting behavior should be exactly the same.</li>
+  <li>If you have features like a countdown timer, the timer should be measured by number of moves (e.g. decrement each time the user moves), as opposed to real-time like number of seconds.</li>
+  <li>If you have features like enemy character spawning, you can spawn an enemy every 5 moves, as opposed to something real-time like every 5 seconds.</li>
+</ul>
+
+<p>If you do intend to implement real-time behavior, that’s fine, as long as anybody can easily produce deterministic behavior by pressing the same keys in the same sequence. For example, asking the user to press a key within a 10-second timer is fine and reproducible, but asking the user to press 20 keys within a 0.1-second timer is too hard to reproduce reliably.</p>
+<h2 id="task-6-hud">
+  
+  
+    <a href="#task-6-hud" class="anchor-heading" aria-labelledby="task-6-hud"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 6: HUD
+  
+  
+</h2>
+    
+
+<p>Add a “Heads up Display” (HUD) that provides additional information that maybe useful to the user.</p>
+
+<blockquote class="task">
+  <p>Implement the HUD feature that follows the requirements detailed below.</p>
+</blockquote>
+
+<p>At the bare minimum, this should include Text that describes the tile currently under the mouse pointer. Ideally, your HUD should not flicker as the mouse moves. The HUD must update as you move the mouse cursor, i.e. you must update even if the user is only moving the mouse and isn’t pressing any keys.</p>
+
+<p>Note: <strong>lab 9, task 3B</strong> involves adding a HUD, and is strongly recommended before adding a HUD to your project 3.</p>
+
+<p>As an example of the bare minimum, the simple interface below displays a grid of tiles and a HUD that displays the description of the tile under the mouse pointer (click image for higher resolution). Here, the mouse cursor (not shown) is over the g, and the text is there to tell the user that the green g represents a goblin.</p>
+
+<p><a href="../assets/proj3b/UI_example0.png"><img src="../assets/proj3b/UI_example0.png" alt="HUD example showing description" /></a></p>
+
+<p>You may include additional features to your HUD if you choose. In the example below from Fall 2022 students <a href="https://www.youtube.com/watch?v=VZR-yU3t-_o">Shannon Jay and Angelique</a>, we a see a more complex HUD. As with the previous example, the mouse cursor is currently over a floor tile, so the HUD displays the text “floor” in the top right. However, this HUD also provides the user with 5 hearts representing the avatar’s “health”, as well as a description about a special key that can be pressed to turn a lamp on or off. Click image below for high resolution.</p>
+
+<p><a href="../assets/proj3b/UI_example1.png"><img src="../assets/proj3b/UI_example1.png" alt="HUD example showing health" /></a></p>
+<h2 id="task-7-saving-and-loading">
+  
+  
+    <a href="#task-7-saving-and-loading" class="anchor-heading" aria-labelledby="task-7-saving-and-loading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 7: Saving and Loading
+  
+  
+</h2>
+    
+
+<p>Suppose the user is playing your game, but needs to take a break. (Maybe they need to attend a CS 61B lecture?) Let’s give users a way to save their progress and load back a game later.</p>
+
+<p class="task">Implement the Saving and Loading feature that follows the requirements detailed below.</p>
+
+<p>Here’s a video demo of the saving and loading process:</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q8-FKMLYVwk?si=TYxKvHCL4sCQHaeF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+
+<p>When the user is in “World mode” (looking at a 2D world, not the main menu), they should be able to press <code class="language-plaintext highlighter-rouge">:q</code> or <code class="language-plaintext highlighter-rouge">:Q</code> to immediately save the game and quit the program. To quit the program, run <code class="language-plaintext highlighter-rouge">System.exit(0)</code>.</p>
+
+<p>When the user quits your program, all Java variables will be lost. Therefore, you will need to save the user’s progress in a file, like <code class="language-plaintext highlighter-rouge">save.txt</code>. What you put in <code class="language-plaintext highlighter-rouge">save.txt</code> is up to you, but it should contain enough information to perfectly reconstruct the user’s game later.</p>
+
+<p>Some notes on the keypresses:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">:Q</code> is two characters pressed separately. The user first presses colon only, and then they press Q only.</li>
+  <li><code class="language-plaintext highlighter-rouge">:Q</code> or <code class="language-plaintext highlighter-rouge">:q</code> in “World mode” should immediately save and quit, with no further key-presses needed to complete. For example, don’t ask the user if they are sure before quitting.</li>
+  <li>In “Menu mode” (looking at the main menu), pressing Q alone should quit the program, without saving anything.</li>
+  <li>In “World mode” (looking at a 2D world), pressing Q alone should do nothing, and pressing <code class="language-plaintext highlighter-rouge">:Q</code> should save the game and quit the program.</li>
+  <li>In “World mode,” pressing colon, followed by any other letter, should not do anything.</li>
+</ul>
+
+<p>If the user presses <code class="language-plaintext highlighter-rouge">L</code> or <code class="language-plaintext highlighter-rouge">l</code> on the main menu, you should load the most-recently-saved world from the <code class="language-plaintext highlighter-rouge">save.txt</code> file. We do not test if your world loads when your world has not been previously saved.</p>
+
+<p>The loaded world should be in the exact same state before the user quit the game. For example, these two scenarios should result in identical worlds:</p>
+<ul>
+  <li>The user types <code class="language-plaintext highlighter-rouge">N999SDDDWWW</code> (New Game, seed 999, Start, move right 3 times, move up 3 times).</li>
+  <li>The user types <code class="language-plaintext highlighter-rouge">N999SDDD:Q</code> (New Game, seed 999, Start, move right 3 times, save). Then, the user re-starts the program and types <code class="language-plaintext highlighter-rouge">LWWW</code> (Load, move up 3 times).</li>
+</ul>
+
+<p>The loaded world should be identical, including the state of the random number generator!</p>
+
+<p>Here are some cases of undefined behavior. Remember, undefined behavior means your code can crash, display an error, or do anything else you want. We won’t test these cases.</p>
+<ul>
+  <li>If there is no previous save, and the user presses <code class="language-plaintext highlighter-rouge">L</code> or <code class="language-plaintext highlighter-rouge">l</code> on the main menu, the behavior is undefined.</li>
+  <li>If the user quits the program some other way (e.g. quits IntelliJ, or unplugs their computer), the behavior is undefined. You don’t need to save anything in this case.</li>
+</ul>
+<h2 id="task-8-ambition-features">
+  
+  
+    <a href="#task-8-ambition-features" class="anchor-heading" aria-labelledby="task-8-ambition-features"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 8: Ambition Features
+  
+  
+</h2>
+    
+
+<p>Now that you have a basic game working, in the last part of the project, you’ll get a chance to add creative features of your own choosing!</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// This method was written by Gemini 2.5.</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote class="task">
+  <p>Implement at least <strong>one primary</strong> Ambition Feature and <strong>one secondary</strong> Ambition Feature either from the list below or of your choosing. 
+You are more than welcome to implement more than the minimum requirement, such as two primary Ambition Features, etc.</p>
+
+  <p>If you’d like to implement your own feature(s), please ask on the <a href="">Feature Request Ed thread</a> and ask <strong><em>early</em></strong> so we can let you know if your feature is approved!</p>
+</blockquote>
+
+<p><a href="/../projects/proj3/ambition">For a list of pre-approved ambition features, see our ambition features list.</a></p>
+
+<blockquote class="warning">
+  <p>Note that your game should retain the same functionality from previous tasks (e.g. Main Menu, Interactivity, Saving and Loading).</p>
+
+  <p>In other words, you should be implementing your ambition features <em>on top of</em> your existing code.</p>
+</blockquote>
+<h3 id="clarifications">
+  
+  
+    <a href="#clarifications" class="anchor-heading" aria-labelledby="clarifications"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Clarifications
+  
+  
+</h3>
+    
+<p><strong>Note:</strong> Ambition features are graded <em>separately</em> from the previous tasks.</p>
+
+<p>Specifically, for Saving and Loading, we do not require you to save and load any additional state of the world that is affected by an ambition feature.</p>
+
+<p>For example, if you’re implementing the Line of Sight feature, you can load your world with either the line of sight toggled on or off, regardless of the state it was saved in.
+However, you’ll still want to make sure that your Ambition Feature doesn’t break your Saving and Loading functionality.</p>
+<h2 id="deliverables">
+  
+  
+    <a href="#deliverables" class="anchor-heading" aria-labelledby="deliverables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Deliverables
+  
+  
+</h2>
+    
+<h3 id="gradescope">
+  
+  
+    <a href="#gradescope" class="anchor-heading" aria-labelledby="gradescope"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Gradescope
+  
+  
+</h3>
+    
+
+<p>Submit the code of the game you want us to grade to Gradescope.</p>
+
+<p>There is no autograder, but we need a submission in order to assign you a grade during your live checkoff (see below).</p>
+
+<p>The code you present during your live checkoff needs to be the same as the code you submitted to Gradescope.</p>
+<h3 id="live-checkoff">
+  
+  
+    <a href="#live-checkoff" class="anchor-heading" aria-labelledby="live-checkoff"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Live Checkoff
+  
+  
+</h3>
+    
+
+<p>Project 3B will be graded in a live checkoff with a TA. These checkoffs typically happen during the last week of class, before RRR week. Checkoffs are held in-person, though we will have a very limited number of remote checkoffs for documented reasons (e.g. sickness).</p>
+
+<p>Exact details, including how to sign up for a checkoff slot, will be posted on Ed closer to the start of checkoffs.</p>
+
+<p><a href="/../projects/proj3/checkoff">For a full run-down of how the checkoff will work, see the checkoff script.</a></p>
+<h3 id="post-project-partnership-form">
+  
+  
+    <a href="#post-project-partnership-form" class="anchor-heading" aria-labelledby="post-project-partnership-form"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Post-Project Partnership Form
+  
+  
+</h3>
+    
+
+<p class="task">Submit the <a href="https://forms.gle/wwhDtsjq3deqhdRo9">Project 3 Post-Project Partnership Form</a>.</p>
+
+<p>You will receive an email receipt to confirm that you’ve submitted it.</p>
+
+<p>Your form response is confidential between you and staff. The response will not be shared with your partner.</p>
+
+<p>Warning: Don’t forget the form! Students every semester forget this form and they are sad.</p>
+<h3 id="style">
+  
+  
+    <a href="#style" class="anchor-heading" aria-labelledby="style"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Style
+  
+  
+</h3>
+    
+
+<p>Note: Since there are no autograders in Project 3, we will not be enforcing the 61B style guide on this project. However, we still highly recommend following the style guide, so that your code is readable by your partner!</p>
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

@@ -1,0 +1,849 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(6)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(3) > ul > li:nth-child(6) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(3) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(3) > ul > li:nth-child(6) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(3) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(3) > ul.nav-list > li.nav-list-item:nth-child(6) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 06: BSTMap | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Lab 06: BSTMap" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data Structures Mock Site for T550 Final Project" />
+<meta property="og:description" content="Data Structures Mock Site for T550 Final Project" />
+<link rel="canonical" href="http://localhost:4000/labs/lab06/" />
+<meta property="og:url" content="http://localhost:4000/labs/lab06/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 06: BSTMap" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Data Structures Mock Site for T550 Final Project","headline":"Lab 06: BSTMap","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/labs/lab06/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/labs/">Labs</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Lab 06: BSTMap</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">Lab 06: BSTMap<ul><li class="nav-list-item"><a href="#faq" class="nav-list-link">FAQ</a></li><li class="nav-list-item"><a href="#introduction" class="nav-list-link">Introduction</a></li><li class="nav-list-item"><a href="#pulling-from-skeleton" class="nav-list-link">Pulling from skeleton</a></li><li class="nav-list-item"><a href="#bstmap" class="nav-list-link">BSTMap</a><ul><li class="nav-list-item"><a href="#exercise-bstmap" class="nav-list-link">Exercise: BSTMap</a></li><li class="nav-list-item"><a href="#resources" class="nav-list-link">Resources</a></li></ul></li><li class="nav-list-item"><a href="#so-how-fast-is-it" class="nav-list-link">So… How Fast Is It?</a></li><li class="nav-list-item"><a href="#scoring" class="nav-list-link">Scoring</a></li><li class="nav-list-item"><a href="#more-ungraded-exercises-for-bstmap" class="nav-list-link">More (Ungraded) Exercises for BSTMap</a></li><li class="nav-list-item"><a href="#submission" class="nav-list-link">Submission</a></li><li class="nav-list-item"><a href="#optional-asymptotics-problems" class="nav-list-link">Optional: Asymptotics Problems</a></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    Lab 06: BSTMap
+  
+  
+</h1>
+    
+<h2 id="faq">
+  
+  
+    <a href="#faq" class="anchor-heading" aria-labelledby="faq"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> FAQ
+  
+  
+</h2>
+    
+
+<p>The FAQ for this lab can be found <a href="/labs/lab06/faq/">here</a>.</p>
+<h2 id="introduction">
+  
+  
+    <a href="#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>In this lab, you’ll create <code class="language-plaintext highlighter-rouge">BSTMap</code>, a BST-based implementation of the <code class="language-plaintext highlighter-rouge">Map61B</code>
+interface, which represents a basic tree-based map. You will be creating this
+completely from scratch, using the interface provided as your guide.</p>
+
+<p>After you’ve completed your implementation, you’ll compare the performance of
+your implementation to a list-based <code class="language-plaintext highlighter-rouge">Map</code> implementation <code class="language-plaintext highlighter-rouge">ULLMap</code> as well as the
+built-in Java <code class="language-plaintext highlighter-rouge">TreeMap</code> class (which uses a BST variant known as a <em>red-black tree</em>).</p>
+<h2 id="pulling-from-skeleton">
+  
+  
+    <a href="#pulling-from-skeleton" class="anchor-heading" aria-labelledby="pulling-from-skeleton"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Pulling from skeleton
+  
+  
+</h2>
+    
+
+<p>To get the assignment, pull from the <code class="language-plaintext highlighter-rouge">skeleton</code> in your personal repository:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull skeleton main
+</code></pre></div></div>
+
+<p>This assignment is <code class="language-plaintext highlighter-rouge">lab06</code>.</p>
+<h2 id="bstmap">
+  
+  
+    <a href="#bstmap" class="anchor-heading" aria-labelledby="bstmap"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">BSTMap</code>
+  
+  
+</h2>
+    
+
+<p>In this lab (and future labs), we may not provide as much skeleton code as in
+the past. If you’re having trouble getting started, please come in to lab or check 
+out any of the resources provided!</p>
+
+<p>Create a class <code class="language-plaintext highlighter-rouge">BSTMap</code> that implements the <code class="language-plaintext highlighter-rouge">Map61B</code> interface using a BST
+(Binary Search Tree) as its core data structure. Your code will not compile until 
+you create the <code class="language-plaintext highlighter-rouge">BSTMap</code> class and implement all the methods in <code class="language-plaintext highlighter-rouge">Map61B</code>. 
+You can implement methods one at a time by writing the method signatures
+of all the required methods, but throwing <code class="language-plaintext highlighter-rouge">UnsupportedOperationException</code>s 
+for the other implementations until you get around to actually writing them.
+Refer to this <a href="#exercise-bstmap">section</a> on how to throw the exception.</p>
+
+<p>In your implementation, you should ensure that generic keys <code class="language-plaintext highlighter-rouge">K</code> in <code class="language-plaintext highlighter-rouge">BSTMap&lt;K,V&gt;</code>
+implement
+<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Comparable.html">Comparable</a>.
+This is called a <a href="https://docs.oracle.com/javase/tutorial/java/generics/bounded.html"><em>bounded type parameter</em></a>.</p>
+
+<p><a href="https://docs.oracle.com/javase/tutorial/java/generics/bounded.html">The syntax</a>
+is a little tricky, but we’ve given an example below. Here, we are creating
+a <code class="language-plaintext highlighter-rouge">BSTSet</code> for <code class="language-plaintext highlighter-rouge">Comparable</code> objects. We’ve included the rather strange
+<code class="language-plaintext highlighter-rouge">compareRoots</code> for pedagogical purposes (for a <code class="language-plaintext highlighter-rouge">compareTo</code> refresher, see this
+<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Comparable.html#compareTo(T)">documentation</a>):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BSTSet</span><span class="o">&lt;</span><span class="no">K</span> <span class="kd">extends</span> <span class="nc">Comparable</span><span class="o">&lt;</span><span class="no">K</span><span class="o">&gt;&gt;</span> <span class="kd">implements</span> <span class="nc">Set61B</span><span class="o">&lt;</span><span class="no">K</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">class</span> <span class="nc">BSTNode</span> <span class="o">{</span>
+        <span class="no">K</span> <span class="n">item</span><span class="o">;</span>
+        <span class="c1">// ...</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nc">BSTNode</span> <span class="n">root</span><span class="o">;</span>
+
+    <span class="cm">/* Returns whether this BSTSet's root is greater than, equal to, or less
+     * than the other BSTSet's root, following the usual `compareTo`
+     * convention. */</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compareRoots</span><span class="o">(</span><span class="nc">BSTSet</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span>
+        <span class="cm">/* We are able to safely invoke `compareTo` on `n1.item` because we
+         * know that `K` extends `Comparable&lt;K&gt;`, so `K` is a `Comparable`, and
+         *`Comparable`s must implement `compareTo`. */</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">root</span><span class="o">.</span><span class="na">item</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">other</span><span class="o">.</span><span class="na">root</span><span class="o">.</span><span class="na">item</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p class="info">You may have noticed that the syntax for a bounded type parameter uses <code class="language-plaintext highlighter-rouge">extends</code>
+even though <code class="language-plaintext highlighter-rouge">Comparable</code> is an <code class="language-plaintext highlighter-rouge">interface</code>. In the context of bounded type
+parameters, <code class="language-plaintext highlighter-rouge">extends</code> can mean <code class="language-plaintext highlighter-rouge">extends</code> or <code class="language-plaintext highlighter-rouge">implements</code>
+(<a href="https://docs.oracle.com/javase/tutorial/java/generics/bounded.html">docs</a>). Don’t ask us why - we don’t know either. <br /><br />
+(The syntax also implies you can “extend” <code class="language-plaintext highlighter-rouge">final</code> classes such as <code class="language-plaintext highlighter-rouge">Integer</code>,
+which is impossible. Go Java!)</p>
+
+<p class="warning">Remember, the code snippet above emulates a <code class="language-plaintext highlighter-rouge">Set</code> - you’ll need to implement a
+<code class="language-plaintext highlighter-rouge">Map</code>. We recommend you use similar logic for <code class="language-plaintext highlighter-rouge">BSTMap</code>, with some nested node
+class to help facilitate your implementation. Your <code class="language-plaintext highlighter-rouge">BSTMap</code> should have two
+generic parameters <code class="language-plaintext highlighter-rouge">K</code> and <code class="language-plaintext highlighter-rouge">V</code>, representing the generic types of the keys and
+values in your <code class="language-plaintext highlighter-rouge">BSTMap</code>, respectively.</p>
+
+<p>IntelliJ has a nice feature that will generate the method signatures for you. If
+you’re implementing an interface and haven’t implemented all the methods,
+IntelliJ will highlight the class signature in red. If you hover over this, you
+should be able to select <code class="language-plaintext highlighter-rouge">Implement methods</code>. On the pop-up window, make sure you’ve 
+selected the option for “Copy JavaDoc” and “Insert @Override”. Click “OK” 
+and IntelliJ should populate the class with the required method signatures 
+(they won’t be functional though!) and copy over the comments.</p>
+
+<p>It should look something like this (<strong>you don’t have <code class="language-plaintext highlighter-rouge">Set61B</code>, this is just an
+example!</strong>):</p>
+
+<p><img src="/labs/lab06/img/implement-methods.png" alt="Implement methods" style="max-height: 200;" /></p>
+
+<p><img src="/labs/lab06/img/select-methods-to-implement.png" alt="Select methods to implement" /></p>
+
+<p>In this example, IntelliJ will generate the <code class="language-plaintext highlighter-rouge">clear</code>, <code class="language-plaintext highlighter-rouge">size</code>, and <code class="language-plaintext highlighter-rouge">iterator</code>
+method signatures, because that’s all our mythical <code class="language-plaintext highlighter-rouge">Set61B</code> interface
+requires. If you follow this procedure with your code, you should have all the
+method signatures required for <code class="language-plaintext highlighter-rouge">Map61B</code>. (You can also pick and choose 
+which signatures to generate, if you’d like.)</p>
+<h3 id="exercise-bstmap">
+  
+  
+    <a href="#exercise-bstmap" class="anchor-heading" aria-labelledby="exercise-bstmap"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Exercise: <code class="language-plaintext highlighter-rouge">BSTMap</code>
+  
+  
+</h3>
+    
+
+<p>As mentioned, you’ll want to create a class, <code class="language-plaintext highlighter-rouge">BSTMap</code>, that implements the <code class="language-plaintext highlighter-rouge">Map61B</code> interface.
+Make sure you are writing your implementation in <code class="language-plaintext highlighter-rouge">BSTMap.java</code>, otherwise your code might not
+run on the autograder! The following methods are required:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">void put(K key, V value)</code>: Associates the specified <code class="language-plaintext highlighter-rouge">key</code> with the <code class="language-plaintext highlighter-rouge">value</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">V get(K key)</code>: Returns the value that is associated with <code class="language-plaintext highlighter-rouge">key</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">boolean containsKey(K key)</code>: Returns if this map has a mapping for the given <code class="language-plaintext highlighter-rouge">key</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">int size()</code>: Returns the number of key-value mappings.</li>
+  <li><code class="language-plaintext highlighter-rouge">void clear()</code>: Removes every mapping from this map.</li>
+</ul>
+
+<p>Make sure to read through the comments for each method in the <code class="language-plaintext highlighter-rouge">Map61B</code> interface
+to fully understand what to implement. The above descriptions are not necessarily
+comprehensive.</p>
+
+<p>For debugging purposes, your <code class="language-plaintext highlighter-rouge">BSTMap</code> should also include an additional method
+<code class="language-plaintext highlighter-rouge">printInOrder()</code> (not given in the <code class="language-plaintext highlighter-rouge">Map61B</code> interface) that prints out your
+<code class="language-plaintext highlighter-rouge">BSTMap</code> in order of increasing Key. <strong>We will not test the result of this method,
+but you may find this helpful for testing your implementation!</strong></p>
+
+<p class="task">Implement the <code class="language-plaintext highlighter-rouge">BSTMap</code> class, which implements the <code class="language-plaintext highlighter-rouge">Map61B</code> interface
+and the associated, non-optional methods. You should ensure that the keys in
+your <code class="language-plaintext highlighter-rouge">BSTMap</code> are <code class="language-plaintext highlighter-rouge">Comparable</code> by using a bounded type parameter. <br /><br />
+We <em>strongly recommend</em> you create helper methods to facilitate your implementation
+(specifically, recursive helper methods are strongly encouraged).</p>
+
+<p class="info">Unfortunately, most methods you need to implement rely on others for testing 
+purposes (<code class="language-plaintext highlighter-rouge">get</code> requires <code class="language-plaintext highlighter-rouge">put</code>, etc.). This makes it difficult to test most methods until
+you implement <code class="language-plaintext highlighter-rouge">put</code>. We recommend you implement the methods in the order
+specified in <code class="language-plaintext highlighter-rouge">Map61B</code>. <br /><br /> You can test your implementation
+using <code class="language-plaintext highlighter-rouge">TestBSTMap.java</code>.</p>
+
+<p><strong>There is an optional part of <code class="language-plaintext highlighter-rouge">BSTMap</code>. These methods are optional to implement:
+<code class="language-plaintext highlighter-rouge">iterator</code>, <code class="language-plaintext highlighter-rouge">remove</code>, <code class="language-plaintext highlighter-rouge">keySet</code>.</strong> They are not required for the timing portion, described in this 
+<a href="#so-how-fast-is-it">section</a>.</p>
+
+<p>As mentioned, if you are not implementing the optional part, throw an
+<code class="language-plaintext highlighter-rouge">UnsupportedOperationException</code>, like below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>throw new UnsupportedOperationException(); 
+</code></pre></div></div>
+
+<p>If you are completing the optional part, refer to this
+<a href="#more-ungraded-exercises-for-bstmap">section</a>
+and the comments in <code class="language-plaintext highlighter-rouge">Map61B</code> for a more detailed description.</p>
+<h3 id="resources">
+  
+  
+    <a href="#resources" class="anchor-heading" aria-labelledby="resources"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Resources
+  
+  
+</h3>
+    
+
+<p>The following resources might prove useful:</p>
+
+<ul>
+  <li>Fall 2024, Lecture 16 <a href="https://docs.google.com/presentation/d/1e-KW3PROYhxJB-0wk3w3LkXz48I13OYtudsGXsBokpM/edit?usp=sharing">slides</a>.</li>
+  <li><code class="language-plaintext highlighter-rouge">ULLMap.java</code> (given in <code class="language-plaintext highlighter-rouge">src/</code>), an unordered, linked-list-based <code class="language-plaintext highlighter-rouge">Map61B</code>
+implementation.</li>
+  <li>To help you also get started, an algorithmic guide to <code class="language-plaintext highlighter-rouge">put</code> and <code class="language-plaintext highlighter-rouge">get</code> can be
+found <a href="https://www.youtube.com/watch?v=P3_Luw2M8X4">here</a></li>
+</ul>
+<h2 id="so-how-fast-is-it">
+  
+  
+    <a href="#so-how-fast-is-it" class="anchor-heading" aria-labelledby="so-how-fast-is-it"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> So… How Fast Is It?
+  
+  
+</h2>
+    
+
+<p>There is one interactive speed test provided in <code class="language-plaintext highlighter-rouge">InsertRandomSpeedTest.java</code>. 
+Do not attempt to run this test before you’ve completed <code class="language-plaintext highlighter-rouge">BSTMap</code>. 
+Once you’re ready, you can run the tests in IntelliJ.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">InsertRandomSpeedTest</code> class performs tests on element-insertion speed of
+your <code class="language-plaintext highlighter-rouge">BSTMap</code>, <code class="language-plaintext highlighter-rouge">ULLMap</code> (provided), Java’s built-in <code class="language-plaintext highlighter-rouge">TreeMap</code>, and Java’s
+built-in <code class="language-plaintext highlighter-rouge">HashMap</code> (which you’ll explore more in a later lab). It works by
+asking the user for a desired length of each String to insert, and also for an
+input size (the number of insertions to perform). It then generates that many
+Strings of length as specified and inserts them into the maps as
+<code class="language-plaintext highlighter-rouge">&lt;String, Integer&gt;</code> pairs.</p>
+
+<p>Try it out and see how your data structure scales with the number of insertions
+compared to the naive and industrial-strength implementations. Remember that
+asymptotics aren’t representative on small samples, so make sure your inputs
+are sufficiently large if you are getting a confusing trend (keep in mind that there 
+is a limit thought - if you enter too large of a value, the program might overflow, 
+so play around with sufficiently large values). Record your results
+in a file named <code class="language-plaintext highlighter-rouge">speedTestResults.txt</code>.</p>
+
+<p class="task">Run the speed tests and record your results in <code class="language-plaintext highlighter-rouge">speedTestResults.txt</code>.
+There is no standard format required for your results, but at a minimum, you
+should include what you did and what you observed.</p>
+<h2 id="scoring">
+  
+  
+    <a href="#scoring" class="anchor-heading" aria-labelledby="scoring"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Scoring
+  
+  
+</h2>
+    
+
+<p>The lab is out of 5 points. There are no hidden tests on Gradescope, in the sense that
+the score you get on Gradescope is your final score. However, there is one test not provided
+locally, which checks for your <code class="language-plaintext highlighter-rouge">speedTestResults.txt</code>. Passing the local test <code class="language-plaintext highlighter-rouge">TestBSTMap.java</code>
+means that you will get full credit for <code class="language-plaintext highlighter-rouge">BSTMap.java</code>, but not necessarily for your <code class="language-plaintext highlighter-rouge">speedTestResults.txt</code>
+on Gradescope. <strong>So, for this lab, as long as you pass the relevant local tests (<code class="language-plaintext highlighter-rouge">TestBSTMap.java</code>) and 
+fill out the <code class="language-plaintext highlighter-rouge">speedTestResults.txt</code> file sufficiently, you will get full credit on Gradescope.</strong></p>
+<h2 id="more-ungraded-exercises-for-bstmap">
+  
+  
+    <a href="#more-ungraded-exercises-for-bstmap" class="anchor-heading" aria-labelledby="more-ungraded-exercises-for-bstmap"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> More (Ungraded) Exercises for <code class="language-plaintext highlighter-rouge">BSTMap</code>
+  
+  
+</h2>
+    
+
+<p>These will not be graded, but you can still receive feedback using the local
+tests, specifically <code class="language-plaintext highlighter-rouge">TestBSTMapExtra.java</code> (and on the autograder).</p>
+
+<p>Implement the methods <code class="language-plaintext highlighter-rouge">iterator()</code>, <code class="language-plaintext highlighter-rouge">keySet()</code>, <code class="language-plaintext highlighter-rouge">remove(K key)</code> in your <code class="language-plaintext highlighter-rouge">BSTMap</code>
+class. When implementing the <code class="language-plaintext highlighter-rouge">iterator</code> method, you should return an iterator
+over the <em>keys</em>, in <em>sorted order</em>. <code class="language-plaintext highlighter-rouge">remove()</code> is fairly
+challenging - you’ll need to implement Hibbard deletion.</p>
+
+<p>For <code class="language-plaintext highlighter-rouge">remove</code>, you should return <code class="language-plaintext highlighter-rouge">null</code> if the argument key does not exist in the
+<code class="language-plaintext highlighter-rouge">BSTMap</code>. Otherwise, delete the key-value pair (key, value) and return value.</p>
+<h2 id="submission">
+  
+  
+    <a href="#submission" class="anchor-heading" aria-labelledby="submission"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submission
+  
+  
+</h2>
+    
+
+<p>Just as you did for the previous assignments, add, commit, then push your Lab 06
+code to GitHub. Then, submit to Gradescope to test your code.</p>
+<h2 id="optional-asymptotics-problems">
+  
+  
+    <a href="#optional-asymptotics-problems" class="anchor-heading" aria-labelledby="optional-asymptotics-problems"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Optional: Asymptotics Problems
+  
+  
+</h2>
+    
+
+<p>This part is also optional, and we’ve included it here for additional practice on asymptotics. 
+Check your answers against the <a href="/labs/lab06/asymptotics-soln/">solutions</a>!</p>
+
+<p>Given <code class="language-plaintext highlighter-rouge">B</code>, a <code class="language-plaintext highlighter-rouge">BSTMap</code> with <code class="language-plaintext highlighter-rouge">N</code> key-value pairs, and <code class="language-plaintext highlighter-rouge">(K, V)</code>, a random key-value pair, answer the following questions.</p>
+
+<p>Unless otherwise stated, “big-Oh” bounds (e.g. $\mathcal{O}(N)$) and “big-Theta” bounds (e.g. $\Theta(N)$) 
+refer to the <strong>number of comparisons</strong> in the given method call(s).</p>
+
+<p>For questions 1-7, state whether the statement is true or false. For question 8, give a runtime bound.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">B.put(K, V)</code> $\in \mathcal{O}(\log N)$</li>
+  <li><code class="language-plaintext highlighter-rouge">B.put(K, V)</code> $\in \Theta(\log N)$</li>
+  <li><code class="language-plaintext highlighter-rouge">B.put(K, V)</code> $\in \Theta(N)$</li>
+  <li><code class="language-plaintext highlighter-rouge">B.put(K, V)</code> $\in \mathcal{O}(N)$</li>
+  <li><code class="language-plaintext highlighter-rouge">B.put(K, V)</code> $\in \mathcal{O}(N^2)$</li>
+  <li>For a fixed key <code class="language-plaintext highlighter-rouge">C</code> not equal to <code class="language-plaintext highlighter-rouge">K</code>, both <code class="language-plaintext highlighter-rouge">B.containsKey(C)</code> and <code class="language-plaintext highlighter-rouge">B.containsKey(K)</code> run in $\Omega(\log N).$</li>
+  <li>(This question is quite difficult.) Let <code class="language-plaintext highlighter-rouge">b</code> be a <code class="language-plaintext highlighter-rouge">Node</code> of a <code class="language-plaintext highlighter-rouge">BSTMap</code>, and two subtrees rooted at <code class="language-plaintext highlighter-rouge">root</code>, called <code class="language-plaintext highlighter-rouge">left</code> and <code class="language-plaintext highlighter-rouge">right</code>. Further, assume the method <code class="language-plaintext highlighter-rouge">numberOfNodes(Node p)</code> returns the number of nodes ($M$) of the subtree rooted at <code class="language-plaintext highlighter-rouge">p</code> and runs in $\Theta(M)$ time. What is the running time, in both the worst and best case, of <code class="language-plaintext highlighter-rouge">mystery(b.root, z)</code>, assuming <code class="language-plaintext highlighter-rouge">1 &lt;= z &lt; numberOfNodes(b.root)</code>?</li>
+</ol>
+
+<p>Hint: See if you can work out what <code class="language-plaintext highlighter-rouge">mystery</code> does first, then see how it accomplishes it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Key</span> <span class="nf">mystery</span><span class="o">(</span><span class="nc">Node</span> <span class="n">b</span><span class="o">,</span> <span class="kt">int</span> <span class="n">z</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">numLeft</span> <span class="o">=</span> <span class="n">numberOfNodes</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">numLeft</span> <span class="o">==</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">numLeft</span> <span class="o">&gt;</span> <span class="n">z</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">mystery</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">z</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">mystery</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">z</span> <span class="o">-</span> <span class="n">numLeft</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

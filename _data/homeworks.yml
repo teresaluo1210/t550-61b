@@ -1,0 +1,64 @@
+#####################################
+# Instructions for updating website #
+#####################################
+
+# To add a project to the website:
+# 1. Upload any necessary files to /assets/projects.
+# 2. Put the project spec in the projects folder (if not already there).
+# 3. In this file, uncomment the "link" attribute to display a link to the spec.
+
+#####################################
+# Additional documentation          #
+#####################################
+
+# Each element in the array corresponds to one box on the website.
+# This includes boxes that are blank or don't have a homework.
+
+# The website automatically numbers each element in the array.
+# To skip numbering (e.g. for a blank box), add
+# "nonumber: True" as an attribute.
+
+homeworks:
+  - title: "Homework 0A"
+    due: "1/24"
+    link: "homeworks/hw0/hw0a"
+    rowspan: 2
+    nonumber: True
+  - title: "Homework 0B"
+    due: "1/29"
+    link: "homeworks/hw0/hw0b"
+    rowspan: 1
+    nonumber: True
+  - title: "Homework 1"
+    due: "02/7"
+    link: https://www.gradescope.com/courses/961758
+    rowspan: 5
+    nonumber: True
+  - rowspan: 8
+    nonumber: True
+    classes:
+      - blank
+  - title: "Homework 2"
+    due: "03/07"
+    link: "homeworks/hw2"
+    rowspan: 5
+    nonumber: True
+  - title: "Homework 3"
+    due: "04/04"
+    link:
+    rowspan: 13
+    nonumber: True
+  - rowspan: 3
+    nonumber: True
+    classes:
+      - blank
+  - title: "Homework 4"
+    due: "05/04"
+    link: https://www.gradescope.com/courses/961758/assignments/6164006/submissions
+    # link:
+    rowspan: 10
+    nonumber: True
+  - rowspan: 5
+    nonumber: True
+    classes:
+      - blank

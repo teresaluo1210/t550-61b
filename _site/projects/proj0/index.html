@@ -1,0 +1,2079 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li:not(:nth-child(1)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(1) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(1) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(1) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Project 0: 2048 | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Project 0: 2048" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Project 0 spec." />
+<meta property="og:description" content="Project 0 spec." />
+<link rel="canonical" href="http://localhost:4000/projects/proj0/" />
+<meta property="og:url" content="http://localhost:4000/projects/proj0/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Project 0: 2048" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Project 0 spec.","headline":"Project 0: 2048","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/projects/proj0/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/projects/">Projects</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Project 0: 2048</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">Project 0: 2048</li><li class="nav-list-item"><a href="#hard-mode-project" class="nav-list-link">Hard Mode Project</a><ul><li class="nav-list-item"><a href="#faq" class="nav-list-link">FAQ</a></li><li class="nav-list-item"><a href="#overview" class="nav-list-link">Overview</a><ul><li class="nav-list-item"><a href="#using-git" class="nav-list-link">Using Git</a></li><li class="nav-list-item"><a href="#2048-rules-basic-rules" class="nav-list-link">2048 Rules: Basic Rules</a></li></ul></li><li class="nav-list-item"><a href="#setup" class="nav-list-link">Setup</a><ul><li class="nav-list-item"><a href="#getting-the-skeleton-files" class="nav-list-link">Getting the Skeleton Files</a></li><li class="nav-list-item"><a href="#file-structure" class="nav-list-link">File Structure</a></li><li class="nav-list-item"><a href="#running-the-game" class="nav-list-link">Running the Game</a></li></ul></li><li class="nav-list-item"><a href="#task-1-understanding-tilts" class="nav-list-link">Task 1: Understanding Tilts</a><ul><li class="nav-list-item"><a href="#rules-tilting" class="nav-list-link">Rules: Tilting</a></li><li class="nav-list-item"><a href="#tilting-rules-quiz" class="nav-list-link">Tilting Rules Quiz</a></li><li class="nav-list-item"><a href="#implementing-tilts" class="nav-list-link">Implementing Tilts</a></li></ul></li><li class="nav-list-item"><a href="#task-2-move-tile-up-no-merging" class="nav-list-link">Task 2: Move Tile Up (No Merging)</a><ul><li class="nav-list-item"><a href="#example-1" class="nav-list-link">Example 1</a></li><li class="nav-list-item"><a href="#example-2" class="nav-list-link">Example 2</a></li><li class="nav-list-item"><a href="#example-3" class="nav-list-link">Example 3</a></li><li class="nav-list-item"><a href="#testing-and-debugging" class="nav-list-link">Testing and Debugging</a></li></ul></li><li class="nav-list-item"><a href="#task-3-merging-tiles" class="nav-list-link">Task 3: Merging Tiles</a><ul><li class="nav-list-item"><a href="#testing-and-debugging-1" class="nav-list-link">Testing and Debugging</a></li></ul></li><li class="nav-list-item"><a href="#task-4-merging-tiles-up-to-minr" class="nav-list-link">Task 4: Merging Tiles up to MinR</a><ul><li class="nav-list-item"><a href="#testing-and-debugging-2" class="nav-list-link">Testing and Debugging</a></li></ul></li><li class="nav-list-item"><a href="#task-5-tilt-column" class="nav-list-link">Task 5: Tilt Column</a><ul><li class="nav-list-item"><a href="#testing-and-debugging-3" class="nav-list-link">Testing and Debugging</a></li></ul></li><li class="nav-list-item"><a href="#task-6-tilt-up" class="nav-list-link">Task 6: Tilt Up</a><ul><li class="nav-list-item"><a href="#testing-and-debugging-4" class="nav-list-link">Testing and Debugging</a></li></ul></li><li class="nav-list-item"><a href="#task-7-tilt-in-four-directions" class="nav-list-link">Task 7: Tilt in Four Directions</a><ul><li class="nav-list-item"><a href="#testing-and-debugging-5" class="nav-list-link">Testing and Debugging</a></li></ul></li><li class="nav-list-item"><a href="#playing-the-game" class="nav-list-link">Playing the Game</a></li><li class="nav-list-item"><a href="#style" class="nav-list-link">Style</a></li><li class="nav-list-item"><a href="#submission-and-grading" class="nav-list-link">Submission and Grading</a><ul><li class="nav-list-item"><a href="#velocity-limiting" class="nav-list-link">Velocity Limiting</a></li><li class="nav-list-item"><a href="#grading-overview" class="nav-list-link">Grading Overview</a></li></ul></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    Project 0: 2048
+  
+  
+</h1>
+    
+
+
+<p><strong>Deadline: Monday, February 3rd, 11:59 PM PT.</strong></p>
+<h1 id="hard-mode-project">
+  
+  
+    <a href="#hard-mode-project" class="anchor-heading" aria-labelledby="hard-mode-project"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Hard Mode Project
+  
+  
+</h1>
+    
+
+<p>If you are a strong programmer, you might be interested in the <a href="hardmode">hard mode version of this project</a>. In the hard mode version, you’ll solve the same problem as the standard version of this project, but there will be no handholding and you’ll have to come up with the design yourself.</p>
+
+<p>There is no extra credit for completing the hard mode version instead of the standard version.</p>
+<h2 id="faq">
+  
+  
+    <a href="#faq" class="anchor-heading" aria-labelledby="faq"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> FAQ
+  
+  
+</h2>
+    
+
+<p>Each assignment will have an FAQ linked at the top. You can also access it by adding <code class="language-plaintext highlighter-rouge">/faq</code> to the end of the URL. The FAQ for Project 0 is located <a href="/projects/proj0/faq/">here</a>.</p>
+
+<p>Note that this project has limited submission tokens. Please see <a href="#submission-and-grading">Submission and Grading</a> for more details.</p>
+<h2 id="overview">
+  
+  
+    <a href="#overview" class="anchor-heading" aria-labelledby="overview"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Overview
+  
+  
+</h2>
+    
+
+<p>Prerequisites:</p>
+
+<ul>
+  <li><a href="/labs/lab01/">Lab 1</a> (required for setup)</li>
+  <li><a href="/homeworks/hw0/hw0a/">HW0A</a> (recommended, for Java syntax)</li>
+  <li><a href="/homeworks/hw0/hw0b/">HW0B</a> (recommended, for Java syntax)</li>
+  <li>Lectures 1-2</li>
+  <li><a href="/resources/guides/style/">61B Style Guide</a> (we are checking your style in autograder!)</li>
+  <li><a href="/labs/lab02/">Lab 2</a> (optional but recommended prerequisite - helpful for debugging)</li>
+</ul>
+
+<!-- [See here for a video overview of the project.](TODO)  -->
+
+<!-- Any future resources (e.g. project party or intro section recording) can also be linked at the top here for ease of access. -->
+
+<p>In this mini-project, you’ll get some practice with Java by creating a playable game of 2048. We’ve already implemented the graphics and user interaction code for you, so your job is to implement the logic of the game. Note: This version of the project is much more straightforward than previous offerings of this project. If you find online resources (e.g. videos) from previous semesters of 61B, they do not apply to this version of the project.</p>
+
+<p>If you’re not familiar with 2048, <a href="http://gabrielecirulli.github.io/2048">you can try out a demo at this link</a>.</p>
+
+<p>There’s a lot of starter code that uses Java syntax that you might not have seen before, but it’ll be OK! In the real world, you’ll often work with codebases that you don’t fully understand. Ideally, the system is designed in a modular way so that someone working on one part of the system doesn’t need to know the details of the rest of the system.</p>
+
+<p>In fact, for this project, we’ve set everything up so that you don’t need to open any of the files except for <code class="language-plaintext highlighter-rouge">GameLogic.java</code>, though you’re welcome to browse.</p>
+<h3 id="using-git">
+  
+  
+    <a href="#using-git" class="anchor-heading" aria-labelledby="using-git"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Using Git
+  
+  
+</h3>
+    
+
+<p>It is important that you commit work to your repository <em>at frequent intervals</em>. Version control is a powerful tool for saving yourself when you mess something up or your dog eats your project, but you must use it regularly if it is to be of any use. Feel free to commit every 15 minutes; Git only saves what has changed, even though it acts as if it takes a snapshot of your entire project.</p>
+
+<p>The command <code class="language-plaintext highlighter-rouge">git status</code> will tell you what files you have modified, removed, or possibly added since the last commit.
+It will also tell you how much you have not yet sent to your GitHub repository.</p>
+
+<p>The typical commands would look something like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status                          <span class="c"># To see what needs to be added or committed.</span>
+git add &lt;file or folder path&gt;       <span class="c"># To add, or stage, any modified files.</span>
+git commit <span class="nt">-m</span> <span class="s2">"Commit message"</span>      <span class="c"># To commit changes. Use a descriptive message.</span>
+git push origin main                <span class="c"># Reflect your local changes on GitHub so Gradescope can see them.</span>
+</code></pre></div></div>
+
+<p>Then you can carry on working on the project until you’re ready to commit and push again, in which case you’ll repeat the above. It is in your best interest to get into the habit of committing frequently with informative commit messages so that in the case that you need to revert back to an old version of code, it is not only possible, but easy. We suggest you commit every time you add a significant portion of code or reach some milestone (passing a new test, for example).</p>
+<h3 id="2048-rules-basic-rules">
+  
+  
+    <a href="#2048-rules-basic-rules" class="anchor-heading" aria-labelledby="2048-rules-basic-rules"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2048 Rules: Basic Rules
+  
+  
+</h3>
+    
+
+<p>2048 is played on a grid of squares. Each square can either be empty or contain a numbered tile.</p>
+
+<p>The player chooses a direction (using the arrow keys) to <em>tilt</em> the board: north, south, east, or west. All tiles slide in that direction until there is no empty space left in the direction of motion. As a tile slides, it can possibly <em>merge</em> with another tile with the same number. You’ll implement this in Tasks 2-7.</p>
+
+<p>Each time two tiles merge to form a larger tile, the player earns the number of points on the new tile. We’ve implemented the score tracking already.</p>
+
+<p>One tile (with value 2 or 4) is randomly generated when the game begins. After each tilt, a single randomly generated tile will be added to the board on an empty square. Note that if the tilt did not change the board state, then no new tiles will be randomly generated. Your code will not be adding any new tiles! We’ve already done this part for you.</p>
+
+<p>The game ends when the current player has no available moves (no tilt can change the board), or a move forms a square containing 2048.</p>
+
+<p>If you would like to try the game out yourself, feel free to try it <a href="https://play2048.co/">here</a>.
+<!-- I'm not sure if we should link a specific one or not--></p>
+<h2 id="setup">
+  
+  
+    <a href="#setup" class="anchor-heading" aria-labelledby="setup"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Setup
+  
+  
+</h2>
+    
+<h3 id="getting-the-skeleton-files">
+  
+  
+    <a href="#getting-the-skeleton-files" class="anchor-heading" aria-labelledby="getting-the-skeleton-files"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Getting the Skeleton Files
+  
+  
+</h3>
+    
+
+<p>Follow the instructions in the <a href="/resources/guides/assignment-workflow/">Assignment Workflow Guide</a> to get the skeleton code and open it in IntelliJ. For this project, we will be working in the <code class="language-plaintext highlighter-rouge">proj0/</code> directory.</p>
+
+<blockquote class="danger">
+  <p>If you get some sort of error, STOP and either figure it out by carefully reading the <a href="/resources/guides/git/wtfs/">git WTFs</a> or seek help at OH or Ed. You’ll save yourself a lot of trouble vs. guess-and-check with git commands. If you find yourself trying to use commands recommended by Google like force push, <a href="https://twitter.com/heathercmiller/status/526770571728531456">don’t</a>. <strong>Don’t use <code class="language-plaintext highlighter-rouge">git push -f</code>, even if a post you found on Stack Overflow says to do it!</strong></p>
+
+  <p>If you can’t get Git to work, watch <a href="https://www.youtube.com/watch?v=Squ8TmG5mX0">this video</a> as a last resort to submit your work.</p>
+</blockquote>
+<h3 id="file-structure">
+  
+  
+    <a href="#file-structure" class="anchor-heading" aria-labelledby="file-structure"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> File Structure
+  
+  
+</h3>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">proj0</code> folder is separated into two <em>packages</em>, <code class="language-plaintext highlighter-rouge">game2048logic</code> and <code class="language-plaintext highlighter-rouge">game2048rendering</code>. Though we won’t talk about them too much in 61B, packages are a way to organize code into different folders. For example, all the code for the graphics is in the <code class="language-plaintext highlighter-rouge">game2048rendering</code> package, and all the code for the game logic is in the <code class="language-plaintext highlighter-rouge">game2048logic</code> package. You can see this in the file structure below:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>proj0
+├── game2048logic
+|   ├── GameLogic.java
+|   ├── MatrixUtils.java
+├── game2048rendering
+    ├── Board.java
+    ... (some other files) ...
+    ├── Main.java
+    ├── Side.java
+    ├── Tile.java
+</code></pre></div></div>
+
+<blockquote class="info">
+  <p>For the entirety of this project, you will only need to read and modify the <code class="language-plaintext highlighter-rouge">game2048logic/GameLogic.java</code> file. Changes to other files will not be recognized by Gradescope.</p>
+
+  <p>There’s no need to read any of the code in <code class="language-plaintext highlighter-rouge">game2048rendering</code>, though you’re welcome to if you’d like.</p>
+</blockquote>
+<h3 id="running-the-game">
+  
+  
+    <a href="#running-the-game" class="anchor-heading" aria-labelledby="running-the-game"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Running the Game
+  
+  
+</h3>
+    
+
+<p>You can run your game by running the <code class="language-plaintext highlighter-rouge">Main.java</code> file in the <code class="language-plaintext highlighter-rouge">game2048rendering</code> package. You can do this by right-clicking the file and selecting “Run ‘Main.main()’”:</p>
+
+<p><img src="/projects/proj0/img/run-main.png" alt="run-main" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>If everything is set up properly, you should get something like the following image:</p>
+
+<p><img src="/projects/proj0/img/2048-start.png" alt="2048-start" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>Right now, your game won’t do anything when you press the arrow keys, but by the end of this project, you’ll have a fully functioning 2048 implementation!</p>
+<h2 id="task-1-understanding-tilts">
+  
+  
+    <a href="#task-1-understanding-tilts" class="anchor-heading" aria-labelledby="task-1-understanding-tilts"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 1: Understanding Tilts
+  
+  
+</h2>
+    
+
+<p>In this project, you’ll implement the logic that tilts the board.</p>
+<h3 id="rules-tilting">
+  
+  
+    <a href="#rules-tilting" class="anchor-heading" aria-labelledby="rules-tilting"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Rules: Tilting
+  
+  
+</h3>
+    
+
+<p><img src="/projects/proj0/img/example-2048.gif" alt="2048 Examples" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>The animation above shows a few tilt operations. Here are the full rules for when merges occur that are shown in the image above.</p>
+
+<ol>
+  <li>
+    <p>Two tiles of the same value <em>merge</em> into one tile containing double the initial number.</p>
+  </li>
+  <li>
+    <p>A tile that is the result of a merge will not merge again on that tilt. For example, if we have [X, 2, 2, 4], where X represents an empty space, and we move the tiles to the left, we should end up with [4, 4, X, X], not [8, X, X, X]. This is because the leftmost 4 was already part of a merge so it should not merge again.</p>
+  </li>
+  <li>
+    <p>When three adjacent tiles in the direction of motion have the same number, then the leading two tiles in the direction of motion merge, and the trailing tile does not. For example, if we have [X, 2, 2, 2] and move tiles left, we should end up with [4, 2, X, X] not [2, 4, X, X].</p>
+  </li>
+</ol>
+
+<p>As a corollary of these rules, if there are four adjacent tiles with the same number in the direction of motion, they
+form two merged tiles. For example, if we have [4, 4, 4, 4], then if we move to the left, we end up with [8, 8, X, X]. This is because the leading two tiles will be merged as a result of rule 3, then the trailing two tiles will be merged, but because of rule 2 these merged tiles (8 in our example) will not merge themselves on that tilt.</p>
+
+<p>You’ll find applications of each of the 3 rules listed above in the animated GIF above, so watch through it a few times to get a
+good understanding of these rules.</p>
+<h3 id="tilting-rules-quiz">
+  
+  
+    <a href="#tilting-rules-quiz" class="anchor-heading" aria-labelledby="tilting-rules-quiz"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Tilting Rules Quiz
+  
+  
+</h3>
+    
+
+<p>Your task: complete this optional <a href="https://forms.gle/xW74vQnK7dZAjS6eA">Google Form quiz</a> to check your understanding of the tilting rules.</p>
+
+<p>This quiz (and this task) is not part of your 61B course grade. <!--TODO: but you need to complete it in order to request help from staff on Ed or in office hours. (maybe?) --></p>
+<h3 id="implementing-tilts">
+  
+  
+    <a href="#implementing-tilts" class="anchor-heading" aria-labelledby="implementing-tilts"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Implementing Tilts
+  
+  
+</h3>
+    
+
+<p>Implementing tilts is surprisingly challenging. We have to account for four different possible directions, three different merging rules, etc.</p>
+
+<p>Computer science is essentially about one thing: managing complexity. In order to implement this complicated functionality, we need to break the problem into smaller pieces and tackle them one at a time.</p>
+
+<p>In future assignments, it’ll be your job to figure out how to break problems into smaller pieces. For this project, here’s an outline of how we’ve decided to tackle the tilt problem: <!-- TODO: MAYBE, create a hard mode version of this problem --></p>
+
+<ul>
+  <li>
+    <p><strong>Four directions:</strong> Instead of worrying about tilting in all four directions at once, let’s start with just the up direction. Later, in the final task (task 6), we’ll show you a clever trick to generalize your code and deal with the other three directions with just a few extra lines of code.</p>
+  </li>
+  <li>
+    <p><strong>Key observation:</strong> When you tilt the board up, each of the four columns can be processed independently. The tiles in one column have no effect on the tiles in a different column. Inspired by this observation, we’ll write a <em>helper method</em> for tilting one column. Then, to tilt the entire board up (task 5), we’ll call that helper method to tilt each of the columns, one by one.</p>
+  </li>
+  <li>
+    <p><strong>Another key observation:</strong> When you tilt a column up, we need to compute the final landing squares for each tile in that column. We could do this all in a single method, but that’s going to get complicated quickly. Instead, let’s write another <em>helper method</em> for moving a single tile. Then, to tilt the entire column (Task 4), we’ll call that helper method to move each tile, one by one.</p>
+  </li>
+  <li>
+    <p><strong>Merging rules:</strong> Before we even deal with merging, let’s try to implement tiles tilting up. Then, once the tiles are properly tilting up, we can add logic to implement merging (Task 3).</p>
+  </li>
+</ul>
+<h2 id="task-2-move-tile-up-no-merging">
+  
+  
+    <a href="#task-2-move-tile-up-no-merging" class="anchor-heading" aria-labelledby="task-2-move-tile-up-no-merging"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 2: Move Tile Up (No Merging)
+  
+  
+</h2>
+    
+
+<p>In <code class="language-plaintext highlighter-rouge">GameLogic.java</code>, fill in the <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(int[][] board, int r, int c, int minR)</code> method. Don’t modify any other files or functions in that file.</p>
+
+<p>This method should move the tile at position <code class="language-plaintext highlighter-rouge">(r, c)</code> as far up in its column as possible. For this task, you should ignore the <code class="language-plaintext highlighter-rouge">minR</code> parameter completely.</p>
+
+<p>Remember that a tile can move up through empty squares, until the tile either reaches the top row, or the tile reaches an empty square with another tile directly above it.</p>
+
+<p>For this task, don’t worry about merges yet. We’ll add logic for merging in the next task.</p>
+
+<p>Below are four <strong>before-and-after</strong> board pairs that illustrate how the <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(int[][] board, int r, int c, int minR)</code> function should behave. For each example, the first table is the <strong>board before</strong> the method call, and the second table is the <strong>board after</strong> the method call. The values of <code class="language-plaintext highlighter-rouge">r</code> and <code class="language-plaintext highlighter-rouge">c</code> are explicitly stated for clarity. Remember that, for this task, <strong>merging is ignored</strong> and <strong><code class="language-plaintext highlighter-rouge">minR</code> should also be ignored</strong>.</p><hr />
+<h3 id="example-1">
+  
+  
+    <a href="#example-1" class="anchor-heading" aria-labelledby="example-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 1
+  
+  
+</h3>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=3, c=0, minR=0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The tile at <code class="language-plaintext highlighter-rouge">(3, 0)</code> moves straight up to the top row <code class="language-plaintext highlighter-rouge">(0, 0)</code>.</p><hr />
+<h3 id="example-2">
+  
+  
+    <a href="#example-2" class="anchor-heading" aria-labelledby="example-2"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 2
+  
+  
+</h3>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=2, c=1, minR=0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The tile at <code class="language-plaintext highlighter-rouge">(2, 1)</code> moves up until it is just below the <code class="language-plaintext highlighter-rouge">4</code>, i.e. it lands at <code class="language-plaintext highlighter-rouge">(1, 1)</code>.</p><hr />
+<h3 id="example-3">
+  
+  
+    <a href="#example-3" class="anchor-heading" aria-labelledby="example-3"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 3
+  
+  
+</h3>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=0, c=2, minR=0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The tile at <code class="language-plaintext highlighter-rouge">(0, 2)</code> is already at the top row, so it does not move.</p>
+<h3 id="testing-and-debugging">
+  
+  
+    <a href="#testing-and-debugging" class="anchor-heading" aria-labelledby="testing-and-debugging"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing and Debugging
+  
+  
+</h3>
+    
+
+<p>To test your method, run the tests in <code class="language-plaintext highlighter-rouge">TestTask2.java</code> by right-clicking the file and selecting “Run ‘TestTask2’”.</p>
+
+<p><img src="/projects/proj0/img/test-task2.png" alt="test-task2" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>(You can also run all the tests in the entire folder by right-clicking <code class="language-plaintext highlighter-rouge">tester2048</code> &gt; “Run ‘Tests in ‘tester2048’’”.)</p>
+
+<p>Alternatively, you may open the <code class="language-plaintext highlighter-rouge">TestTask2.java</code> file and click the green arrow next to <code class="language-plaintext highlighter-rouge">public class TestTask2</code> to run the tests. An example animation from a previous semester is given below. The files are a bit different, but the process is the same:</p>
+
+<!-- potential todo: update image animations -->
+<p><img src="/projects/proj0/img/test-task1-play.gif" alt="run-test-empty-space-2" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>You may also run individual tests in the same manner.</p>
+
+<p>You will run all tests in the same way for the rest of the project (and course!).</p>
+
+<p>Running the provided tests will test the three examples above. If your implementation is correct, all tests should pass.</p>
+
+<p>Here is what the error message would look like if you failed one of the tests:</p>
+
+<p><img src="/projects/proj0/img/task2-fail.png" alt="TestTask2-fail" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>On the left-hand side, you’ll see the list of all tests that were run. The red exclamation mark means the program errored,
+the yellow X means we failed a test (program ran but gave the wrong output), and the
+green check means we passed it. On the right, you’ll see some useful error messages. To look at a single test and its
+error message in isolation, click the test on the left-hand side. For example, let’s say we want to look at
+the <code class="language-plaintext highlighter-rouge">two tiles, different values</code> test.</p>
+
+<p><img src="/projects/proj0/img/task2-two-tiles.png" alt="test-task2-two-tiles" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>The right-hand side is now the isolated error message for this test. The top line has a useful
+message: <code class="language-plaintext highlighter-rouge">Boards should match</code> followed by a <code class="language-plaintext highlighter-rouge">String</code> representation of the expected (what should happen) and actual (what your code generated) boards. 
+You’ll see that the 2 stayed in its position even though it was supposed to move up to the position below the 4, which is causing this test to fail. The javadoc comment at the
+top of the code for the test also has some useful information in case you’re failing a test. You can click on the text underlined in blue to see the contents of the test.</p>
+
+<p>One common error that you might encounter is an <code class="language-plaintext highlighter-rouge">ArrayIndexOutOfBoundsException</code>. Here is what an <code class="language-plaintext highlighter-rouge">ArrayIndexOutOfBoundsException</code> error message might look like:</p>
+
+<p><img src="/projects/proj0/img/index-oob-error.png" alt="ArrayIndexOutOfBoundsException" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">ArrayIndexOutOfBoundsException</code>s occur when we attempt to access a value at an illegal index. For example, the array <code class="language-plaintext highlighter-rouge">arr = [4, 2, 2, 4]</code> has legal indexes 0, 1, 2, and 3. Attempting to access <code class="language-plaintext highlighter-rouge">arr[4]</code> or <code class="language-plaintext highlighter-rouge">arr[-1]</code> would throw an <code class="language-plaintext highlighter-rouge">ArrayIndexOutOfBoundsException</code>.</p>
+
+<p>We can evaluate where an <code class="language-plaintext highlighter-rouge">ArrayIndexOutOfBoundsException</code> is happening in our code by examining the stack trace provided in the test output. Taking a closer look at the previous example:</p>
+
+<p><img src="/projects/proj0/img/stack-trace.png" alt="StackTrace" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>The stack trace shows us which lines of code were executed leading up to the error, with the top line being the most recent. The line <code class="language-plaintext highlighter-rouge">at game2048logic.GameLogic.moveTileUpAsFarAsPossible(GameLogic.java:30)</code> tells us a few things about our error. First, we can see that our <code class="language-plaintext highlighter-rouge">ArrayIndexOutOfBoundsException</code> was triggered in the <code class="language-plaintext highlighter-rouge">game2048logic.GameLogic</code> class, within the <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible</code> method. <code class="language-plaintext highlighter-rouge">GameLogic.java:30</code> specifies that line 30 triggered the error. This was called by line 33 in the <code class="language-plaintext highlighter-rouge">testOneTile</code> method in the <code class="language-plaintext highlighter-rouge">TestTask2</code> class, and so on.</p>
+
+<p>The stack trace is a useful starting place for debugging. You can click on the blue underlined section of the stack trace to jump directly to that line of code.</p>
+<h2 id="task-3-merging-tiles">
+  
+  
+    <a href="#task-3-merging-tiles" class="anchor-heading" aria-labelledby="task-3-merging-tiles"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 3: Merging Tiles
+  
+  
+</h2>
+    
+
+<p>Modify the <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible</code> method so that it accounts for the possibility of the tile merging.</p>
+
+<p>Remember that a tile can move up through empty squares. When the tile sees a non-empty square, if that square contains another tile of the same value, then the two tiles should merge.</p>
+
+<p>If there is a merge, <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible</code> should return 1 + the row number where the merge occurred. If there is no merge, it should return 0. This might seem quite arbitrary. We’ll see why this is useful in task 4.</p>
+
+<p>As in task 2, you should ignore the <code class="language-plaintext highlighter-rouge">minR</code> argument.</p>
+
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=3, c=0, minR=0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>Tiles of the same value (2 and 2) merge into 4 at the top of the column. The method should return 1 because a merge occurred in row 0.</p><hr />
+
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=2, c=0, minR=0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">8</code> at <code class="language-plaintext highlighter-rouge">(2, 0)</code> cannot merge with <code class="language-plaintext highlighter-rouge">(0, 0)</code> because there is a <code class="language-plaintext highlighter-rouge">4</code> in between. The method should return 0 because there was no merge.</p><hr />
+
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=3, c=2, minR=0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The bottom tile <code class="language-plaintext highlighter-rouge">(3, 2)</code> merges with <code class="language-plaintext highlighter-rouge">(2, 2)</code>, forming 4. It cannot merge again in this single move. The method should return 3 because the merge occurred in row 2.</p><hr />
+
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=2, c=2, minR=0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p>The tile at <code class="language-plaintext highlighter-rouge">(2, 2)</code> merges with <code class="language-plaintext highlighter-rouge">(1, 2)</code> to form a <code class="language-plaintext highlighter-rouge">4</code>. The tile in <code class="language-plaintext highlighter-rouge">(3, 2)</code> remains a <code class="language-plaintext highlighter-rouge">4</code> at the bottom until it might move later. The method should return 2 because the merge occurred in row 1.</p>
+<h3 id="testing-and-debugging-1">
+  
+  
+    <a href="#testing-and-debugging-1" class="anchor-heading" aria-labelledby="testing-and-debugging-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing and Debugging
+  
+  
+</h3>
+    
+
+<p>To test your method, run the tests in <code class="language-plaintext highlighter-rouge">TestTask3.java</code>, which tests on the examples above. If your implementation is correct, all tests should pass.</p>
+<h2 id="task-4-merging-tiles-up-to-minr">
+  
+  
+    <a href="#task-4-merging-tiles-up-to-minr" class="anchor-heading" aria-labelledby="task-4-merging-tiles-up-to-minr"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 4: Merging Tiles up to MinR
+  
+  
+</h2>
+    
+
+<p>In <code class="language-plaintext highlighter-rouge">GameLogic.java</code>,modify your <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(int[][] board, int r, int c, int minR)</code> method so that the tile is not allowed to move any higher than the row given by <code class="language-plaintext highlighter-rouge">minR</code>.</p>
+
+<p>Note: It should not be clear why <code class="language-plaintext highlighter-rouge">minR</code> is going to be helpful later. You’ll see why it’s useful in task 5!</p>
+<h4 id="example-1-1">
+  
+  
+    <a href="#example-1-1" class="anchor-heading" aria-labelledby="example-1-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 1
+  
+  
+</h4>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=3, c=0, minR=0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Explanation</strong>: The bottom tile <code class="language-plaintext highlighter-rouge">(3,0)</code> moves up to <code class="language-plaintext highlighter-rouge">(0,0)</code> and merges with <code class="language-plaintext highlighter-rouge">2</code> to become <code class="language-plaintext highlighter-rouge">4</code>. Since a merge occurred, the return value is <code class="language-plaintext highlighter-rouge">1</code>.</p><hr />
+<h4 id="example-2-1">
+  
+  
+    <a href="#example-2-1" class="anchor-heading" aria-labelledby="example-2-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 2
+  
+  
+</h4>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=3, c=0, minR=1)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Explanation</strong>: With <code class="language-plaintext highlighter-rouge">minR = 1</code>, the tile at <code class="language-plaintext highlighter-rouge">(3,0)</code> can move only up to <code class="language-plaintext highlighter-rouge">(1,0)</code> and does not merge with the tile at <code class="language-plaintext highlighter-rouge">(0,0)</code>. Since no merge occurred, the method returns <code class="language-plaintext highlighter-rouge">0</code>.</p><hr />
+<h4 id="example-3-1">
+  
+  
+    <a href="#example-3-1" class="anchor-heading" aria-labelledby="example-3-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 3
+  
+  
+</h4>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible(board, r=3, c=0, minR=3)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Explanation</strong>: With <code class="language-plaintext highlighter-rouge">minR = 3</code>, the tile at <code class="language-plaintext highlighter-rouge">(3,0)</code> is not allowed to move up at all, so the board remains unchanged, and no merge occurs. The method should return <code class="language-plaintext highlighter-rouge">0</code>.</p>
+<h3 id="testing-and-debugging-2">
+  
+  
+    <a href="#testing-and-debugging-2" class="anchor-heading" aria-labelledby="testing-and-debugging-2"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing and Debugging
+  
+  
+</h3>
+    
+
+<p>To test your method, run the tests in <code class="language-plaintext highlighter-rouge">TestTask4.java</code>. If your implementation is correct, all tests should pass. The test file contains more tests than shown above. If you fail these tests, you might want to look at the code for these tests to understand what’s going wrong.</p>
+<h2 id="task-5-tilt-column">
+  
+  
+    <a href="#task-5-tilt-column" class="anchor-heading" aria-labelledby="task-5-tilt-column"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 5: Tilt Column
+  
+  
+</h2>
+    
+
+<p>Now that we’ve fully implemented <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible</code>, we can use it to implement <code class="language-plaintext highlighter-rouge">tiltColumn</code> in <code class="language-plaintext highlighter-rouge">GameLogic.java</code>. This function will tilt an entirely column upwards.</p>
+
+<p>This method should tilt the given column at coordinate <code class="language-plaintext highlighter-rouge">x</code> up, moving all of the tiles in that column into their rightful place, and merging any tiles in that column that need to be merged.</p>
+
+<p>Remember to use your <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible</code> helper method to keep things simple! Consider: What tiles should you call this helper method on, and in what order? How should you use the return value of <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible</code> to avoid double merges?</p>
+
+<p>Note: The clever design of <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible</code> will make the code for this task relatively short and simple. My implementation of <code class="language-plaintext highlighter-rouge">tiltColumn</code> is only 8 lines long including brackets and definition. You’ll find throughout the course that it is far easier to implement a system if you have a clean design, e.g. helper methods like <code class="language-plaintext highlighter-rouge">moveTileUpAsFarAsPossible</code>, which was designed to naturally avoid double merges.</p>
+<h4 id="example-1-no-merge">
+  
+  
+    <a href="#example-1-no-merge" class="anchor-heading" aria-labelledby="example-1-no-merge"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 1: No merge
+  
+  
+</h4>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">tiltColumn(board, 0)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Explanation</strong>: The tiles <code class="language-plaintext highlighter-rouge">4</code> and <code class="language-plaintext highlighter-rouge">2</code> simply move up in column <code class="language-plaintext highlighter-rouge">0</code> without merging.</p><hr />
+<h4 id="example-2-one-merge-required">
+  
+  
+    <a href="#example-2-one-merge-required" class="anchor-heading" aria-labelledby="example-2-one-merge-required"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 2: One merge required
+  
+  
+</h4>
+    
+
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">tiltColumn(board, 1)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Explanation</strong>: Only column <code class="language-plaintext highlighter-rouge">1</code> is processed. The <code class="language-plaintext highlighter-rouge">4</code> at <code class="language-plaintext highlighter-rouge">(2,1)</code> and <code class="language-plaintext highlighter-rouge">4</code> at <code class="language-plaintext highlighter-rouge">(3,1)</code> merge into <code class="language-plaintext highlighter-rouge">8</code> at <code class="language-plaintext highlighter-rouge">(0,1)</code>. The rest of row 3 remains unchanged for columns <code class="language-plaintext highlighter-rouge">2</code> and <code class="language-plaintext highlighter-rouge">3</code>.</p><hr />
+<h4 id="example-3-same-tiles-separated-no-merge-through-intervening-tiles">
+  
+  
+    <a href="#example-3-same-tiles-separated-no-merge-through-intervening-tiles" class="anchor-heading" aria-labelledby="example-3-same-tiles-separated-no-merge-through-intervening-tiles"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 3: Same tiles separated, no merge through intervening tiles
+  
+  
+</h4>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">tiltColumn(board, 3)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Explanation</strong>: Only column <code class="language-plaintext highlighter-rouge">3</code> tilts upward. The tiles stack as far up as possible, but <code class="language-plaintext highlighter-rouge">4</code> at <code class="language-plaintext highlighter-rouge">(0,3)</code> doesn’t merge with <code class="language-plaintext highlighter-rouge">8</code> at <code class="language-plaintext highlighter-rouge">(2,3)</code>. Similarly, the two <code class="language-plaintext highlighter-rouge">4</code>s at <code class="language-plaintext highlighter-rouge">(2,3)</code> and <code class="language-plaintext highlighter-rouge">(3,3)</code> don’t merge because one is actually <code class="language-plaintext highlighter-rouge">8</code>.</p><hr />
+<h4 id="example-4-no-merge-with-merged-tiles">
+  
+  
+    <a href="#example-4-no-merge-with-merged-tiles" class="anchor-heading" aria-labelledby="example-4-no-merge-with-merged-tiles"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Example 4: No merge with merged tiles
+  
+  
+</h4>
+    
+<p><strong>Method call</strong>: <code class="language-plaintext highlighter-rouge">tiltColumn(board, 2)</code></p>
+
+<p><strong>Before</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>After</strong>:</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<p><strong>Explanation</strong>: Column <code class="language-plaintext highlighter-rouge">2</code> tilts upward. The <code class="language-plaintext highlighter-rouge">2</code> at <code class="language-plaintext highlighter-rouge">(0,2)</code> and <code class="language-plaintext highlighter-rouge">2</code> at <code class="language-plaintext highlighter-rouge">(1,2)</code> merge to become <code class="language-plaintext highlighter-rouge">4</code> at <code class="language-plaintext highlighter-rouge">(0,2)</code>. However, the resulting <code class="language-plaintext highlighter-rouge">4</code> does not merge with the existing <code class="language-plaintext highlighter-rouge">4</code> at <code class="language-plaintext highlighter-rouge">(2,2)</code> in the same move, so they stack up at rows <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">1</code>.</p>
+<h3 id="testing-and-debugging-3">
+  
+  
+    <a href="#testing-and-debugging-3" class="anchor-heading" aria-labelledby="testing-and-debugging-3"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing and Debugging
+  
+  
+</h3>
+    
+
+<p>To test your method, run the tests in <code class="language-plaintext highlighter-rouge">TestTask5.java</code>. If your implementation is correct, all tests should pass.</p>
+<h2 id="task-6-tilt-up">
+  
+  
+    <a href="#task-6-tilt-up" class="anchor-heading" aria-labelledby="task-6-tilt-up"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 6: Tilt Up
+  
+  
+</h2>
+    
+
+<p>In <code class="language-plaintext highlighter-rouge">GameLogic.java</code>, fill in the <code class="language-plaintext highlighter-rouge">tiltUp(int[][] board)</code> method.</p>
+
+<p>This method should tilt the entire board up, moving all tiles in all columns into their rightful place, and merging any tiles that need to be merged.</p>
+<h3 id="testing-and-debugging-4">
+  
+  
+    <a href="#testing-and-debugging-4" class="anchor-heading" aria-labelledby="testing-and-debugging-4"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing and Debugging
+  
+  
+</h3>
+    
+
+<p>To test your method, run the tests in <code class="language-plaintext highlighter-rouge">TestTask6.java</code>. If your implementation is correct, all tests should pass. Unlike the earlier tasks, we do not provide any examples in this spec. See the code for <code class="language-plaintext highlighter-rouge">TestTask6.java</code> for such examples.</p>
+<h2 id="task-7-tilt-in-four-directions">
+  
+  
+    <a href="#task-7-tilt-in-four-directions" class="anchor-heading" aria-labelledby="task-7-tilt-in-four-directions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 7: Tilt in Four Directions
+  
+  
+</h2>
+    
+
+<p>Now that we’ve written <code class="language-plaintext highlighter-rouge">tiltUp</code> working for the up direction, our game should work but only if the user presses up. We need to implement the other three directions.</p>
+
+<p>One possible approach is to create three more functions <code class="language-plaintext highlighter-rouge">moveTileRightAsFarAsPossible</code>, <code class="language-plaintext highlighter-rouge">moveTileDownAsFarAsPossible</code>, and <code class="language-plaintext highlighter-rouge">moveTileLeftAsFarAsPossible</code>, which we can use to ultimately implement <code class="language-plaintext highlighter-rouge">tiltRight</code>, <code class="language-plaintext highlighter-rouge">tiltDown</code>, and <code class="language-plaintext highlighter-rouge">tiltLeft</code>. This is a terrible idea. This leads to messy, hard-to-read code, with ample opportunity to introduce obscure bugs, e.g. what if you fix something in one copy, but not the other three copies?</p>
+
+<p>Instead, we’ll take advantage of the provided <code class="language-plaintext highlighter-rouge">rotateLeft</code> and <code class="language-plaintext highlighter-rouge">rotateRight</code> methods, which rotate the board.</p>
+
+<p>Fill in the provided <code class="language-plaintext highlighter-rouge">tilt</code> method so that it handles all four directions properly.</p>
+<h3 id="testing-and-debugging-5">
+  
+  
+    <a href="#testing-and-debugging-5" class="anchor-heading" aria-labelledby="testing-and-debugging-5"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing and Debugging
+  
+  
+</h3>
+    
+
+<p>To test your method, run the tests in <code class="language-plaintext highlighter-rouge">TestTask7.java</code>. If your implementation is correct, all tests should pass.</p>
+
+<p>Testing files such as <code class="language-plaintext highlighter-rouge">TestIntegration.java</code> test all the things you write in coordination with each other. Such a test is called an integration test and is incredibly important in testing. While unit tests run things in isolation, integration tests run things all together and are designed to catch obscure bugs that occur as a result of the interaction between different functions you’ve written. Do not attempt to debug <code class="language-plaintext highlighter-rouge">TestIntegration.java</code> until you’re passing the rest of the tests!</p>
+<h2 id="playing-the-game">
+  
+  
+    <a href="#playing-the-game" class="anchor-heading" aria-labelledby="playing-the-game"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Playing the Game
+  
+  
+</h2>
+    
+
+<p>Now that you’ve implemented the logic for the game, you can play the game by running <code class="language-plaintext highlighter-rouge">Main.java</code>!</p>
+
+<p>Note: If you haven’t passed all of the tests, the game may behave strangely or crash.</p>
+<h2 id="style">
+  
+  
+    <a href="#style" class="anchor-heading" aria-labelledby="style"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Style
+  
+  
+</h2>
+    
+
+<p>Starting with this project, <strong>we will be enforcing style</strong>. You must follow the <a href="/resources/guides/style/">style guide</a>, or you will be penalized on the autograder.</p>
+
+<p>You can and should check your style locally with the CS 61B plugin. <strong>We will not remove the velocity limit for failing to check style.</strong></p>
+<h2 id="submission-and-grading">
+  
+  
+    <a href="#submission-and-grading" class="anchor-heading" aria-labelledby="submission-and-grading"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submission and Grading
+  
+  
+</h2>
+    
+
+<p class="danger">We will <strong>not remove the velocity limit</strong> for failing to submit the correct files because you didn’t add, commit, or push. You have been warned.</p>
+<h3 id="velocity-limiting">
+  
+  
+    <a href="#velocity-limiting" class="anchor-heading" aria-labelledby="velocity-limiting"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Velocity Limiting
+  
+  
+</h3>
+    
+
+<p>For this project we will be limiting the number of times you can submit your code to the autograder. You will get 4 submission “tokens” that each regenerate after 24 hours.</p>
+<h3 id="grading-overview">
+  
+  
+    <a href="#grading-overview" class="anchor-heading" aria-labelledby="grading-overview"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Grading Overview
+  
+  
+</h3>
+    
+
+<p>Your code will be graded based on whether it passes the tests we provided. There are no hidden tests; the score you see on Gradescope is your score for this project.</p>
+
+<p>Gradescope will only grade your <code class="language-plaintext highlighter-rouge">GameLogic.java</code> file. If you edit any other files, your edits will not be recognized, so don’t edit any other files.</p>
+
+<p>Tests are “all or nothing” in their own fields. If you fail one of the subtests in the test category, you will not receive credit for that category although you might have passed different test cases. For example, you’ll see in Gradescope <code class="language-plaintext highlighter-rouge">TestModel</code> category 5 subtests.</p>
+
+<p>Here is a breakdown of the weight of each part:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">TestTask2</code>: 15%</li>
+  <li><code class="language-plaintext highlighter-rouge">TestTask3</code>: 20%</li>
+  <li><code class="language-plaintext highlighter-rouge">TestTask4</code>: 20%</li>
+  <li><code class="language-plaintext highlighter-rouge">TestTask5</code>: 8%</li>
+  <li><code class="language-plaintext highlighter-rouge">TestTask6</code>: 4%</li>
+  <li><code class="language-plaintext highlighter-rouge">TestTask7</code>: 8%</li>
+  <li><code class="language-plaintext highlighter-rouge">TestIntegration</code>: 25%</li>
+</ol>
+
+<p>Once you’ve pushed your code to GitHub (i.e. you’ve run <code class="language-plaintext highlighter-rouge">git push</code>), then you may go to Gradescope, find the <code class="language-plaintext highlighter-rouge">proj0</code> assignment, and submit the code there. Keep in mind that the version of code that Gradescope uses is the most recent commit you’ve pushed, so if you do not run <code class="language-plaintext highlighter-rouge">git push</code> before you submit on Gradescope, old code will be tested instead of the most recent code you have on your computer.</p>
+
+<p>There are no hidden tests. The score you see on Gradescope is your score for this project.</p>
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

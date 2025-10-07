@@ -1,0 +1,53 @@
+# Follow the steps on https://fullcalendar.io/docs/v4/google-calendar until "Getting Set Up" to obtain the google_calendar_id.
+
+calendars:
+  - title: Section Calendar
+    element_id: 'section-calendar-container'
+    google_api_key: AIzaSyAHArc3d7lRRQ2Iu1Yw0ScaF5h1wsLjmHA
+    embed_link: https://calendar.google.com/calendar/embed?src=c_99a28453f2a599cc940130442a24ef80a0d1b096bec146714e1225e2b2f56d8b%40group.calendar.google.com
+    google_calendar_id: c_99a28453f2a599cc940130442a24ef80a0d1b096bec146714e1225e2b2f56d8b@group.calendar.google.com # replace this
+    min_time: '09:00:00'
+    max_time: '22:00:00'
+
+    event_types:
+      - needle: '' # default
+        color: '#B4C6E0'
+        text_color: '#000000'
+      - needle: 'Lab'
+        color: '#B4C6E0'
+        text_color: '#000000'
+      - needle: '[Online] Lab'
+        color: '#B9A1E6'
+        text_color: '#000000'
+      - needle: 'Discussion'
+        color: '#A1CBE6'
+        text_color: '#000000'
+      - needle: '[Bridge] Discussion'
+        color: '#A1E6B6'
+        text_color: '#000000'
+      - needle: '[Exam Level] Discussion'
+        color: '#E6C2A1'
+        text_color: '#000000'
+      - needle: '[Online] Discussion'
+        color: '#B9A1E6'
+        text_color: '#000000'
+
+    remove_prefix: ""
+
+  - title: OH Calendar
+    element_id: 'oh-calendar-container'
+    google_api_key: AIzaSyAHArc3d7lRRQ2Iu1Yw0ScaF5h1wsLjmHA
+    embed_link: https://calendar.google.com/calendar/embed?src=c_f08dabec2c4a6254239d7aa2e1407546ff89528543bb467937a701aad8e37649%40group.calendar.google.com
+    google_calendar_id: c_f08dabec2c4a6254239d7aa2e1407546ff89528543bb467937a701aad8e37649@group.calendar.google.com # replace this
+    min_time: '09:00:00'
+    max_time: '22:00:00'
+
+    event_types:
+      - needle: '' # default
+        color: '#B4C6E0'
+        text_color: '#000000'
+      - needle: 'Online'
+        color: '#B9A1E6'
+        text_color: '#000000'
+
+    remove_prefix: ""

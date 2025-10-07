@@ -1,0 +1,932 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(2)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(3) > ul > li:nth-child(2) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(3) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(3) > ul > li:nth-child(2) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(3) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(3) > ul.nav-list > li.nav-list-item:nth-child(2) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 02: Debugging (Part 1) | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Lab 02: Debugging (Part 1)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data Structures Mock Site for T550 Final Project" />
+<meta property="og:description" content="Data Structures Mock Site for T550 Final Project" />
+<link rel="canonical" href="http://localhost:4000/labs/lab02/" />
+<meta property="og:url" content="http://localhost:4000/labs/lab02/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 02: Debugging (Part 1)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Data Structures Mock Site for T550 Final Project","headline":"Lab 02: Debugging (Part 1)","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/labs/lab02/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/labs/">Labs</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Lab 02: Debugging (Part 1)</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">Lab 02: Debugging (Part 1)<ul><li class="nav-list-item"><a href="#faq" class="nav-list-link">FAQ</a></li><li class="nav-list-item"><a href="#introduction" class="nav-list-link">Introduction</a><ul><li class="nav-list-item"><a href="#setup" class="nav-list-link">Setup</a></li><li class="nav-list-item"><a href="#goals-and-outcomes" class="nav-list-link">Goals and Outcomes</a></li></ul></li><li class="nav-list-item"><a href="#bomb" class="nav-list-link">Bomb</a><ul><li class="nav-list-item"><a href="#interactive-debugging" class="nav-list-link">Interactive Debugging</a></li><li class="nav-list-item"><a href="#debugger-overview" class="nav-list-link">Debugger Overview</a></li><li class="nav-list-item"><a href="#bomb-introduction-phase-0" class="nav-list-link">Bomb Introduction (Phase 0)</a></li><li class="nav-list-item"><a href="#visualizer-phase-1" class="nav-list-link">Visualizer (Phase 1)</a></li><li class="nav-list-item"><a href="#conditional-breakpoints-phase-2" class="nav-list-link">Conditional Breakpoints (Phase 2)</a></li></ul></li><li class="nav-list-item"><a href="#deliverables-and-scoring" class="nav-list-link">Deliverables and Scoring</a></li><li class="nav-list-item"><a href="#submission" class="nav-list-link">Submission</a></li><li class="nav-list-item"><a href="#acknowledgements" class="nav-list-link">Acknowledgements</a></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    Lab 02: Debugging (Part 1)
+  
+  
+</h1>
+    
+<h2 id="faq">
+  
+  
+    <a href="#faq" class="anchor-heading" aria-labelledby="faq"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> FAQ
+  
+  
+</h2>
+    
+
+<p>Each assignment will have an FAQ linked at the top. You can also access it by
+adding “/faq” to the end of the URL. The FAQ for Lab 02 is located
+<a href="faq">here</a>.</p>
+<h2 id="introduction">
+  
+  
+    <a href="#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>To debug a program, you must first know what’s wrong. In this lab, you’ll get
+some experience with using the debugger to see the program state. When you run into
+a bug, the error is accompanied with a “stack trace” that details the method
+calls that caused the error in the first place. We won’t cover going through the stack trace 
+in this lab, but we’ll talk more about it in a later lab.</p>
+
+<p>TODO: Add LLM exercise that showcases LLM failure modes (e.g. confirmation bias).</p>
+<h3 id="setup">
+  
+  
+    <a href="#setup" class="anchor-heading" aria-labelledby="setup"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Setup
+  
+  
+</h3>
+    
+
+<p>Follow the
+<a href="/resources/guides/assignment-workflow/#opening-in-intellij">assignment workflow</a>
+to get the assignment and open it in IntelliJ.</p>
+<h3 id="goals-and-outcomes">
+  
+  
+    <a href="#goals-and-outcomes" class="anchor-heading" aria-labelledby="goals-and-outcomes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Goals and Outcomes
+  
+  
+</h3>
+    
+
+<p>In this lab, you will enhance your code debugging abilities by defusing a
+(programmatic) bomb. We’ll guide you through this process, but the intention 
+is to make this a realistic debugging experience.</p>
+
+<p>By the end of this lab, you will…</p>
+
+<ul>
+  <li>Be able to use the debugger and visualizer to inspect program state.</li>
+  <li>Be able to interpret test failure messages.</li>
+  <li>Be better able to approach debugging code.</li>
+</ul>
+
+<p class="info">For this lab and course in general, we highly encourage that you try things out on your own first,
+including looking things up if you’re unsure what something is. In this lab, this might be about what a certain
+error means or the exception that is thrown - google it!</p>
+<h2 id="bomb">
+  
+  
+    <a href="#bomb" class="anchor-heading" aria-labelledby="bomb"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">Bomb</code>
+  
+  
+</h2>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">BombMain</code> class calls the various <code class="language-plaintext highlighter-rouge">phase</code> methods of the <code class="language-plaintext highlighter-rouge">Bomb</code> class.
+For this lab, we’ll be running the lab through the tests in <code class="language-plaintext highlighter-rouge">BombTest.java</code>. 
+If you were to run <code class="language-plaintext highlighter-rouge">BombTest</code> (in the testing folder), you’ll notice that there are some errors - 
+this is because the current inputs to the phase methods in <code class="language-plaintext highlighter-rouge">BombMain</code> aren’t the 
+correct passwords! Your job is to figure out what the passwords to each of these phases 
+is by <em>using the IntelliJ debugger</em>.</p>
+
+<p class="danger"><strong>WARNING</strong>: The code is written so that you can’t find the password just by reading it. For
+this lab, you are <strong>forbidden</strong> from editing the <code class="language-plaintext highlighter-rouge">Bomb</code> and <code class="language-plaintext highlighter-rouge">BombTest</code> code, whether to add
+print statements or otherwise modify it. The point of this exercise is to get comfortable 
+using tools that will help you a lot down the road. Please take it seriously! <strong>If you modify those
+files, you will not pass the tests on the autograder!</strong></p>
+
+<p>As mentioned, you’ll be running your code from <code class="language-plaintext highlighter-rouge">BombTest.java</code> in the testing folder 
+and you can use those tests to help you debug, as on other assignments, you will
+end up writing your own tests to help you fix bugs! The <strong>only</strong> file you
+need to modify is <code class="language-plaintext highlighter-rouge">BombMain.java</code></p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">BombTest.java</code> is where you will be running the program. <code class="language-plaintext highlighter-rouge">Bomb.java</code> and <code class="language-plaintext highlighter-rouge">BombMain.java</code>
+will not have the green run button since it does not contain a <code class="language-plaintext highlighter-rouge">static void main(String[] args)</code> 
+so please make sure to run the program through <code class="language-plaintext highlighter-rouge">BombTest.java</code>!</strong></p>
+<h3 id="interactive-debugging">
+  
+  
+    <a href="#interactive-debugging" class="anchor-heading" aria-labelledby="interactive-debugging"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Interactive Debugging
+  
+  
+</h3>
+    
+
+<p>So far, you might have practiced debugging by using print statements to
+see the values of certain variables as a program runs. When placed
+strategically, the output from printing might help make the bugs obvious or
+narrow down their cause. This method is called <strong>print debugging</strong>. While print
+debugging can be very useful, it has a few disadvantages:</p>
+
+<ul>
+  <li>It requires you to modify your code, and clean it up after.</li>
+  <li>It’s tedious to decide and write out exactly what you want to print.</li>
+  <li>Printing isn’t always formatted nicely.</li>
+</ul>
+
+<p>In this lab, we’ll show you a new technique, <strong>interactive debugging</strong> –
+debugging by using an interactive tool, or a debugger. We’ll focus on IntelliJ’s
+built-in debugger.</p>
+<h3 id="debugger-overview">
+  
+  
+    <a href="#debugger-overview" class="anchor-heading" aria-labelledby="debugger-overview"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Debugger Overview
+  
+  
+</h3>
+    
+<h4 id="breakpoints">
+  
+  
+    <a href="#breakpoints" class="anchor-heading" aria-labelledby="breakpoints"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Breakpoints
+  
+  
+</h4>
+    
+
+<p>Before starting the IntelliJ debugger, you should set a few <strong>breakpoints</strong>.
+Breakpoints mark places in your code where you can <em>suspend</em> the program while
+debugging and examine its state. This:</p>
+
+<ul>
+  <li>Doesn’t require you to modify your code or clean it up after, since
+breakpoints are ignored in normal execution.</li>
+  <li>Lets you see <em>all</em> the variables without needing to write print statements.</li>
+  <li>Lets IntelliJ display everything in a structured manner</li>
+</ul>
+
+<p>Go ahead and open up <code class="language-plaintext highlighter-rouge">Bomb.java</code> and place a breakpoint. To set a breakpoint, 
+click the area just to the right of the line number.</p>
+
+<p><img src="/labs/lab02/img/code_breakpoints.png" alt="code breakpoints" style="max-height: 325px;" /></p>
+
+<p>A red circle or diamond should appear where you clicked. If nothing appears,
+make sure that you click next to a line with code. When the debugger reaches
+this point in the program, it will pause <strong>before</strong> the execution of the line or
+method. Clicking the breakpoint again will remove it.</p>
+<h4 id="running-the-debugger">
+  
+  
+    <a href="#running-the-debugger" class="anchor-heading" aria-labelledby="running-the-debugger"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Running the Debugger
+  
+  
+</h4>
+    
+
+<p>Now, let’s set a few breakpoints - you can do this either in <code class="language-plaintext highlighter-rouge">Bomb.java</code> or <code class="language-plaintext highlighter-rouge">BombMain.java</code>. 
+With these set, we can start a debugging session! Click on the green triangle next to the 
+class or test you want to debug (in test files there may be two green triangles). 
+Instead of clicking the green triangle to run, click the
+<img src="/labs/lab02/img/debug.png" alt="debug" class="inline" /> debug option:</p>
+
+<p><img src="/labs/lab02/img/run_debugger.png" alt="run debugger" style="max-height: 325px;" /></p>
+
+<p>The selected program should run until it hits its first breakpoint. A debugger
+window should also appear on the bottom of the interface, where the console was.</p>
+
+<p><img src="/labs/lab02/img/debugger_session.png" alt="debugger session" style="max-height: 325px;" /></p>
+
+<p>On the left, you will be able to see all current method calls and on the right,
+you will be able to see the values of instantiated variables at this point in
+the program (they will also be shown in gray text in the editor). For instances
+of classes, you can click the dropdown to expand them and look at their fields.</p>
+
+<p>In the debugger, you have a few options:</p>
+
+<ul>
+  <li>Learn something from the displayed values, identify what’s wrong, and fix
+your bug! Click <img src="/labs/lab02/img/stop.png" alt="stop" class="inline" /> to stop the debug session.</li>
+  <li>Click <img src="/labs/lab02/img/resume.png" alt="resume" class="inline" /> to resume the program (until it
+hits another breakpoint or terminates).</li>
+  <li>Click <img src="/labs/lab02/img/step-over.png" alt="step over" class="inline" /> to advance the program by
+one line of code.
+    <ul>
+      <li><img src="/labs/lab02/img/step-into.png" alt="step into" class="inline" /> does something similar, but
+it will step into any method called in the current line, while
+<img src="/labs/lab02/img/step-over.png" alt="step over" class="inline" /> will step over it.</li>
+      <li><img src="/labs/lab02/img/step-out.png" alt="step out" class="inline" /> will advance the program until
+after it returns from the current method.</li>
+    </ul>
+  </li>
+  <li>If you accidentally step too far and want to start the session over, click
+<img src="/labs/lab02/img/rerun.png" alt="rerun" class="inline" /> (at least right now, there isn’t a good way to directly 
+step back).</li>
+</ul>
+<h3 id="bomb-introduction-phase-0">
+  
+  
+    <a href="#bomb-introduction-phase-0" class="anchor-heading" aria-labelledby="bomb-introduction-phase-0"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">Bomb</code> Introduction (Phase 0)
+  
+  
+</h3>
+    
+
+<p class="info">For this lab, we will be providing method breakdowns if you want an 
+overview of the method/phase that you’re debugging.</p>
+
+<p class="task">Set a breakpoint at <code class="language-plaintext highlighter-rouge">phase0</code> and use the debugger to find the password
+for <code class="language-plaintext highlighter-rouge">phase0</code> and replace the <code class="language-plaintext highlighter-rouge">phase0</code> argument accordingly in
+<code class="language-plaintext highlighter-rouge">bomb/BombMain.java</code>. You can start the program from <code class="language-plaintext highlighter-rouge">testBombPhase0</code> in 
+<code class="language-plaintext highlighter-rouge">tests/bomb/BombTest.java</code>.</p>
+
+<p>Once you’ve found the correct password, running the code (not in debug mode)
+should output <code class="language-plaintext highlighter-rouge">You passed phase 0 with the password \&lt;password\&gt;!</code> instead of
+<code class="language-plaintext highlighter-rouge">Phase 0 went BOOM!</code></p>
+
+<details>
+  <summary>
+
+    <p><strong><code class="language-plaintext highlighter-rouge">phase0</code> Method Breakdown</strong></p>
+
+  </summary>
+
+  <p>The <code class="language-plaintext highlighter-rouge">phase0</code> method first generates a secret String <code class="language-plaintext highlighter-rouge">correctPassword</code> (you don’t
+need to understand how <code class="language-plaintext highlighter-rouge">shufflePassword</code> works). The <code class="language-plaintext highlighter-rouge">password</code> passed in from
+<code class="language-plaintext highlighter-rouge">BombMain</code> is then compared against <code class="language-plaintext highlighter-rouge">correctPassword</code>. The goal of this phase is
+to use the debugger to find the value of <code class="language-plaintext highlighter-rouge">correctPassword</code> and pass in a
+<code class="language-plaintext highlighter-rouge">password</code> that matches that value!</p>
+
+</details>
+<h3 id="visualizer-phase-1">
+  
+  
+    <a href="#visualizer-phase-1" class="anchor-heading" aria-labelledby="visualizer-phase-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Visualizer (Phase 1)
+  
+  
+</h3>
+    
+
+<p>For this portion of the lab, we’ll be working with <code class="language-plaintext highlighter-rouge">IntList</code>. If you need a quick recap, 
+refer to the relevant lecture slides from this week.</p>
+
+<p>Adding to our implementation of <code class="language-plaintext highlighter-rouge">IntList</code> are two methods that may not have been 
+mentioned: <code class="language-plaintext highlighter-rouge">print</code> and <code class="language-plaintext highlighter-rouge">of</code>. The <code class="language-plaintext highlighter-rouge">of</code> method makes it more convenient to create <code class="language-plaintext highlighter-rouge">IntList</code>s. 
+Here’s a brief demonstration of how it works. Consider the following code:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IntList lst <span class="o">=</span> new IntList<span class="o">(</span>1, new IntList<span class="o">(</span>2, new IntList<span class="o">(</span>3, null<span class="o">)))</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>That’s a lot of typing for just a list of 1, 2, and 3 (quite confusing too)! 
+The <code class="language-plaintext highlighter-rouge">IntList.of</code> method addresses this problem. To create an IntList containing 
+the elements 1, 2, and 3, you can simply type:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IntList lst <span class="o">=</span> IntList.of<span class="o">(</span>1, 2, 3<span class="o">)</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The other method <code class="language-plaintext highlighter-rouge">print</code> returns a <code class="language-plaintext highlighter-rouge">String</code> representation of an IntList.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IntList lst <span class="o">=</span> IntList.of<span class="o">(</span>1, 2, 3<span class="o">)</span><span class="p">;</span>
+System.out.println<span class="o">(</span>lst.print<span class="o">())</span>
+// Output: 1 -&gt; 2 -&gt; 3
+</code></pre></div></div>
+
+<p>Back to debugging - while being able to see variable values is great, sometimes we have data that’s
+not the easiest to inspect. For example, to look at long <code class="language-plaintext highlighter-rouge">IntList</code>s, we need to
+click a lot of dropdowns. The Java Visualizer shows a box-and-pointer diagram of
+the variables in your program, which is much better suited for <code class="language-plaintext highlighter-rouge">IntList</code>s. To
+use the visualizer, run the debugger until you stop at a breakpoint, then click
+the “Java Visualizer” tab. The tab is outlined in red below.</p>
+
+<p><img src="/labs/lab02/img/java_visualizer.png" alt="Java Visualizer Tab" /></p>
+
+<p><strong>The password for phase 1 is an <code class="language-plaintext highlighter-rouge">IntList</code>, not a <code class="language-plaintext highlighter-rouge">String</code>. You may find the
+<code class="language-plaintext highlighter-rouge">IntList.of</code> method helpful.</strong></p>
+
+<p class="task">Set a breakpoint at <code class="language-plaintext highlighter-rouge">phase1</code> and use the Java Visualizer
+to find the password for <code class="language-plaintext highlighter-rouge">phase1</code> and replace the <code class="language-plaintext highlighter-rouge">phase1</code> argument accordingly
+in <code class="language-plaintext highlighter-rouge">bomb/BombMain.java</code>. You can start the program from <code class="language-plaintext highlighter-rouge">testBombPhase1</code> in
+<code class="language-plaintext highlighter-rouge">tests/bomb/BombTest.java</code>.</p>
+
+<details>
+  <summary>
+
+    <p><strong><code class="language-plaintext highlighter-rouge">phase1</code> Method Breakdown</strong></p>
+
+  </summary>
+
+  <p>The <code class="language-plaintext highlighter-rouge">phase1</code> method generates a secret <code class="language-plaintext highlighter-rouge">IntList</code> called <code class="language-plaintext highlighter-rouge">correctIntListPassword</code>
+(similar to the previous phase, you don’t need to understand how
+<code class="language-plaintext highlighter-rouge">shufflePasswordIntList</code> works). The <code class="language-plaintext highlighter-rouge">password</code> (in the form of an <code class="language-plaintext highlighter-rouge">IntList</code>)
+passed in from <code class="language-plaintext highlighter-rouge">BombMain</code> is then compared against the <code class="language-plaintext highlighter-rouge">correctIntListPassword</code>
+for equality. The goal of this phase is to use the debugger’s Java Visualizer to
+find the structure and value of the <code class="language-plaintext highlighter-rouge">correctIntListPassword</code>’s IntList and pass
+in a <code class="language-plaintext highlighter-rouge">password</code> that matches it!</p>
+
+</details>
+<h3 id="conditional-breakpoints-phase-2">
+  
+  
+    <a href="#conditional-breakpoints-phase-2" class="anchor-heading" aria-labelledby="conditional-breakpoints-phase-2"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Conditional Breakpoints (Phase 2)
+  
+  
+</h3>
+    
+
+<p>Consider a program that loops 5000 times - trying to step 
+through each time to find the error wouldn’t be too efficient. Instead, you would want 
+your program to pause on a specific iteration, such as the last one. In other words, you 
+would want your program to pause on certain conditions. To do so, create a breakpoint at the 
+line of interest and open the “Edit breakpoint” menu by right-clicking the breakpoint icon itself. 
+There, you can enter a boolean condition such that the program will only pause at this
+breakpoint if the condition is true. It will look something like this:</p>
+
+<p><img src="/labs/lab02/img/conditional_breakpoint.png" alt="Conditional Breakpoint" /></p>
+
+<p>Another thing you can do is to set breakpoints for exceptions in Java. If your
+program is crashing, you can have the debugger pause where the exception is
+thrown and display the state of your program. To do so, click
+<img src="/labs/lab02/img/view-breakpoints.png" alt="view breakpoint" class="inline" />
+in the debugger window and press the plus icon to create a “Java Exception
+Breakpoint”. In the window that should appear, enter the name of the exception
+that your program is throwing.</p>
+
+<p class="task">Set a breakpoint at <code class="language-plaintext highlighter-rouge">phase2</code> and use the debugger to find the password
+for <code class="language-plaintext highlighter-rouge">phase2</code> and replace the <code class="language-plaintext highlighter-rouge">phase2</code> argument accordingly in
+<code class="language-plaintext highlighter-rouge">bomb/BombMain.java</code>. Remember, don’t edit <code class="language-plaintext highlighter-rouge">Bomb.java</code>! You can start the program 
+from <code class="language-plaintext highlighter-rouge">testBombPhase2</code> in <code class="language-plaintext highlighter-rouge">tests/bomb/BombTest.java</code>.</p>
+
+<p class="info"><strong>NOTE</strong>: The password isn’t given explicitly like in the previous phases.
+Rather, your task is to “try to find it” using a conditional breakpoint.</p>
+
+<details>
+  <summary>
+
+    <p><strong><code class="language-plaintext highlighter-rouge">phase2</code> Method Breakdown</strong></p>
+
+  </summary>
+
+  <p>The <code class="language-plaintext highlighter-rouge">phase2</code> method takes in your <code class="language-plaintext highlighter-rouge">password</code> from <code class="language-plaintext highlighter-rouge">BombMain</code>.</p>
+
+  <p>The method adds 100,000 random integers to a <code class="language-plaintext highlighter-rouge">Set</code> called <code class="language-plaintext highlighter-rouge">numbers</code>. It
+then loops through them using a for-each loop, incrementing a variable <code class="language-plaintext highlighter-rouge">i</code> as it
+goes along. On the 1338th iteration (because Java is zero-indexed, <code class="language-plaintext highlighter-rouge">i == 1337</code>
+on iteration 1338), we check whether your password is equal to the current
+<code class="language-plaintext highlighter-rouge">number</code>.</p>
+
+</details><hr />
+
+<p>At this point, you should be able to run the tests in <code class="language-plaintext highlighter-rouge">tests/bomb/BombTest.java</code>
+and have all of them pass with a green checkmark.</p>
+<h2 id="deliverables-and-scoring">
+  
+  
+    <a href="#deliverables-and-scoring" class="anchor-heading" aria-labelledby="deliverables-and-scoring"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Deliverables and Scoring
+  
+  
+</h2>
+    
+
+<p class="warning"><strong>Make sure you did not edit <code class="language-plaintext highlighter-rouge">Bomb.java</code> or <code class="language-plaintext highlighter-rouge">BombTest.java</code>.</strong> There are tests 
+on the autograder that check if you edited those files and you will not pass 
+if there are changes in the file (this includes adding comments). <strong>The 
+local tests prevent you from editing <code class="language-plaintext highlighter-rouge">Bomb.java</code>, but not <code class="language-plaintext highlighter-rouge">BombTest.java</code>
+(this is only on the autograder), so do not touch those files!</strong></p>
+
+<p>The lab is out of 5 points.</p>
+
+<ul>
+  <li>Find all the passwords in <code class="language-plaintext highlighter-rouge">BombMain.java</code> and ensure that you pass all tests locally 
+before submitting to Gradescope.</li>
+</ul>
+<h2 id="submission">
+  
+  
+    <a href="#submission" class="anchor-heading" aria-labelledby="submission"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submission
+  
+  
+</h2>
+    
+
+<p>Just as you did in Lab 1, add, commit, then push your Lab 2 code to GitHub.
+Then, submit to Gradescope to test your code. If you need a refresher, check
+out the instructions in the
+<a href="/labs/lab01/#submitting-to-gradescope">Lab 1 spec</a> and the
+<a href="/resources/guides/assignment-workflow/#opening-in-intellij">Assignment Workflow Guide</a>.</p>
+<h2 id="acknowledgements">
+  
+  
+    <a href="#acknowledgements" class="anchor-heading" aria-labelledby="acknowledgements"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Acknowledgements
+  
+  
+</h2>
+    
+
+<p>This assignment is adapted from Adam Blank.**</p>
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

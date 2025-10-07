@@ -1,0 +1,224 @@
+// Just the Class dependencies
+@import "card";
+
+// Just the Class styles
+@import "announcement";
+@import "module";
+@import "schedule";
+@import "staffer";
+
+// Begin CS 61B
+@import "toc";
+
+td {
+  min-width: 0;
+}
+
+th {
+  min-width: 0;
+}
+
+table {
+  td.week {
+    text-align: center;
+  }
+  td.border-hack {
+    border-left: 1px solid $border-color;
+  }
+  td.optional {
+    background-color: #FEF0F0
+  }
+  td.homework {
+    background-color: rgba($yellow-000, 0.15)
+  }
+  td.project {
+    background-color: rgba($green-000, 0.15)
+  }
+  td.blank {
+    background-color: darken($body-background-color, 3%)
+  }
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: $grey-dk-000
+}
+
+a.schedule-title {
+  color: $blue-200;
+  text-decoration: underline;
+  text-decoration-color: rgba($grey-dk-000, 0.3);
+  font-weight: 500;
+
+  &:hover {
+    text-decoration-color: $blue-200;
+  }
+}
+
+.main-content h4 {
+  font-size: 16px !important; 
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0em;
+  color: $purple-000;
+}
+
+// Button copying
+.no-copy-button .btn-copy-code {
+  display: none;
+}
+.btn-copy-code {
+  font-size: 85%;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+}
+.btn-copy-code:hover {
+  cursor: pointer;
+}
+div.highlight:hover .btn-copy-code,
+div.highlight .btn-copy-code:focus {
+  opacity: 1;
+}
+div.highlight .btn-copy-code:hover {
+  opacity: 1;
+}
+div.highlight {
+  position: relative;
+}
+img.inline {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
+}
+
+// End CS 61B
+
+// Overrides
+
+code {
+  font-size: 0.85em;
+  padding: 0.2em 0.4em;
+  border: none;
+}
+
+details {
+  margin: 0 1em 1em;
+  padding: 0.6em 1em;
+  border-radius: 4px;
+  background-color: rgba($blue-000, 0.2);
+  border-left: 4px solid $blue-000;
+  box-shadow: 0 1px 2px rbga(0, 0, 0, 0.12);
+}
+
+iframe,
+summary {
+  max-width: 100%;
+}
+
+ summary {
+   @extend .btn, .btn-outline;
+ }
+
+.main-content-wrap {
+  max-width: $content-width;
+  margin: auto;
+}
+
+.main-content {
+  dl {
+    display: block;
+    grid-template-columns: none;
+  }
+
+  dt {
+    font-weight: 700;
+    text-align: start;
+
+    &::after {
+      content: normal;
+    }
+  }
+
+  dd {
+    font-weight: normal;
+
+    + dt {
+      margin-top: 1em;
+    }
+  }
+}
+
+.js-toc.nav-list .nav-list-item > .nav-list {
+  display: block;
+
+  .is-collapsed {
+    display: none;
+  }
+}
+
+// Begin UCB header fixes
+
+.main-header {
+  position: fixed;  // Sticky header (stays on top as you scroll)
+  top: 0;           // Forces header on top of page
+  z-index: 1000;    // Forces header drawn on top of everything else
+}
+
+// Forces site title in sidebar to be flush with header
+.side-bar {
+  top: 0;
+  left: 0;
+}
+
+// Add whitespace between header and start of content (site title, logo)
+.main-content-wrap {
+  margin-top: 60px;
+}
+
+// If width of display is less than content-width, header is invisible
+// so no extra CSS is needed
+
+h1, h2, h3, td {
+  scroll-margin-top: 60px;
+}
+
+// If width of display is at least content width:
+@media (min-width: $content-width) {
+  // Make the site title in the sidebar smaller
+  .site-title {
+    font-size: 19px !important;
+  }
+
+  // Header width should be all of display, minus sidebar
+  // Seems like JTD fixes sidebar to 15.5rem in this layout (might be wrong tho)
+  .main-header {
+    width: calc(100% - 15.5rem);
+  }
+
+  // Make sure right TOC isn't buried below sticky header.
+  .content-nav {
+    top: 6em;
+  }
+}
+
+// If width of display is at least content+nav width
+// (i.e. whitespace on either side of site):
+@media (min-width: $content-width + $nav-width) {
+  // Set default site title in sidebar font size
+  .site-title {
+    font-size: 22px !important;
+  }
+
+  // Header should match content width (e.g. in wider.scss)
+  .main-header {
+    width: $content-width;
+  }
+}
+
+// End UCB header fixes

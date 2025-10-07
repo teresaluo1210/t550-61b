@@ -1,0 +1,1242 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(3)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(3) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(5) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(5) > ul > li:nth-child(3) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(5) > ul.nav-list > li.nav-list-item:nth-child(3) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>3A: World Generation | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="3A: World Generation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Project 3A spec." />
+<meta property="og:description" content="Project 3A spec." />
+<link rel="canonical" href="http://localhost:4000/projects/proj3/proj3a/" />
+<meta property="og:url" content="http://localhost:4000/projects/proj3/proj3a/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="3A: World Generation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Project 3A spec.","headline":"3A: World Generation","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/projects/proj3/proj3a/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/projects/">Projects</a></li>
+    <li class="breadcrumb-nav-list-item"><a href="/projects/proj3/">Project 3: Build Your Own World</a></li>
+    <li class="breadcrumb-nav-list-item"><span>3A: World Generation</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">3A: World Generation<ul><li class="nav-list-item"><a href="#deadlines" class="nav-list-link">Deadlines</a></li><li class="nav-list-item"><a href="#code-overview" class="nav-list-link">Code Overview</a><ul><li class="nav-list-item"><a href="#lab-9" class="nav-list-link">Lab 9</a></li><li class="nav-list-item"><a href="#skeleton-code" class="nav-list-link">Skeleton Code</a></li><li class="nav-list-item"><a href="#imports" class="nav-list-link">Imports</a></li></ul></li><li class="nav-list-item"><a href="#conceptual-overview" class="nav-list-link">Conceptual Overview</a><ul><li class="nav-list-item"><a href="#creating-a-tile-array" class="nav-list-link">Creating a Tile Array</a></li><li class="nav-list-item"><a href="#rendering-tiles" class="nav-list-link">Rendering Tiles</a></li><li class="nav-list-item"><a href="#pseudo-randomness" class="nav-list-link">Pseudo-Randomness</a></li></ul></li><li class="nav-list-item"><a href="#world-requirements" class="nav-list-link">World Requirements</a><ul><li class="nav-list-item"><a href="#valid" class="nav-list-link">Valid</a></li><li class="nav-list-item"><a href="#pseudorandom" class="nav-list-link">Pseudorandom</a></li><li class="nav-list-item"><a href="#clarifications" class="nav-list-link">Clarifications</a></li></ul></li><li class="nav-list-item"><a href="#task-2-design-document" class="nav-list-link">Task 2: Design Document</a></li><li class="nav-list-item"><a href="#task-3-world-generation" class="nav-list-link">Task 3: World Generation</a></li><li class="nav-list-item"><a href="#deliverables" class="nav-list-link">Deliverables</a><ul><li class="nav-list-item"><a href="#design-doc" class="nav-list-link">Design Doc</a></li><li class="nav-list-item"><a href="#world-screenshots" class="nav-list-link">World Screenshots</a></li><li class="nav-list-item"><a href="#mid-project-partnership-form" class="nav-list-link">Mid-Project Partnership Form</a></li><li class="nav-list-item"><a href="#style" class="nav-list-link">Style</a></li></ul></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    3A: World Generation
+  
+  
+</h1>
+    
+<h2 id="deadlines">
+  
+  
+    <a href="#deadlines" class="anchor-heading" aria-labelledby="deadlines"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Deadlines
+  
+  
+</h2>
+    
+
+<div>
+
+<style type="text/css">
+
+.proj3-table {
+  all: revert;
+  border-collapse: collapse !important;
+}
+
+.proj3-header-cell {
+  border: 2px solid;
+  border-left: 2px solid !important;
+}
+
+.proj3-intro-cell {
+  border: 2px solid;
+  border-left: 2px solid !important;
+  border-bottom: 2px solid !important;
+  background-color:rgba(114,83,237,0.2);
+}
+
+.proj3a-cell {
+  border: 2px solid;
+  border-left: 2px solid !important;
+  border-bottom: 2px solid !important;
+  background-color:rgba(44,132,250,0.15);
+}
+
+.proj3b-cell {
+  border: 2px solid;
+  border-left: 2px solid !important;
+  border-bottom: 2px solid !important;
+  background-color:rgba(65,214,147,0.15);
+}
+
+</style>
+
+Warning: There are <b>3 deadlines</b> for this project, and some deadlines require you to submit <b>multiple deliverables</b>. Please double-check that you submitted everything!
+
+<div class="table-wrapper"><table class="proj3-table"><thead>
+  <tr>
+    <th class="proj3-header-cell">Assignment</th>
+    <th class="proj3-header-cell">Tasks</th>
+    <th class="proj3-header-cell">Deliverable</th>
+    <th class="proj3-header-cell">Points</th>
+    <th class="proj3-header-cell">Due Date</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td class="proj3-intro-cell">Team Formation</td>
+    <td class="proj3-intro-cell">- Task 0: Partnerships</td>
+    <td class="proj3-intro-cell">Pre-Project <b>Google Form</b></td>
+    <td class="proj3-intro-cell">2.5</td>
+    <td class="proj3-intro-cell">Wed, Apr 9<br />11:59pm PT</td>
+  </tr>
+  <tr>
+    <td class="proj3a-cell" rowspan="3">Project 3A</td>
+    <td class="proj3a-cell" rowspan="3">- Task 1: Setup<br />- Task 2: Design Document<br />- Task 3: World Generation</td>
+    <td class="proj3a-cell">World Screenshots on <b>Gradescope</b></td>
+    <td class="proj3a-cell">10</td>
+    <td class="proj3a-cell" rowspan="3">Fri, Apr 18<br />11:59pm PT</td>
+  </tr>
+  <tr>
+    <td class="proj3a-cell">Design Document</td>
+    <td class="proj3a-cell">7.5</td>
+  </tr>
+  <tr>
+    <td class="proj3a-cell">Mid-Project Google Form</td>
+    <td class="proj3a-cell">2.5</td>
+  </tr>
+  <tr>
+    <td class="proj3b-cell" rowspan="3">Project 3B</td>
+    <td class="proj3b-cell" rowspan="3">- Task 4: Main Menu<br />- Task 5: Interactivity<br />- Task 6: HUD<br />- Task 7: Saving and Loading<br />- Task 8: Ambition Features</td>
+    <td class="proj3b-cell">Code on <b>Gradescope</b><br />(0 pts, but required for checkoff)<br /></td>
+    <td class="proj3b-cell">0</td>
+    <td class="proj3b-cell" rowspan="3">Tue, Apr 29<br />11:59pm PT</td>
+  </tr>
+  <tr>
+    <td class="proj3b-cell"><b>Live Checkoff</b> with TA<br />(Checkoffs will happen 4/28 – 5/2)</td>
+    <td class="proj3b-cell">100</td>
+  </tr>
+  <tr>
+    <td class="proj3b-cell">Post-Project <b>Google Form</b></td>
+    <td class="proj3b-cell">2.5</td>
+  </tr>
+</tbody>
+</table></div>
+
+To request extensions on Project 3, <b>both partners</b> need to submit separate extension requests on Beacon.
+
+</div>
+<h2 id="code-overview">
+  
+  
+    <a href="#code-overview" class="anchor-heading" aria-labelledby="code-overview"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Code Overview
+  
+  
+</h2>
+    
+<h3 id="lab-9">
+  
+  
+    <a href="#lab-9" class="anchor-heading" aria-labelledby="lab-9"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Lab 9
+  
+  
+</h3>
+    
+
+<p>Before you start this project, <strong>we highly recommend that you complete at least the first 3 tasks in lab 9</strong>. These tasks will introduce you to:</p>
+<ul>
+  <li>The Project 3 tile engine.</li>
+  <li>The StdDraw library.</li>
+  <li>Creating a simple user interface and a real time “game loop”.</li>
+  <li>Saving and loading the state of a simulation (task 4).</li>
+</ul>
+<h3 id="skeleton-code">
+  
+  
+    <a href="#skeleton-code" class="anchor-heading" aria-labelledby="skeleton-code"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Skeleton Code
+  
+  
+</h3>
+    
+
+<blockquote class="info">
+  <p><a href="https://youtu.be/A8NlkICBWL8">A walkthrough of the new skeleton code is available here.</a></p>
+
+  <p>This is from a past semester, so some terms may be outdated (e.g. “Phase 1” is now “Project 3A” and the “AutograderBuddy” is now deprecated).</p>
+</blockquote>
+
+<p>In the <code class="language-plaintext highlighter-rouge">TileEngine</code> package, you’ll find the following useful files:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TERenderer.java</code> contains rendering-related methods.</li>
+  <li><code class="language-plaintext highlighter-rouge">TETile.java</code> represents a tile.</li>
+  <li><code class="language-plaintext highlighter-rouge">Tileset.java</code> has some pre-made tile designs that you can use.</li>
+</ul>
+
+<p>In the <code class="language-plaintext highlighter-rouge">Utils</code> package, you’ll find the following useful file:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">RandomUtils.java</code> has methods for generating randomness for your world.</li>
+</ul>
+
+<p>In the <code class="language-plaintext highlighter-rouge">Core</code> package, you’ll write code for your game. We recommend putting all your code in this package (though this is not required).</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Main.java</code> is how your user starts the entire system.</li>
+  <li><code class="language-plaintext highlighter-rouge">World.java</code> represents your world!</li>
+  <li>You can add other classes of your own, too!</li>
+</ul>
+
+<p>This project makes heavy use of <code class="language-plaintext highlighter-rouge">StdDraw</code>, which is a package that has basic graphics rendering capabilities. Additionally, it supports user interaction with keyboard and mouse clicks. You will likely need to consult the API specification for <code class="language-plaintext highlighter-rouge">StdDraw</code> at some points in the project. <a href="https://introcs.cs.princeton.edu/java/stdlib/javadoc/StdDraw.html">See here for the API specification.</a></p>
+<h3 id="imports">
+  
+  
+    <a href="#imports" class="anchor-heading" aria-labelledby="imports"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Imports
+  
+  
+</h3>
+    
+
+<p>Your project should only use standard Java libraries or any libraries we provided with your repo and <code class="language-plaintext highlighter-rouge">library-sp25</code>.</p>
+
+<p>Here is a non-comprehensive list of allowed imports:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">java.util.List</code>, <code class="language-plaintext highlighter-rouge">java.util.ArrayList</code>, <code class="language-plaintext highlighter-rouge">java.util.Collections</code>, <code class="language-plaintext highlighter-rouge">java.awt.*</code>, <code class="language-plaintext highlighter-rouge">java.io.*</code>, or anything else starting with <code class="language-plaintext highlighter-rouge">java.</code> is fine.</li>
+  <li><code class="language-plaintext highlighter-rouge">javax.sound</code>, <code class="language-plaintext highlighter-rouge">javax.imageio</code>, <code class="language-plaintext highlighter-rouge">javax.swing.JOptionPane</code>, or anything else starting with <code class="language-plaintext highlighter-rouge">javax.</code> is fine.</li>
+  <li><code class="language-plaintext highlighter-rouge">edu.princeton.cs.algs4.StdDraw</code>, <code class="language-plaintext highlighter-rouge">edu.princeton.cs.algs4.StdAudio</code>, or anything else starting with <code class="language-plaintext highlighter-rouge">edu.princeton.cs.algs4.</code> is fine, because this is in <code class="language-plaintext highlighter-rouge">library-sp25</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">tileengine.TETile</code>, <code class="language-plaintext highlighter-rouge">utils.RandomUtils</code>, or anything else starting with <code class="language-plaintext highlighter-rouge">tileengine.</code> or <code class="language-plaintext highlighter-rouge">utils.</code> is fine, because these are the starter code.</li>
+</ul>
+<h2 id="conceptual-overview">
+  
+  
+    <a href="#conceptual-overview" class="anchor-heading" aria-labelledby="conceptual-overview"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Conceptual Overview
+  
+  
+</h2>
+    
+<h3 id="creating-a-tile-array">
+  
+  
+    <a href="#creating-a-tile-array" class="anchor-heading" aria-labelledby="creating-a-tile-array"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Creating a Tile Array
+  
+  
+</h3>
+    
+
+<p>At a high level, your goal is to create a 2D array of <code class="language-plaintext highlighter-rouge">TETile</code> objects, and fill in the array with different tiles, to create a nice-looking world. Then, you can call one of our library functions to display this world to the user.</p>
+
+<p>Important notes on orientation:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">world[0][0]</code> corresponds to the <strong>bottom-left</strong> tile of the world.</li>
+  <li>The first coordinate is the x-coordinate. For example, <code class="language-plaintext highlighter-rouge">world[8][0]</code> is 8 spaces to the right of the bottom-left tile.</li>
+  <li>The second coordinate is the y-coordinate. For example, <code class="language-plaintext highlighter-rouge">world[0][3]</code> is 3 spaces above the bottom-left tile.</li>
+</ul>
+
+<p><img alt="2D grid with coordinates (0,0) at bottom-left, (8,0) at bottom-right, and (0,3) at top-right." src="../assets/proj3a/coords.png" /></p>
+
+<p>If you’re unsure of the tile layout, <strong>you should complete lab 9</strong> in which you’ll write some short sample programs that draw sample grids to deepen your understanding. If you confuse x/y or up/down, you’re going to be incredibly confused when debugging.</p>
+
+<p>Each entry of the 2D array can be filled in with a tile from our default library of tiles in <code class="language-plaintext highlighter-rouge">Tileset.java</code>.</p>
+
+<p>Here’s a snippet of code that creates a world with width 5 and height 3, and fills in a few squares:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">WIDTH</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">HEIGHT</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+
+<span class="c1">// Create grid of tiles (all null to begin with).</span>
+<span class="nc">TETile</span><span class="o">[][]</span> <span class="n">world</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TETile</span><span class="o">[</span><span class="no">WIDTH</span><span class="o">][</span><span class="no">HEIGHT</span><span class="o">];</span>
+
+<span class="c1">// Fill grid with NOTHING tiles.</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="no">WIDTH</span><span class="o">;</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="no">HEIGHT</span><span class="o">;</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">world</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Tileset</span><span class="o">.</span><span class="na">NOTHING</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// Add some tiles to the grid.</span>
+<span class="n">world</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Tileset</span><span class="o">.</span><span class="na">WALL</span><span class="o">;</span>     <span class="c1">// The # sign.</span>
+<span class="n">world</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Tileset</span><span class="o">.</span><span class="na">FLOWER</span><span class="o">;</span>   <span class="c1">// The pink flower.</span>
+<span class="n">world</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Tileset</span><span class="o">.</span><span class="na">MOUNTAIN</span><span class="o">;</span> <span class="c1">// The gray triangle.</span>
+</code></pre></div></div>
+
+<p>The resulting world would look like this when it’s rendered:</p>
+
+<p><img alt="2D grid with coordinates (0,1), (3,0), and (2,2) filled in." src="../assets/proj3a/filling-tiles.png" /></p>
+
+<p>Notice that we had to explicitly assign unused squares to <code class="language-plaintext highlighter-rouge">Tileset.NOTHING</code>, the pure black tile. If you don’t initialize unused squares, you’ll get a NullPointerException when you try to draw the world.</p>
+<h3 id="rendering-tiles">
+  
+  
+    <a href="#rendering-tiles" class="anchor-heading" aria-labelledby="rendering-tiles"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Rendering Tiles
+  
+  
+</h3>
+    
+
+<p>Once you have your 2D world array, it’s time to show it to the user!</p>
+
+<p>Here’s a snippet of code that takes in a 2D world array, and displays it to the user:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Initialize the tile rendering engine with a window of size WIDTH x HEIGHT. Call this only once.</span>
+<span class="nc">TERenderer</span> <span class="n">ter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TERenderer</span><span class="o">();</span>
+<span class="n">ter</span><span class="o">.</span><span class="na">initialize</span><span class="o">(</span><span class="no">WIDTH</span><span class="o">,</span> <span class="no">HEIGHT</span><span class="o">);</span>
+
+<span class="c1">// Create and fill grid of tiles (all null to begin with).</span>
+<span class="c1">// Omitted: Code to fill the grid with tiles.</span>
+<span class="nc">TETile</span><span class="o">[][]</span> <span class="n">world</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TETile</span><span class="o">[</span><span class="no">WIDTH</span><span class="o">][</span><span class="no">HEIGHT</span><span class="o">];</span>
+<span class="o">...</span>
+
+<span class="c1">// Draw the 2D grid to the screen. Call this every time you re-draw the world.</span>
+<span class="n">ter</span><span class="o">.</span><span class="na">renderFrame</span><span class="o">(</span><span class="n">world</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Note: Later in the project, you’ll be animating the game (displaying different worlds as the user moves around). Be sure to call <code class="language-plaintext highlighter-rouge">initialize</code> only once, to set up the window. Then, you can call <code class="language-plaintext highlighter-rouge">render</code> as many times as you want.</p>
+
+<p>The rendering engine calls all the necessary <code class="language-plaintext highlighter-rouge">StdDraw</code> methods for you. We recommend against using <code class="language-plaintext highlighter-rouge">StdDraw</code> commands like <code class="language-plaintext highlighter-rouge">setXScale</code> or <code class="language-plaintext highlighter-rouge">setYScale</code> unless you really know what you’re doing, as you may considerably alter or damage the <em>a e s t h e t i c</em> of the system otherwise.</p>
+<h3 id="pseudo-randomness">
+  
+  
+    <a href="#pseudo-randomness" class="anchor-heading" aria-labelledby="pseudo-randomness"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Pseudo-Randomness
+  
+  
+</h3>
+    
+
+<p>To generate random numbers in Java, we can use create a <code class="language-plaintext highlighter-rouge">Random</code> object, which represents a random number generator:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span> <span class="c1">// Totally random. Don't do this in Project 3.</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>Every time you run this program, you’ll get 3 totally random integers.</p>
+
+<p>What if we want to control the output of the random number generator (e.g. for debugging purposes)? In that case, we can provide a <strong>seed</strong> to the constructor:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span> <span class="c1">// Pseudorandom. Do this in Project 3.</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">r</code> is now a <strong>pseudorandom</strong> number generator, because it generates a deterministic sequence of random-looking numbers based on the seed you provide.</p>
+
+<p>If you provide the same seed, you will get the same sequence of values. For example, every time you run this program, <strong>you will get the same 3 integers</strong>.</p>
+
+<p>Here’s another example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">(</span><span class="mi">82731</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">());</span>
+<span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">(</span><span class="mi">82731</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>This code snippet will always print out the same number twice. If you run this program multiple times, you’ll still get the same number twice.</p>
+
+<p>In Project 3, you should always seed your Random objects, so that your worlds look random, but you can re-create them consistently for debugging and grading purposes. The <strong>RandomUtils</strong> class provides some useful methods for getting other types of randomness out of a <code class="language-plaintext highlighter-rouge">Random</code> object, examples include:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">int uniform(Random random, int a, int b)</code>: Returns an integer from the range <code class="language-plaintext highlighter-rouge">[a, b)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">T randomChoice(Random random, List&lt;T&gt; items)</code>: Returns a random item from items.</li>
+  <li><code class="language-plaintext highlighter-rouge">void shuffle(Random random, Object[] a)</code>: Shuffles the given array.</li>
+  <li><code class="language-plaintext highlighter-rouge">double gaussian(Random random, double mu, double sigma)</code>: Gives a sample from a Gaussian distribution.</li>
+</ul>
+
+<p>Note: Most students won’t use any of the fancy stuff from <code class="language-plaintext highlighter-rouge">RandomUtils</code>.</p>
+<h2 id="world-requirements">
+  
+  
+    <a href="#world-requirements" class="anchor-heading" aria-labelledby="world-requirements"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> World Requirements
+  
+  
+</h2>
+    
+
+<p>Your goal in Project 3A is to write a world generator that can create pseudorandom worlds with hallways and floors.</p>
+
+<p>Here are some examples of valid worlds, where <code class="language-plaintext highlighter-rouge">#</code> is wall, dot/quote is floor, and the empty square is the empty space (outside the world).</p>
+
+<p><img alt="A valid 2D world with hallways and rooms." src="../assets/proj3a/valid-world.png" /></p>
+
+<p><img alt="Another valid 2D world with hallways and rooms." src="../assets/proj3a/valid-world-2.png" /></p>
+<h3 id="valid">
+  
+  
+    <a href="#valid" class="anchor-heading" aria-labelledby="valid"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Valid
+  
+  
+</h3>
+    
+
+<p><strong>Requirements for a valid world:</strong></p>
+
+<ol>
+  <li>
+    <p>The world must include distinct rooms and hallways. For any floor square, it should be obvious whether that square belongs to a room or a hallway.</p>
+
+    <p>It’s okay if you occasionally generate some worlds where a few squares are ambiguous, but the vast majority (&gt;90%) of floor squares should be clearly identifiable as a room or a hallway.</p>
+
+    <p>Overlapping rooms are fine, as long as it’s clear that the squares belong to rooms, not hallways.</p>
+
+    <details>
+     <summary>(click to expand) Examples of invalid worlds, because we can't tell where rooms and hallways are.</summary>
+
+     <img alt="Invalid world where hallways and rooms are indistinguishable." src="../assets/proj3a/invalid-indistinct-hallways.png" />
+
+     <img alt="Another invalid world where hallways and rooms are indistinguishable." src="../assets/proj3a/invalid-indistinct-hallways2.png" />
+ </details>
+  </li>
+  <li>
+    <p>At least some rooms should be rectangular. You can optionally support rooms of other shapes as well.</p>
+  </li>
+  <li>
+    <p>Hallways should be width-1 or width-2. However, hallways must be visually distinct from rooms. The vast majority of students use width-1 hallways.</p>
+
+    <details>
+     <summary>(click to expand) Examples of hallway widths.</summary>
+
+     <br />
+
+     Below is a width 1 hallway (most/all hallways should look like this):
+
+     <br />
+
+     <img alt="Width 1 hallway." src="../assets/proj3a/width1-hallway.png" />
+
+     <br />
+
+     Below is a width 2 hallway:
+
+     <br />
+
+     <img alt="Width 2 hallway." src="../assets/proj3a/width2-hallway.png" />
+ </details>
+  </li>
+  <li>
+    <p>Your world generator must be capable of generating hallways that include turns (or equivalently, straight hallways that intersect). Random worlds should generate a turning hallway with high frequency, in that a majority of worlds should have a turning hallway.</p>
+  </li>
+  <li>
+    <p>The world should not have any dead-end hallways. Hallways should always lead into rooms.</p>
+
+    <details>
+     <summary>(click to expand) Example of an invalid world, because it has a dead-end hallway.</summary>
+
+     <img alt="Invalid world where there's a dead-end hallway." src="../assets/proj3a/invalid-dead-end-hallway.png" />
+ </details>
+  </li>
+  <li>
+    <p>Walls, floors, and empty spaces should all be visually distinct.</p>
+
+    <p>The easiest way to do this is to use three different tile types: one for walls, one for floors, and one for empty spaces.</p>
+
+    <details>
+     <summary>(click to expand) Example of an invalid world, because we can't distinguish between walls and floors.</summary>
+
+     <img alt="Invalid world where walls and rooms are yellow squares." src="../assets/proj3a/invalid-indistinct-walls.png" />
+ </details>
+  </li>
+  <li>
+    <p>Walls in the corners of rooms and hallways are optional.</p>
+
+    <details>
+     <summary>(click to expand) As an example, all these rooms and hallways are valid.</summary>
+
+     <br />
+
+     As an example, the left room has walls in the corners, but the right room does not. Either one is fine. (Note: This world itself would be invalid because the two rooms are disconnected.)
+
+     <br />
+
+     <img alt="Example of rooms with and without corner walls." src="../assets/proj3a/room-corners.png" />
+
+     As an example, the top-left corner of this hallway has a wall tile, but the top-right corner of this hallway does not have a wall tile. Either one is fine. (Note: This world itself would be invalid because there are no rooms.)
+
+     <br />
+
+     <img alt="Example of hallways with and without corner walls." src="../assets/proj3a/hallway-corners.png" />
+ </details>
+  </li>
+  <li>
+    <p>All floor tiles (rooms and hallways) should be reachable from each other. Note: As part of the ambition features you may end up with worlds that are only conditionally reachable, e.g. using teleporters, locked doors, destructable walls, etc.</p>
+
+    <p>In other words, it should be possible to trace a path of floor tiles between any pair of floor tiles.</p>
+  </li>
+  <li>
+    <p>All the space “inside” the walls should be floor tiles, and all the space “outside” the walls should be empty space tiles.</p>
+
+    <p>In other words, a floor tile should only be bordered by floor tiles or wall tiles.</p>
+  </li>
+  <li>
+    <p>Rooms cannot clip off the edge of the world. In other words, there should be no floor tiles on the edge of the world.</p>
+
+    <details>
+    <summary>(click to expand) Example of an invalid world, because it clips off the world.</summary>
+
+    <img alt="Invalid world where a room clips off the world." src="../assets/proj3a/invalid-clipping-world.png" />
+</details>
+  </li>
+  <li>
+    <p>The world must not have excess unused space. There’s no strict requirement, but try to consistently fill at least 50% of the world with rooms and hallways.</p>
+
+    <details>
+    <summary>(click to expand) Example of an invalid world, because there are too few rooms.</summary>
+
+    <img alt="Invalid world where there are only three rooms." src="../assets/proj3a/invalid-insufficient-rooms.png" />
+</details>
+  </li>
+</ol>
+<h3 id="pseudorandom">
+  
+  
+    <a href="#pseudorandom" class="anchor-heading" aria-labelledby="pseudorandom"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Pseudorandom
+  
+  
+</h3>
+    
+
+<p><strong>Requirements for a pseudorandom world:</strong></p>
+
+<ol>
+  <li>
+    <p>The world must be pseudorandom.</p>
+
+    <p>If the user chooses the same seed twice, the resulting world must be identical.</p>
+
+    <p>If the user chooses two different seeds, the resulting worlds should be different.</p>
+  </li>
+  <li>
+    <p>Different worlds should different numbers of rooms and hallways.</p>
+
+    <p>It’s okay if your numbers always fall in a fixed range. For example, it’s okay if all worlds have between 8 and 12 rooms, as long as different worlds have different numbers of rooms. 8 to 12 is just an example here; feel free to have more or fewer rooms.</p>
+  </li>
+  <li>
+    <p>Different worlds should have rooms and hallways in different locations.</p>
+
+    <p>For example, if every world you generate has a room in the exact same place, that’s not sufficiently random.</p>
+  </li>
+  <li>
+    <p>Different rooms should have different widths and heights.</p>
+  </li>
+  <li>
+    <p>Different hallways should have different lengths.</p>
+  </li>
+  <li>
+    <p>The world should be substantially different each time, i.e. you should <em>not</em> have the same basic layout with easily predictable features.</p>
+  </li>
+  <li>
+    <p>You can pick any window size you want, as long as the window size is reasonable (e.g. not something tiny like 3×3), and the entire window is visible on your computer. For example, a fixed, non-random window size is fine.</p>
+  </li>
+</ol>
+<h3 id="clarifications">
+  
+  
+    <a href="#clarifications" class="anchor-heading" aria-labelledby="clarifications"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Clarifications
+  
+  
+</h3>
+    
+
+<p><strong>Note on grading:</strong> We know that some of these requirements are subjective, and we’ll try to be generous as long as your worlds follow the spirit of the requirements.</p>
+
+<p>Staff cannot answer questions like “is my world valid” or “is my world good enough” on Ed or in office hours. In Project 3A, you’ll turn in some worlds for us to grade, and if they aren’t valid, we’ll give you a second chance to fix any problems for full credit.</p>
+
+<p><strong>Miscellaneous edge case FAQ:</strong></p>
+
+<ol>
+  <li>
+    <p>Two adjacent rooms can be separated by either one wall or two walls. Either is fine.</p>
+
+    <p>Similarly, if a room and hallway are adjacent, or if two hallways are adjacent, they can be separated by either one wall or two walls. Either is fine.</p>
+
+    <details>
+     <summary>(click to expand) Example of rooms being separated by one or two walls.</summary>
+
+     <br />
+
+     Note that regardless of which option you choose (one wall or two walls), the two rooms must still be connected, i.e. there must be some way to get from one room to the other. The worlds below are not valid because the rooms are not connected.
+
+     Two rooms separated by a single wall:
+
+     <img alt="Two rooms separated by a single wall." src="../assets/proj3a/single-wall.png" />
+
+     Two rooms separated by a double wall:
+
+     <img alt="Two rooms separated by a double wall." src="../assets/proj3a/double-wall.png" />
+ </details>
+  </li>
+  <li>
+    <p>Walls should not appear inside a room, because this makes it hard to tell which squares belong to a room and which squares belong to a hallway.</p>
+
+    <p>It’s okay if something like this happens occasionally, but it should not happen often.</p>
+
+    <details>
+     <summary>(click to expand) Example of a wall inside a room.</summary>
+
+     <br />
+
+     This is invalid if it happens often.
+
+     <img alt="A room with a wall inside it." src="../assets/proj3a/wall-inside-room.png" />
+ </details>
+  </li>
+</ol>
+<h2 id="task-2-design-document">
+  
+  
+    <a href="#task-2-design-document" class="anchor-heading" aria-labelledby="task-2-design-document"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 2: Design Document
+  
+  
+</h2>
+    
+
+<p>Before you begin writing any code, you will need to write a design document! This lets you plan out the overall design of your codebase, so that you can organize your code into smaller pieces and tackle one thing at a time.</p>
+
+<blockquote class="task">
+  <p>Write a design document for Project 3. Your design document should be at least 1 - 2 pages long.</p>
+
+  <p>The design document will be mainly graded on effort, thought, and completion.</p>
+</blockquote>
+
+<blockquote class="warning">
+  <p>This document is required to request staff help.</p>
+
+  <p>If you request help on Ed or in office hours, we will need to see your design document before we can start helping you.</p>
+</blockquote>
+
+<p>In your design document, you can identify what data structures you’ll be using in your implementation. You can also write pseudocode or a general English overview of the algorithms you plan to use.</p>
+
+<p>You can format your document however you like. <a href="https://docs.google.com/document/d/1L6-O0oJYu_mD8Z5NFyYAEonhf4mGkwHCJYcgJnix2Wc/edit?usp=sharing">Here’s a template for Project 3 that you can use or borrow some inspiration from.</a></p>
+
+<p>Here are some example sections you could have in your document:</p>
+
+<ol>
+  <li>
+    <p><strong>Classes and Data Structures</strong>: List out all the classes you’re using. For each class, list the instance variables (if any). Include a brief description of each variable and its purpose in the class.</p>
+  </li>
+  <li>
+    <p><strong>Algorithms</strong>: This is where you describe how your code works. For each class, include a high-level description of the methods in that class. That is, do not include a line-by-line breakdown of your code, but something you would write in a javadoc comment above a method, including any edge cases you are accounting for.</p>
+
+    <p>Try to keep your explanations clear and short. Include all the components your program interacts with - classes, specific methods, and files you may create.</p>
+  </li>
+</ol>
+
+<p>You can also have separate sections for each of the different tasks: World Generation (Task 3), Main Menu (Task 4), Interactivity (Task 5), HUD (Task 6), Saving &amp; Loading (Task 7), and Ambition Features (Task 8).</p>
+<h2 id="task-3-world-generation">
+  
+  
+    <a href="#task-3-world-generation" class="anchor-heading" aria-labelledby="task-3-world-generation"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 3: World Generation
+  
+  
+</h2>
+    
+
+<p>With your design document completed, it’s time to generate some worlds!</p>
+
+<p class="task">Implement code that takes in a seed, generates a pseudo-random 2D world array, and displays that world back to the user.</p>
+
+<p>For Project 3A, when the user runs the <code class="language-plaintext highlighter-rouge">main</code> method in <code class="language-plaintext highlighter-rouge">Main.java</code>, they should see a world pop up. For now, you can hard-code the seed in the <code class="language-plaintext highlighter-rouge">main</code> method (and change the code to see the output of different seeds).</p>
+
+<p>Besides the <code class="language-plaintext highlighter-rouge">Main.main</code> requirement, your world generation code can live anywhere in the repo (we suggest making your own files in the <code class="language-plaintext highlighter-rouge">Core</code> package).</p>
+<h2 id="deliverables">
+  
+  
+    <a href="#deliverables" class="anchor-heading" aria-labelledby="deliverables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Deliverables
+  
+  
+</h2>
+    
+<h3 id="design-doc">
+  
+  
+    <a href="#design-doc" class="anchor-heading" aria-labelledby="design-doc"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Design Doc
+  
+  
+</h3>
+    
+
+<p>Please submit your design document to the assignment on Gradescope as a group, where one partner submits it and adds the other partner to the submission. It should be formatted as a PDF.</p>
+
+<p>Don’t worry if you decide to change your design document after. You are free to do so! We want you to think about the implementation before coding therefore we require you to submit your design as the part of the project.</p>
+<h3 id="world-screenshots">
+  
+  
+    <a href="#world-screenshots" class="anchor-heading" aria-labelledby="world-screenshots"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> World Screenshots
+  
+  
+</h3>
+    
+
+<ol>
+  <li>
+    <p><a href="https://cscircles.cemc.uwaterloo.ca/java_visualize/#code=import+java.util.Random%3B%0A%0Apublic+class+SeedGenerator+%7B%0A+++public+static+void+main(String%5B%5D+args)+%7B%0A++++++%0A++++++//+Replace+1270+with+your+sp25-g***+group+ID.%0A++++++Random+r+%3D+new+Random(1270)%3B%0A++++++%0A++++++System.out.println(%22Your+seeds+are%3A+%22)%3B%0A++++++%0A++++++for+(int+i+%3D+0%3B+i+%3C+5%3B+i+%2B%3D+1)+%7B%0A+++++++++System.out.println(Math.abs(r.nextLong()))%3B%0A++++++%7D%0A++++++%0A++++++%0A+++%7D%0A%7D&amp;mode=edit">Go to this Java Visualizer link</a> to generate 5 seeds. Remember to replace <code class="language-plaintext highlighter-rouge">1270</code> with your group ID.</p>
+  </li>
+  <li>
+    <p>Use your code to generate the 5 worlds corresponding to these seeds.</p>
+
+    <p>You may need to add an “L” after the seed so that Java recognizes it as a long number, e.g. <code class="language-plaintext highlighter-rouge">6578897764558030256L</code>.</p>
+  </li>
+  <li>
+    <p>Take screenshots of each world. Your screenshots should look like the other world screenshots throughout this spec.</p>
+  </li>
+  <li>
+    <p>Upload these 5 screenshots to Gradescope. You should submit one screenshot per question.</p>
+  </li>
+  <li>
+    <p>In your terminal, navigate to your group repo, and type <code class="language-plaintext highlighter-rouge">git show --summary</code>. Make sure that the latest commit you see corresponds to the code you used to generate these worlds:</p>
+
+    <p><img alt="git show output." src="../assets/proj3a/git-show.png" /></p>
+  </li>
+  <li>
+    <p>Take a screenshot of the <code class="language-plaintext highlighter-rouge">git show --summary</code> output and upload it to Gradescope.</p>
+
+    <p>Warning: All 5 of your worlds should be generated with the same code. You shouldn’t submit 3 worlds from one algorithm, and 2 worlds from another one. We will use your commit log to check this.</p>
+  </li>
+  <li>
+    <p>Make sure that only one partner submits, and then <a href="https://guides.gradescope.com/hc/en-us/articles/21863861823373-Adding-Group-Members-to-a-Submission">tags the other partner</a> on Gradescope. Each group should only have one submission.</p>
+  </li>
+</ol>
+
+<p>Warning: Don’t hard-code worlds in your code. Your world generation code should be able to generate pseudo-random worlds for any seed we provide, not just the 5 seeds. Again, we will use your commit log to check this.</p>
+
+<p><strong>Grading:</strong></p>
+
+<p>We will grade your worlds after the Project 3A deadline, but before the Project 3B deadline. It can take up to a week to grade your world (especially if you have an extension), so please be patient.</p>
+
+<p>If your worlds do not receive full credit, you can submit a regrade request on Gradescope.</p>
+
+<p>In your regrade request, please include:</p>
+<ul>
+  <li>A screenshot of <code class="language-plaintext highlighter-rouge">git show --summary</code> with the commit of the new code you used to generate your fixed worlds.</li>
+  <li>The 5 worlds you generated with your fixed code. Use the same seeds as you did originally.</li>
+</ul>
+
+<p>It can take up to a week to respond to your regrade request, so please be patient.</p>
+<h3 id="mid-project-partnership-form">
+  
+  
+    <a href="#mid-project-partnership-form" class="anchor-heading" aria-labelledby="mid-project-partnership-form"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Mid-Project Partnership Form
+  
+  
+</h3>
+    
+
+<p class="task">Submit the <a href="https://forms.gle/HN2hCG3cgL5GXnry7">Project 3 Mid-Project Partnership Form</a>.</p>
+
+<p>You will receive an email receipt to confirm that you’ve submitted it.</p>
+
+<p>Your form response is confidential between you and staff. The response will not be shared with your partner.</p>
+
+<p>Warning: Don’t forget the form! Students every semester forget this form and they are sad.</p>
+<h3 id="style">
+  
+  
+    <a href="#style" class="anchor-heading" aria-labelledby="style"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Style
+  
+  
+</h3>
+    
+
+<p>Note: Since there are no autograders in Project 3, we will not be enforcing the 61B style guide on this project. However, we still highly recommend following the style guide, so that your code is readable by your partner!</p>
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

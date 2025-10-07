@@ -1,0 +1,78 @@
+#####################################
+# Instructions for updating website #
+#####################################
+
+# Written HW filepaths are all formatted based on the HW number.
+# Pad HW numbers, e.g. HW2 uses "02", not "2".
+# For example, the files for written HW2 should be placed at:
+#   - assets/homeworks/hw02.pdf
+#   - assets/homeworks/hw02-sols.pdf
+
+# To upload homework to the website:
+# 1. In this file, add the link to the electronic Gradescope assignment.
+# 2. Put the files in assets/homeworks using the filenames above.
+
+#####################################
+# Additional documentation          #
+#####################################
+
+# Each element in the array corresponds to one box on the website.
+# This includes boxes that are blank or don't have a homework.
+
+# The website automatically numbers each element in the array.
+# To skip numbering (e.g. for a blank box), add
+# "nonumber: True" as an attribute.
+
+labs:
+  - title: "Setup, Git"
+    due: "1/24"
+    link: labs/lab01
+    slides: "https://docs.google.com/presentation/d/1RM9EOWqfaNzy9FP-Ud22fS3xz7xIQDFBXQe0jrEN5rQ/edit?usp=sharing"
+    rowspan: 2
+  - title: "Debugging"
+    due: "1/31"
+    link: labs/lab02
+    slides: "https://docs.google.com/presentation/d/1kwgVU2BIG5BOvkKF1JWrXf62zJnzIki5UrTTCzMeVs4/edit?usp=sharing"
+  - title: "Debugging (Part 2)"
+    due: "2/07"
+    link: labs/lab03
+    slides: "https://docs.google.com/presentation/d/1bn1QHK7nLbirGsEKct5UTf2vp2k7NOTaMSuu9lZW0yU/edit?usp=sharing"
+  - title: "Git"
+    due: "2/14"
+    link: labs/lab04
+    slides: "https://docs.google.com/presentation/d/1RoacUp7UAinLPNNUO4q8mNxTxR4_HYKYhIxeKiPd6B8/edit?usp=sharing"
+  - title: "No Lab"
+    nonumber: True
+    rowspan: 4
+  - title: "Project 1 Review"
+    due: "02/28"
+    link: labs/lab05
+    slides:
+  - title: "BSTMap"
+    due: "03/07"
+    link: labs/lab06
+    slides: "https://docs.google.com/presentation/d/1NylZ2TfB8SP41Y34WIFPt7sWsZRxYmTqDuc_iPPMt_4/edit?usp=sharing"
+  - title: "HashMaps"
+    due: "3/14"
+    link: labs/lab07
+    slides: https://docs.google.com/presentation/d/1dVc25JVkJxwI6HpiJIVDW_rGFSQ2_wRxVAfSP_lrLTY/edit?usp=sharing
+  - title: "LLRBs"
+    due: "3/21"
+    link: labs/lab08
+    slides: https://docs.google.com/presentation/d/1qmqaKQx4FygknF2kJ-NTimsfk01SmgCUd4JmxjhXbiM/edit?usp=sharing
+  - title: "No Lab"
+    nonumber: True
+  - title: "Introduction to Project 3 (Optional)"
+    link: labs/lab09
+    rowspan: 4
+  - title: "Tetris (Optional)"
+    link: labs/lab10
+  - title: "Project 3 Workday"
+    nonumber: True
+  - title: "Project 3 Workday"
+    nonumber: True
+  - title: "Project 3 Demos"
+    nonumber: True
+  - title: "No Lab"
+    nonumber: True
+  - nonumber: True

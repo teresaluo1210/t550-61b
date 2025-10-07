@@ -1,0 +1,151 @@
+#####################################
+# Instructions for updating website #
+#####################################
+
+# Discussion filepaths are all formatted based on the discussion number.
+# Pad discussion numbers, e.g. discussion 2 uses "02", not "2".
+# For example, the files for discussion 2 should be placed at:
+#   - /assets/discussions/disc02-regular.pdf
+#   - /assets/discussions/disc02-regular-sols.pdf
+#   - /assets/discussions/disc02-examprep.pdf
+#   - /assets/discussions/disc02-examprep-sols.pdf
+
+# To upload discussion worksheets and solutions to the website, just
+# put the files in assets/discussions using the filenames above.
+
+# If you need to manually put something in the discussion cell
+# (e.g. links to multiple worksheets for exam review weeks), there's
+# an override field that you can use. Anything you put in the override
+# field will be converted to Markdown.
+
+
+#####################################
+# Additional documentation          #
+#####################################
+
+# Each element in the array corresponds to one box on the website.
+# This includes boxes that are blank or don't have a discussion.
+# By default, each box spans 2 rows (edit the default in syllabus.yml).
+# To override this, use the "rowspan" attribute to resize a box.
+
+# The website automatically numbers each element in the array.
+# To skip numbering (e.g. for a "no discussion" box), add
+# "nonumber: True" as an attribute.
+
+# We currently assume that every week has both regular and exam-prep
+# sections. If that's not true, update discussion.html.
+
+# If solutions=True, then the value of "released" is ignored.
+# If solutions=False, then we check if released=True to figure out
+# whether to display links to worksheets.
+
+# TODO: Document how we add walkthrough video links.
+
+discussions:
+- title: No Discussion
+  nonumber: true
+  rowspan: 2
+- title: Introduction to Java
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/1J2Ld-5qg536HA8jyB9-IeoD1hFcF9sJegqIeg2ncLs4/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1awV2DnjW0zedBjmwWjbFNpVI0Yg3ghyhX9IDuKQ_keE/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRobydmi0jaICLlTv0q_lDhT
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRoH8ytpcjLoFCkM0v2FVp6C
+- title: Scope, Static, Linked Lists, Arrays
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/12fU-6_vBT-BzOOcvMgf6G26bqo4F1czR3pAxhu0-YZg/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/175Z0P9u0YQQ4dP51KftXCrS3k3JcQoI-q4oMqGEo3T4/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRpemggJcC8s64Om7XBMmmWZ
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRpPzSP6eDAJLsqxHbAqhgkX
+- title: Interface Inheritance, Comparables/Comparators, Generic Functions 
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/1xpH8CpZHEKVaWtSNnnro59IhgXrVoQG4PAXDVNvm_lQ/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRpZCnCD8f6-j3WJQS_rbBe4
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1Q0vg7T3kJHiSVVFXaw6uBzfaFDm6CxVLwXoKMmd3k5Q/edit?usp=drivesdk
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRo32RBXkS7LFlMNNIgF618Q
+- title: Iterators, Iterables, Asymptotics
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/1B_HtHOpRRFpeNCab2kaZEjuqIYwSa5cSWweNfIv7iTM/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/13wi-eo4T52oK8tgDvWqrcm7IXgYSK56ecoQnxd-VQJE/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRosONixmTTQnspn7fLOV4-Y
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRqOkhLqRr1OoRCpUKvlqm_P
+  rowspan: 4
+- title: Asymptotics II
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/1TZ2Rf1ALjd6OyBiqS75jbpTcTgyU9vUFx5RJNKAyeB4/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1uZnhJu9WRhX_hsWzk5tMT3kaUPRKE1gQqTzMV-Qbmt4/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRpqWL31oiZlmcka8zFyT5uM
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRpebKdnwkYKIkyCBNzNXAHW
+- title: Disjoint Sets, ADTs, BSTs
+  regular_slides: 
+    https://docs.google.com/presentation/d/1GOYRLWkNWVC69-_tZk1ihRrkS7J0nWaWwDZS5IxAKsg/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1HeHgNNYqY48wgZLMtEH_vNVWQykNdSYGkMwwzb11NW8/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRpBCAx-EGDwnOY4YW0zwczO
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRonJvfbSeiELXQ5TcvrAO1U
+  solutions: true
+- title: B-Trees, LLRBs, Hashing
+  regular_slides: 
+    https://docs.google.com/presentation/d/1GiIA7wwloRRh2SKJayNrqWrs1mV_lZ3JYLhLDL2zlDA/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/14Ohpg1_tKwY-H3SOZfqxq_Jg1zIcJwFPsTjC1f7oy6M/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRrjXIJbf0eFsWeUnD6RsfYa
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRoIGRoR3H0WHl2AmxCgcxTN
+  solutions: true
+- title: Graphs, Heaps
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/1YY9YOZxbsWX4WzfDxXFIItV0ADlqLo57ikPGAR_Gn_c/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1UKGsqrKq-X1sJxnZXvI7RUatdituOAOyHZuLA4ep43A/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRrdIn4Jnf_aI1Hgw5m-wrL2
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRqWGEpy-S22SMXVVxtkqmmT
+- title: No Discussion
+  nonumber: true
+- title: Shortest Paths, MSTs
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/18Ix5jKoVXeSkQkKKTfVz5C9W9YLPPjL6RDkWKG0FisY/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1_Qy30oN3EBey_iWDaWGYMZAHI1mODLSn6aWJIl3Dkz4/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRp0SkHfIO9HavzXht0K9mOA
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRqhMYH6tRt4bru5HxoWta9G
+  rowspan: 4
+- title: Graphs II, Tries
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/10ArskQi2InnyyZwTo8Yo6flZmMAWhPGCbuOYVsTZFNA/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1lJB4c3eYi_S6zxJa0HRypVM7Y1Y8z_RirxDlp6fVm04/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRrD3GyILak06gbTN0rbKJat
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRoboeJhEoJbAb7U_W7KBvoj
+- title: Sorting
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/18GxCUP6-s8bD24wzeOw3JTyyFZ-Kcle9QFhkW0wThGY/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1D1g0tzp91nGcERs9w6pH847cPJOvbnvcEBXwDD-R618/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRqxJ0qF1CglXRb-Qb-oNOgs
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRrxu6rDIFiBjifethxW7gSl
+- title: Sorting II
+  solutions: true
+  regular_slides: 
+    https://docs.google.com/presentation/d/1igNhdJwbrF6WxuV67BfateU9I4diqAZeErFhxbTvvFY/edit?usp=drivesdk
+  examprep_slides: 
+    https://docs.google.com/presentation/d/1LbXSL9oC-TjhiU9s6CIKRKrwrEBCcBAkkoQ2yZnAAyw/edit?usp=drivesdk
+  regular_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRrpqJ8WTjbBOwSNFg54wQDT
+  examprep_video: https://www.youtube.com/playlist?list=PLnp31xXvnfRoenwS-qOt7TtocoDP-qXo4
+- title: Goodbye, Fun
+  solutions: true  
+- title: No Discussion
+  nonumber: true

@@ -1,0 +1,1360 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(2)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(1) > ul > li:nth-child(2) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(1) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(1) > ul > li:nth-child(2) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(1) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(1) > ul.nav-list > li.nav-list-item:nth-child(2) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Homework 0B: Data Structures | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Homework 0B: Data Structures" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Homework 0B spec." />
+<meta property="og:description" content="Homework 0B spec." />
+<link rel="canonical" href="http://localhost:4000/homeworks/hw0/hw0b/" />
+<meta property="og:url" content="http://localhost:4000/homeworks/hw0/hw0b/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Homework 0B: Data Structures" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Homework 0B spec.","headline":"Homework 0B: Data Structures","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/homeworks/hw0/hw0b/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/homeworks/">Homeworks</a></li>
+    <li class="breadcrumb-nav-list-item"><a href="/homeworks/hw0/">Homework 0</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Homework 0B: Data Structures</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">Homework 0B: Data Structures<ul><li class="nav-list-item"><a href="#assignment-setup" class="nav-list-link">Assignment Setup</a></li><li class="nav-list-item"><a href="#style" class="nav-list-link">Style</a></li><li class="nav-list-item"><a href="#language-constructs" class="nav-list-link">Language Constructs</a><ul><li class="nav-list-item"><a href="#types" class="nav-list-link">Types</a></li><li class="nav-list-item"><a href="#null" class="nav-list-link">null</a></li><li class="nav-list-item"><a href="#arrays-fixed-size" class="nav-list-link">Arrays (fixed-size)</a></li><li class="nav-list-item"><a href="#foreach-loop--enhanced-for-loop" class="nav-list-link">Foreach Loop / Enhanced For Loop</a></li><li class="nav-list-item"><a href="#lists-resizable" class="nav-list-link">Lists (resizable)</a></li><li class="nav-list-item"><a href="#sets" class="nav-list-link">Sets</a></li><li class="nav-list-item"><a href="#dictionaries--maps" class="nav-list-link">Dictionaries / Maps</a></li><li class="nav-list-item"><a href="#classes" class="nav-list-link">Classes</a></li><li class="nav-list-item"><a href="#main" class="nav-list-link">Main</a></li></ul></li><li class="nav-list-item"><a href="#programs" class="nav-list-link">Programs</a><ul><li class="nav-list-item"><a href="#index-of-minimum-of-a-list-of-numbers" class="nav-list-link">Index of Minimum of a List of Numbers</a></li></ul></li><li class="nav-list-item"><a href="#exceptions" class="nav-list-link">Exceptions</a></li><li class="nav-list-item"><a href="#programming-exercises" class="nav-list-link">Programming Exercises</a><ul><li class="nav-list-item"><a href="#task-1-javaexercises" class="nav-list-link">Task 1: JavaExercises</a></li><li class="nav-list-item"><a href="#task-2-listexercises" class="nav-list-link">Task 2: ListExercises</a></li><li class="nav-list-item"><a href="#task-3-mapexercises" class="nav-list-link">Task 3: MapExercises</a></li><li class="nav-list-item"><a href="#task-4-dessertjava" class="nav-list-link">Task 4: Dessert.java</a></li></ul></li><li class="nav-list-item"><a href="#testing-and-debugging" class="nav-list-link">Testing and Debugging</a><ul><li class="nav-list-item"><a href="#syntax-errors" class="nav-list-link">Syntax Errors</a></li></ul></li><li class="nav-list-item"><a href="#deliverables" class="nav-list-link">Deliverables</a></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    Homework 0B: Data Structures
+  
+  
+</h1>
+    
+<h2 id="assignment-setup">
+  
+  
+    <a href="#assignment-setup" class="anchor-heading" aria-labelledby="assignment-setup"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Assignment Setup
+  
+  
+</h2>
+    
+
+<p>Please follow the <a href="/resources/guides/assignment-workflow/">Assignment Workflow Guide</a> to get started with this assignment. This assignment is <code class="language-plaintext highlighter-rouge">hw0b</code>.</p>
+<h2 id="style">
+  
+  
+    <a href="#style" class="anchor-heading" aria-labelledby="style"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Style
+  
+  
+</h2>
+    
+<p>Starting with this homework, <strong>we will be enforcing style</strong>. You must follow the <a href="/resources/guides/style/">style guide</a>, or you will be penalized on the autograder.</p>
+
+<p>You can and should check your style locally with the CS 61B plugin.</p>
+<h2 id="language-constructs">
+  
+  
+    <a href="#language-constructs" class="anchor-heading" aria-labelledby="language-constructs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Language Constructs
+  
+  
+</h2>
+    
+<h3 id="types">
+  
+  
+    <a href="#types" class="anchor-heading" aria-labelledby="types"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Types
+  
+  
+</h3>
+    
+
+<p>Java is a <em>statically typed</em> language, which means that every variable has a type that is known at compile time, meaning you must specify it in your code. In contrast, Python is a <em>dynamically typed</em> language, which means that the type of variables are generally only known at runtime, meaning you do not need to specify them in your code.</p>
+
+<p>In Java, there are two kinds of types: primitive types and reference types.
+Primitive types are lowercase, and we named the ones that we care about in
+<a href="/homeworks/hw0/hw0a/#types">Part A</a>: <code class="language-plaintext highlighter-rouge">boolean</code>, <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">char</code>, <code class="language-plaintext highlighter-rouge">double</code>.
+Pretty much every other type is a reference type, such as <code class="language-plaintext highlighter-rouge">String</code>. If a type
+starts with a capital letter, it is likely a reference type.</p>
+
+<p>You will learn more about the distinction between primitive and reference types
+in Lecture 4, but for this homework, you will need to know that each primitive
+has a corresponding reference type (<code class="language-plaintext highlighter-rouge">Boolean</code>, <code class="language-plaintext highlighter-rouge">Integer</code>, <code class="language-plaintext highlighter-rouge">Character</code>,
+<code class="language-plaintext highlighter-rouge">Double</code>). If you are using “generics” to declare a data structure, you <em>must</em>
+use the reference type. You can (usually) seamlessly convert between a primitive type
+and its reference type.</p>
+<h3 id="null">
+  
+  
+    <a href="#null" class="anchor-heading" aria-labelledby="null"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> null
+  
+  
+</h3>
+    
+
+<p>Java also has <code class="language-plaintext highlighter-rouge">null</code>, which is the approximate equivalent of <code class="language-plaintext highlighter-rouge">None</code> in Python.
+Any reference type can be assigned a value of <code class="language-plaintext highlighter-rouge">null</code>. If we try to access an
+instance member or call an instance method from a value of <code class="language-plaintext highlighter-rouge">null</code>, we will see
+an error called a <code class="language-plaintext highlighter-rouge">NullPointerException</code>.</p>
+<h3 id="arrays-fixed-size">
+  
+  
+    <a href="#arrays-fixed-size" class="anchor-heading" aria-labelledby="arrays-fixed-size"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Arrays (fixed-size)
+  
+  
+</h3>
+    
+
+<p>Java arrays are a lot like Python lists. However, Java arrays are <em>fixed-size</em>,
+so we can’t add or remove elements (that is, no <code class="language-plaintext highlighter-rouge">append</code>, <code class="language-plaintext highlighter-rouge">remove</code>, etc.).</p>
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">zeroedLst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">zeroedArray</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="o">{</span><span class="mi">4</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">10</span><span class="o">};</span>
+<span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">array</span><span class="o">));</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+
+<ul>
+  <li>In <code class="language-plaintext highlighter-rouge">new int[3]</code>, the <code class="language-plaintext highlighter-rouge">int</code> is the type in the array; and <code class="language-plaintext highlighter-rouge">3</code> is the length.
+With this syntax, all elements take on their “default value”. For <code class="language-plaintext highlighter-rouge">int</code>,
+this is 0.</li>
+  <li>Arrays do not print nicely, for reasons beyond the scope of HW 0. To print
+an array, you can call <code class="language-plaintext highlighter-rouge">Arrays.toString(array)</code>.</li>
+  <li>Arrays do not have a length <em>method</em>. It is an <em>instance variable</em>, so
+it does not have parentheses.</li>
+  <li>Java does <strong>not</strong> support <em>negative indexing</em> or <em>slicing</em>.</li>
+</ul>
+<h3 id="foreach-loop--enhanced-for-loop">
+  
+  
+    <a href="#foreach-loop--enhanced-for-loop" class="anchor-heading" aria-labelledby="foreach-loop--enhanced-for-loop"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Foreach Loop / Enhanced For Loop
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">};</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+
+<ul>
+  <li>Notice the type declaration of the iterating variable, as well as the usage
+of <code class="language-plaintext highlighter-rouge">:</code> instead of <code class="language-plaintext highlighter-rouge">in</code>.</li>
+  <li>We can also use this syntax on certain other types, such as <code class="language-plaintext highlighter-rouge">List</code>s and
+<code class="language-plaintext highlighter-rouge">Set</code>s.</li>
+</ul>
+<h3 id="lists-resizable">
+  
+  
+    <a href="#lists-resizable" class="anchor-heading" aria-labelledby="lists-resizable"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Lists (resizable)
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lst</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">lst</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">zero</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">lst</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">one</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">zed</span><span class="sh">"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))</span>
+<span class="k">if</span> <span class="sh">"</span><span class="s">one</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">one in lst</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">lst</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"zero"</span><span class="o">);</span>
+<span class="n">lst</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"one"</span><span class="o">);</span>
+<span class="n">lst</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="s">"zed"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">lst</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">lst</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">lst</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"one"</span><span class="o">))</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"one in lst"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">elem</span> <span class="o">:</span> <span class="n">lst</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">elem</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+
+<ul>
+  <li>Java has the <code class="language-plaintext highlighter-rouge">List</code> interface. We largely use the
+<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ArrayList.html"><code class="language-plaintext highlighter-rouge">ArrayList</code></a> implementation.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">List</code> interface is <em>parameterized</em> by the type it holds, using the
+angle brackets <code class="language-plaintext highlighter-rouge">&lt;</code> and <code class="language-plaintext highlighter-rouge">&gt;</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">List</code>s, again, do not support slicing or negative indexing.</li>
+</ul>
+<h3 id="sets">
+  
+  
+    <a href="#sets" class="anchor-heading" aria-labelledby="sets"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sets
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="nf">set</span><span class="p">()</span>
+<span class="n">s</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">s</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">s</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">s</span><span class="p">.</span><span class="nf">remove</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">1 in s</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+<span class="n">set</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">set</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">set</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"1 in set"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">elem</span> <span class="o">:</span> <span class="n">set</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">elem</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+
+<ul>
+  <li>Java has the <code class="language-plaintext highlighter-rouge">Set</code> interface. There are two main implementations:
+<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeSet.html"><code class="language-plaintext highlighter-rouge">TreeSet</code></a>, and <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashSet.html"><code class="language-plaintext highlighter-rouge">HashSet</code></a>. <code class="language-plaintext highlighter-rouge">TreeSet</code> keeps its elements in “sorted”
+order, and is fast. In contrast, <code class="language-plaintext highlighter-rouge">HashSet</code> does not have a defined
+“order”, but is (usually) really fast.
+    <ul>
+      <li>We will formalize these notions of “fast” later on in the course when we learn about asymptotic analysis.</li>
+    </ul>
+  </li>
+  <li>A <code class="language-plaintext highlighter-rouge">Set</code> cannot contain duplicate items. If we try to add an item already in the set, nothing happens.</li>
+</ul>
+<h3 id="dictionaries--maps">
+  
+  
+    <a href="#dictionaries--maps" class="anchor-heading" aria-labelledby="dictionaries--maps"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Dictionaries / Maps
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">hello</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">hi</span><span class="sh">"</span>
+<span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">hello</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">goodbye</span><span class="sh">"</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="sh">"</span><span class="s">hello</span><span class="sh">"</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+<span class="k">if</span> <span class="sh">"</span><span class="s">hello</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\"</span><span class="s">hello</span><span class="se">\"</span><span class="s"> in d</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="nf">keys</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"hello"</span><span class="o">,</span> <span class="s">"hi"</span><span class="o">);</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"hello"</span><span class="o">,</span> <span class="s">"goodbye"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"hello"</span><span class="o">));</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="s">"hello"</span><span class="o">))</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\"hello\" in map"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+
+<ul>
+  <li>Java has the <code class="language-plaintext highlighter-rouge">Map</code> interface. There are two main implementations:
+<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/TreeMap.html"><code class="language-plaintext highlighter-rouge">TreeMap</code></a>, and <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/HashMap.html"><code class="language-plaintext highlighter-rouge">HashMap</code></a>. Similarly to sets, <code class="language-plaintext highlighter-rouge">TreeMap</code> keeps its
+keys sorted and is fast; <code class="language-plaintext highlighter-rouge">HashMap</code> has no defined order and is (usually)
+really fast.</li>
+  <li>A <code class="language-plaintext highlighter-rouge">Map</code> cannot contain duplicate keys. If we try to add a key already in the map, the value is overwritten.</li>
+  <li>In the angle brackets, we have the “key type” first, followed by the
+“value type”.</li>
+  <li><code class="language-plaintext highlighter-rouge">Map</code>s cannot directly be used with the <code class="language-plaintext highlighter-rouge">:</code> for loop. Typically, we call
+<code class="language-plaintext highlighter-rouge">keySet</code> to iterate over a set of the keys, and use those to retrieve the values. One may also iterate over the <code class="language-plaintext highlighter-rouge">entrySet</code> to get both the keys and values.</li>
+</ul>
+<h3 id="classes">
+  
+  
+    <a href="#classes" class="anchor-heading" aria-labelledby="classes"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Classes
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">distanceTo</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">other</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span>
+            <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">other</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">dx</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">dy</span>
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="nf">Point</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">distanceTo</span><span class="o">(</span><span class="nc">Point</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Math</span><span class="o">.</span><span class="na">sqrt</span><span class="o">(</span>
+            <span class="nc">Math</span><span class="o">.</span><span class="na">pow</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> <span class="o">+</span>
+            <span class="nc">Math</span><span class="o">.</span><span class="na">pow</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="na">y</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span>
+        <span class="o">)</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">translate</span><span class="o">(</span><span class="kt">int</span> <span class="n">dx</span><span class="o">,</span> <span class="kt">int</span> <span class="n">dy</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">+=</span> <span class="n">dx</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">y</span> <span class="o">+=</span> <span class="n">dy</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+
+<p>We can use these classes as follows:</p>
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p1</span> <span class="o">=</span> <span class="nc">Point</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="nc">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Point 1: (</span><span class="si">{</span><span class="n">p1</span><span class="p">.</span><span class="n">x</span><span class="si">}</span><span class="s">, </span><span class="si">{</span><span class="n">p1</span><span class="p">.</span><span class="n">y</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Distance:</span><span class="sh">"</span><span class="p">,</span> <span class="n">p1</span><span class="p">.</span><span class="nf">distanceTo</span><span class="p">(</span><span class="n">p2</span><span class="p">))</span>
+<span class="n">p1</span><span class="p">.</span><span class="nf">translate</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Point 1: (</span><span class="si">{</span><span class="n">p1</span><span class="p">.</span><span class="n">x</span><span class="si">}</span><span class="s">, </span><span class="si">{</span><span class="n">p1</span><span class="p">.</span><span class="n">y</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Point</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">9</span><span class="o">);</span>
+<span class="nc">Point</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(-</span><span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Point 1: ( "</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">x</span>
+    <span class="o">+</span> <span class="s">", "</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">y</span> <span class="o">+</span> <span class="s">")"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Distance: "</span>
+    <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">distanceTo</span><span class="o">(</span><span class="n">p2</span><span class="o">));</span>
+<span class="n">p1</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Point 1: ( "</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">x</span>
+    <span class="o">+</span> <span class="s">", "</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">y</span> <span class="o">+</span> <span class="s">")"</span><span class="o">);</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+<h3 id="main">
+  
+  
+    <a href="#main" class="anchor-heading" aria-labelledby="main"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Main
+  
+  
+</h3>
+    
+
+<p>Java programs may also have a special method called <code class="language-plaintext highlighter-rouge">main</code>. When you execute a program, the <code class="language-plaintext highlighter-rouge">main</code> method is called. The <code class="language-plaintext highlighter-rouge">main</code> method runs whatever code is inside, which may call other methods defined within the program.</p>
+
+<p>We define the <code class="language-plaintext highlighter-rouge">main</code> method with the signature <code class="language-plaintext highlighter-rouge">public static void main(String[] args)</code>. You will learn the meaning of each part of this signature later in the class. For now, you can treat <code class="language-plaintext highlighter-rouge">main</code> as a “play button” for the code you have written.</p>
+
+<p>To run the code in the previous example, we may create a <code class="language-plaintext highlighter-rouge">main</code> method in the <code class="language-plaintext highlighter-rouge">Point</code> class like this:</p>
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+
+    <span class="c1"># other methods...
+</span>    <span class="c1"># end of Point class
+</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="nc">Point</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="nc">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Point 1: (</span><span class="si">{</span><span class="n">p1</span><span class="p">.</span><span class="n">x</span><span class="si">}</span><span class="s">, </span><span class="si">{</span><span class="n">p1</span><span class="p">.</span><span class="n">y</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Distance:</span><span class="sh">"</span><span class="p">,</span> <span class="n">p1</span><span class="p">.</span><span class="nf">distanceTo</span><span class="p">(</span><span class="n">p2</span><span class="p">))</span>
+    <span class="n">p1</span><span class="p">.</span><span class="nf">translate</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Point 1: (</span><span class="si">{</span><span class="n">p1</span><span class="p">.</span><span class="n">x</span><span class="si">}</span><span class="s">, </span><span class="si">{</span><span class="n">p1</span><span class="p">.</span><span class="n">y</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+
+    <span class="c1">// other methods...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Point</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">9</span><span class="o">);</span>
+        <span class="nc">Point</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Point</span><span class="o">(-</span><span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Point 1: ( "</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">x</span>
+            <span class="o">+</span> <span class="s">", "</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">y</span> <span class="o">+</span> <span class="s">")"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Distance: "</span>
+            <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">distanceTo</span><span class="o">(</span><span class="n">p2</span><span class="o">));</span>
+        <span class="n">p1</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Point 1: ( "</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">x</span>
+            <span class="o">+</span> <span class="s">", "</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">y</span> <span class="o">+</span> <span class="s">")"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// end of Point class</span>
+<span class="o">}</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+
+<p>Notice that in Java, the <code class="language-plaintext highlighter-rouge">main</code> method is defined <em>within</em> a class.</p>
+
+<p>If you are coding in IntelliJ, you can actually “play” the <code class="language-plaintext highlighter-rouge">main</code> method! IntelliJ will display a green play button to the left of the <code class="language-plaintext highlighter-rouge">main</code> method’s signature. Click it to run the code inside.</p>
+<h2 id="programs">
+  
+  
+    <a href="#programs" class="anchor-heading" aria-labelledby="programs"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Programs
+  
+  
+</h2>
+    
+
+<p>Let’s look at some Java programs that use data structures and classes. Here
+are some simple ones that you might find yourself referring to if you forget
+how to do something.</p>
+<h3 id="index-of-minimum-of-a-list-of-numbers">
+  
+  
+    <a href="#index-of-minimum-of-a-list-of-numbers" class="anchor-heading" aria-labelledby="index-of-minimum-of-a-list-of-numbers"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Index of Minimum of a List of Numbers
+  
+  
+</h3>
+    
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+        <th>Java</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">min_index</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="c1"># Assume len(numbers) &gt;= 1
+</span>    <span class="n">m</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">idx</span>
+</code></pre></div>      </div>
+
+    </td>
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">minIndex</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Assume numbers.length &gt;= 1</span>
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">idx</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+
+<!-- TODO:
+- Additional example programs
+- Programming exercise spec
+-->
+<h2 id="exceptions">
+  
+  
+    <a href="#exceptions" class="anchor-heading" aria-labelledby="exceptions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Exceptions
+  
+  
+</h2>
+    
+
+<p>Lastly, let’s look at how we can throw exceptions in Java compared to Python with previous example.</p>
+
+<div class="table-wrapper"><table>
+    <thead>
+        <th>Python</th>
+    </thead>
+<tr>
+<td>
+
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">minIndex</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nc">Exception</span><span class="p">(</span><span class="sh">"</span><span class="s">There are no elements in the list!</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="bp">...</span>
+
+    <span class="k">return</span> <span class="n">m</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+
+<thead>
+<th>Java</th>
+</thead>
+<tr>
+
+<td>
+
+      <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">minIndex</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"There are no elements in the array!"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="o">...</span>
+
+    <span class="k">return</span> <span class="n">m</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>      </div>
+
+    </td>
+</tr>
+</table></div>
+<h2 id="programming-exercises">
+  
+  
+    <a href="#programming-exercises" class="anchor-heading" aria-labelledby="programming-exercises"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Programming Exercises
+  
+  
+</h2>
+    
+
+<p>In order to get you more familiar with Java syntax and testing, there are a few exercises for you to solve! After you complete the functions, we have provided a handful of tests for you. Although we have provided tests, you are welcome to write your own too! Writing tests is not only crucial for this class but it is one of the most important skills to have in general. It reinforces our understanding of what specific methods are supposed to do and allows us to catch edge cases! You will have more exercises for testing later on in the course but we want you to be exposed early on.</p>
+
+<p>Please complete <strong>Lab 01</strong> prior and refer <a href="../../../resources/guides/assignment-workflow/">here</a> how to start with the assignment.</p>
+
+<p>While completing the assignment, you may need to use different data structures like <code class="language-plaintext highlighter-rouge">ArrayList</code> and <code class="language-plaintext highlighter-rouge">TreeMap</code>. In order to import these classes, if you hover over wherever you are using the data structures, IntelliJ will give you option to import it or you can do it manually by adding:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.TreeMap</span><span class="o">;</span>
+</code></pre></div></div>
+<h3 id="task-1-javaexercises">
+  
+  
+    <a href="#task-1-javaexercises" class="anchor-heading" aria-labelledby="task-1-javaexercises"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 1: JavaExercises
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">JavaExercises.java</code> has 4 different methods for you to complete:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">makeDice</code>: This method takes returns a <em>new</em> <code class="language-plaintext highlighter-rouge">array</code> of integers <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 5, 6]</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">takeOrder</code>: This method takes in a <code class="language-plaintext highlighter-rouge">String</code> and returns a <em>new</em> array containing the orders of the customer. If the customer is <code class="language-plaintext highlighter-rouge">Ergun</code>, you should return an array of Strings <code class="language-plaintext highlighter-rouge">["beyti", "pizza", "hamburger", "tea"]</code> in that order. If the customer is <code class="language-plaintext highlighter-rouge">Erik</code>, you should return an array of Strings <code class="language-plaintext highlighter-rouge">["sushi", "pasta", "avocado", "coffee"]</code>. In any other case, return a String array of size 3 where each element is <code class="language-plaintext highlighter-rouge">null</code>.
+    <blockquote>
+      <p><strong>NOTE:</strong> <code class="language-plaintext highlighter-rouge">==</code> behaves strangely with <code class="language-plaintext highlighter-rouge">String</code>s for reasons we’ll see later in the course. You should check strings <code class="language-plaintext highlighter-rouge">s1</code> and <code class="language-plaintext highlighter-rouge">s2</code> for equality using <code class="language-plaintext highlighter-rouge">s1.equals(s2)</code> in Java. Also, <code class="language-plaintext highlighter-rouge">null</code> is the default value of elements in an initialized <code class="language-plaintext highlighter-rouge">String[]</code>.</p>
+    </blockquote>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">findMinMax</code>: This method takes an <code class="language-plaintext highlighter-rouge">int[] array</code> and returns the positive difference between the maximum element and minimum element of the given array. You may assume the input array is nonempty.</li>
+  <li><code class="language-plaintext highlighter-rouge">hailstone</code>: This method takes an <code class="language-plaintext highlighter-rouge">int n</code> as input and returns its hailstone sequence as a list of integers. The hailstone sequence is defined by the following procedure: pick a positive integer n as the start. If n is even, divide n by 2. If n is odd, multiply n by 3 and add 1. Continue this process until n is 1.
+    <ul>
+      <li>You should compute this using recursion with the provided helper method <code class="language-plaintext highlighter-rouge">hailstoneHelper</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>For this part, you can import <code class="language-plaintext highlighter-rouge">List</code> and <code class="language-plaintext highlighter-rouge">ArrayList</code>.</p>
+<h3 id="task-2-listexercises">
+  
+  
+    <a href="#task-2-listexercises" class="anchor-heading" aria-labelledby="task-2-listexercises"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 2: ListExercises
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">ListExercises.java</code> has 4 different methods for you to complete:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sum</code>: This method takes a list <code class="language-plaintext highlighter-rouge">List&lt;Integer&gt; L</code> and returns the total sum of the elements in that list. If the list is empty, the method should return 0.</li>
+  <li><code class="language-plaintext highlighter-rouge">evens</code>: This method takes a list <code class="language-plaintext highlighter-rouge">List&lt;Integer&gt; L</code> and returns a <em>new</em> list containing the even numbers of the given list. If there are no even elements, it should return an empty list.</li>
+  <li><code class="language-plaintext highlighter-rouge">common</code>: This method takes two lists <code class="language-plaintext highlighter-rouge">List&lt;Integer&gt; L1</code>, <code class="language-plaintext highlighter-rouge">List&lt;Integer&gt; L2</code> and returns a <em>new</em> list containing the items present in both of the two given lists. If there are no common items, it should return an empty list.</li>
+  <li><code class="language-plaintext highlighter-rouge">countOccurrencesOfC</code>: This method takes a list and a character <code class="language-plaintext highlighter-rouge">List&lt;String&gt; words</code>, <code class="language-plaintext highlighter-rouge">char c</code> and returns the number of occurrences of the given character in a list of strings. If the character does not occur in any of the words, it should return 0.</li>
+</ul>
+
+<p>For this part, you can import <code class="language-plaintext highlighter-rouge">ArrayList</code>.</p>
+<h3 id="task-3-mapexercises">
+  
+  
+    <a href="#task-3-mapexercises" class="anchor-heading" aria-labelledby="task-3-mapexercises"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 3: MapExercises
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">MapExercises.java</code> has 3 different methods for you to complete:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">letterToNum</code>: This method returns a map from every lower case letter to the number corresponding to its ordering in the alphabet, where ‘a’ corresponds to 1 and ‘z’ corresponds to 26.</li>
+  <li><code class="language-plaintext highlighter-rouge">squares</code>: This method takes a list <code class="language-plaintext highlighter-rouge">List&lt;Integer&gt; nums</code> and returns a map from the integers in the list to their squares. If the given list is empty, it should return an empty map.</li>
+  <li><code class="language-plaintext highlighter-rouge">countWords</code>: This method takes a list <code class="language-plaintext highlighter-rouge">List&lt;String&gt; words</code> and returns a map from words in the list to the number of times they appear. If the given list is empty, it should return an empty map.</li>
+</ul>
+
+<p>For this part, you can import <code class="language-plaintext highlighter-rouge">TreeMap</code>.</p>
+<h3 id="task-4-dessertjava">
+  
+  
+    <a href="#task-4-dessertjava" class="anchor-heading" aria-labelledby="task-4-dessertjava"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Task 4: Dessert.java
+  
+  
+</h3>
+    
+
+<p class="info">Compared to your previous classes, 61B may leave a lot of wiggle room for you on assignments. For example, there’s no skeleton code for this exercise - don’t be alarmed!</p>
+
+<p>Create a class called <code class="language-plaintext highlighter-rouge">Dessert</code> (you’ll need to create a new file and <strong>add it to Git</strong>) inside of the <code class="language-plaintext highlighter-rouge">src/</code> folder. This class should have the following characteristics:</p>
+
+<ul>
+  <li>Two instance variables: <code class="language-plaintext highlighter-rouge">int flavor</code> and <code class="language-plaintext highlighter-rouge">int price</code>.</li>
+  <li>A constructor that takes two parameters <code class="language-plaintext highlighter-rouge">int flavor</code> and <code class="language-plaintext highlighter-rouge">int price</code> and sets the instance variables accordingly.</li>
+  <li>One static variable <code class="language-plaintext highlighter-rouge">int numDesserts</code> that keeps track of the number of desserts created so far.</li>
+  <li>A method <code class="language-plaintext highlighter-rouge">public void printDessert()</code> that prints the flavor and price of the dessert, along with the total number of desserts created so far, separated by a space.
+    <ul>
+      <li>For example, if we create a dessert with flavor 1 and price 2, and then call its <code class="language-plaintext highlighter-rouge">printDessert()</code> method, it should print <code class="language-plaintext highlighter-rouge">1 2 1</code>.</li>
+      <li>If we then create a dessert with flavor 3 and price 4, and then call its <code class="language-plaintext highlighter-rouge">printDessert()</code> method, it should print <code class="language-plaintext highlighter-rouge">3 4 2</code>.</li>
+    </ul>
+  </li>
+  <li>Lastly, a method <code class="language-plaintext highlighter-rouge">public static void main(String[] args)</code> that only prints the line <code class="language-plaintext highlighter-rouge">I love dessert!</code> when executed.</li>
+</ul>
+
+<p>Be sure to implement the above behavior exactly, otherwise you may not pass the tests!</p>
+
+<p>When you have completed <code class="language-plaintext highlighter-rouge">Dessert.java</code>, uncomment the appropriate lines in <code class="language-plaintext highlighter-rouge">tests/DessertTest</code> and run the test.</p>
+
+<details>
+  <summary>
+How to create a new class in IntelliJ
+</summary>
+  <p><br /></p>
+
+  <ol>
+    <li>Right-click on the <code class="language-plaintext highlighter-rouge">src/</code> folder on the left-hand side of the screen, then go to <code class="language-plaintext highlighter-rouge">New</code> &gt; <code class="language-plaintext highlighter-rouge">Java Class</code>.
+<img src="/homeworks/hw0/hw0b/img/new-java-class.png" alt="New Java Class" style="display:block; margin-left:auto; margin-right:auto" /></li>
+    <li>You should see a popup appear. In the <code class="language-plaintext highlighter-rouge">Name</code> field, type <code class="language-plaintext highlighter-rouge">Dessert</code>, then hit Enter.
+<img src="/homeworks/hw0/hw0b/img/new-java-class-popup.png" alt="New Java Class Popup" style="display:block; margin-left:auto; margin-right:auto" /></li>
+    <li>If you get something like the following popup asking you to add the file to Git, select <code class="language-plaintext highlighter-rouge">Add</code>.
+<img src="/homeworks/hw0/hw0b/img/new-java-class-git.png" alt="New Java Class Git" style="display:block; margin-left:auto; margin-right:auto" /></li>
+    <li>You should now see a new file called <code class="language-plaintext highlighter-rouge">Dessert.java</code> in the <code class="language-plaintext highlighter-rouge">src/</code> folder. It should look like this, after which you can modify it to meet the specifications above:
+<img src="/homeworks/hw0/hw0b/img/new-java-class-file-contents.png" alt="New Java Class File Contents" style="display:block; margin-left:auto; margin-right:auto" /></li>
+  </ol>
+
+</details>
+
+<details>
+  <summary>
+<p><code class="language-plaintext highlighter-rouge">Dessert</code> class implemented in Python</p>
+
+</summary>
+  <p><br /></p>
+
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Dessert</span><span class="p">:</span>
+    <span class="n">numDesserts</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">flavor</span><span class="p">,</span> <span class="n">price</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">flavor</span> <span class="o">=</span> <span class="n">flavor</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">price</span> <span class="o">=</span> <span class="n">price</span>
+        <span class="n">Dessert</span><span class="p">.</span><span class="n">numDesserts</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">printDessert</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">flavor</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">price</span><span class="p">,</span> <span class="n">Dessert</span><span class="p">.</span><span class="n">numDesserts</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">I love dessert!</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div>  </div>
+
+</details>
+<h2 id="testing-and-debugging">
+  
+  
+    <a href="#testing-and-debugging" class="anchor-heading" aria-labelledby="testing-and-debugging"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing and Debugging
+  
+  
+</h2>
+    
+
+<p>If you’re having trouble running your code, please read through the common errors in this section before asking course staff!</p>
+<h3 id="syntax-errors">
+  
+  
+    <a href="#syntax-errors" class="anchor-heading" aria-labelledby="syntax-errors"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Syntax Errors
+  
+  
+</h3>
+    
+
+<p>IntelliJ will not run your code (the green play button will not appear) if your code contains syntax errors.</p>
+
+<p>If your code has syntax errors, you will see a red exclamation point in the top-right corner, and there will be red squiggles in your code. To see where the syntax errors are, you can click on the red exclamation point.</p>
+
+<p><img src="/homeworks/hw0/hw0b/img/syntax-errors.png" alt="Syntax Errors" style="display:block; margin-left:auto; margin-right:auto" /></p>
+
+<p>If you are seeing syntax errors in parts of the code that you haven’t modified yet, you may have a syntax error earlier in the code (e.g. mismatched brackets), which is causing later parts of the code to not compile.</p>
+
+<p>For example, in the image above, the <code class="language-plaintext highlighter-rouge">takeOrder</code> method is missing its closing bracket on Line 19. This causes a syntax error on Line 23.</p>
+<h2 id="deliverables">
+  
+  
+    <a href="#deliverables" class="anchor-heading" aria-labelledby="deliverables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Deliverables
+  
+  
+</h2>
+    
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">JavaExercises.java</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ListExercises.java</code></li>
+  <li><code class="language-plaintext highlighter-rouge">MapExercises.java</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Dessert.java</code></li>
+</ul>
+
+<p>For this assignment, you need to complete the methods in <code class="language-plaintext highlighter-rouge">JavaExercises</code>, <code class="language-plaintext highlighter-rouge">ListExercises</code>, and <code class="language-plaintext highlighter-rouge">MapExercises</code>. You also need to create a new file <code class="language-plaintext highlighter-rouge">Dessert.java</code> and implement it according to the desired specifications. Make sure you test your code before submitting to Gradescope. Although we do not have a submission limit for this specific assignment, in the future it is encouraged to use existing tests and write your own tests to see if your methods work before submitting your code to the autograder, as there may be limited submissions.</p>
+
+<p>This assignment is <strong>10 points</strong> and due <strong>9/3, 11:59 PM</strong>.</p>
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

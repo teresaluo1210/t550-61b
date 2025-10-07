@@ -1,0 +1,980 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li:not(:nth-child(2)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(2) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(2) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Homework 2: Percolation | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Homework 2: Percolation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Homework 2 spec." />
+<meta property="og:description" content="Homework 2 spec." />
+<link rel="canonical" href="http://localhost:4000/homeworks/hw2/" />
+<meta property="og:url" content="http://localhost:4000/homeworks/hw2/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Homework 2: Percolation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Homework 2 spec.","headline":"Homework 2: Percolation","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/homeworks/hw2/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/homeworks/">Homeworks</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Homework 2: Percolation</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">Homework 2: Percolation<ul><li class="nav-list-item"><a href="#due-372025" class="nav-list-link">Due: 3/7/2025</a></li><li class="nav-list-item"><a href="#faq" class="nav-list-link">FAQ</a></li><li class="nav-list-item"><a href="#getting-the-skeleton-files" class="nav-list-link">Getting the Skeleton Files</a></li><li class="nav-list-item"><a href="#introduction" class="nav-list-link">Introduction</a><ul><li class="nav-list-item"><a href="#intro-video" class="nav-list-link">Intro Video</a></li><li class="nav-list-item"><a href="#hw2-slides" class="nav-list-link">HW2 Slides</a></li><li class="nav-list-item"><a href="#who-cares" class="nav-list-link">Who cares?</a></li><li class="nav-list-item"><a href="#the-model" class="nav-list-link">The Model</a></li></ul></li><li class="nav-list-item"><a href="#percolationjava" class="nav-list-link">Percolation.java</a><ul><li class="nav-list-item"><a href="#percolation-class" class="nav-list-link">Percolation class</a></li><li class="nav-list-item"><a href="#the-percolation-problem" class="nav-list-link">The Percolation Problem</a></li><li class="nav-list-item"><a href="#the-weightedquickunionuf-class" class="nav-list-link">The WeightedQuickUnionUF class</a></li><li class="nav-list-item"><a href="#tips-and-corner-cases" class="nav-list-link">Tips and Corner Cases</a></li></ul></li><li class="nav-list-item"><a href="#percolationstatsjava" class="nav-list-link">PercolationStats.java</a></li><li class="nav-list-item"><a href="#runtime-analysis-ungraded" class="nav-list-link">Runtime Analysis (Ungraded)</a></li><li class="nav-list-item"><a href="#provided-files" class="nav-list-link">Provided Files</a><ul><li class="nav-list-item"><a href="#sample-data-files" class="nav-list-link">Sample Data Files</a></li><li class="nav-list-item"><a href="#file-based-visualization-client" class="nav-list-link">File-Based Visualization Client</a></li><li class="nav-list-item"><a href="#interactive-visualization-client" class="nav-list-link">Interactive Visualization Client</a></li></ul></li><li class="nav-list-item"><a href="#testing" class="nav-list-link">Testing</a></li><li class="nav-list-item"><a href="#submission--deliverables" class="nav-list-link">Submission &amp; Deliverables</a></li><li class="nav-list-item"><a href="#credits" class="nav-list-link">Credits</a></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    Homework 2: Percolation
+  
+  
+</h1>
+    
+<h2 id="due-372025">
+  
+  
+    <a href="#due-372025" class="anchor-heading" aria-labelledby="due-372025"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Due: 3/7/2025
+  
+  
+</h2>
+    
+
+<p class="danger">In contrast with previous homework assignments, this homework is comparable to a project in length. Start early. You have been warned. We will <strong>not grant extensions for failing to understand the depth of this homework</strong>.</p>
+<h2 id="faq">
+  
+  
+    <a href="#faq" class="anchor-heading" aria-labelledby="faq"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <a href="/homeworks/hw2/faq/">FAQ</a>
+  
+  
+</h2>
+    
+
+<p>Each assignment will have an FAQ linked at the top. You can also access it by adding “/faq” to the end of the URL. The
+FAQ for Homework 2 is located
+<a href="/homeworks/hw2/faq/">here</a>.</p>
+<h2 id="getting-the-skeleton-files">
+  
+  
+    <a href="#getting-the-skeleton-files" class="anchor-heading" aria-labelledby="getting-the-skeleton-files"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Getting the Skeleton Files
+  
+  
+</h2>
+    
+
+<p>Please follow the <a href="/resources/guides/assignment-workflow/">Assignment Workflow Guide</a> to get started with this assignment. This assignment is <code class="language-plaintext highlighter-rouge">hw2</code>.</p>
+<h2 id="introduction">
+  
+  
+    <a href="#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>In this program, we’ll write a program to estimate the value of the percolation threshold
+via <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Monte Carlo simulation</a>.</p>
+<h3 id="intro-video">
+  
+  
+    <a href="#intro-video" class="anchor-heading" aria-labelledby="intro-video"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Intro Video
+  
+  
+</h3>
+    
+
+<p>An introductory video for this HW can be found
+at <a href="https://www.youtube.com/watch?v=kIYKCsvG6UI&amp;list=PLNSdoiHk6ujjZs46s6XVXEbZUuF1MIO7g">this link</a>. It is broken into
+three parts: Intro, Implementation Spoilers, and Optimization Spoilers. Feel free to ignore these spoilers for a more
+difficult challenge. If you’d prefer to watch a eight year old video that Professor Hug made when he was at Princeton,
+see <a href="https://www.youtube.com/watch?v=o60oHXesOuA">this link</a>. Note that these videos mention implementing <code class="language-plaintext highlighter-rouge">PercolationStats.java</code>;
+we’ve now given you the full solution for this class, so you don’t need to worry about this step.</p>
+<h3 id="hw2-slides">
+  
+  
+    <a href="#hw2-slides" class="anchor-heading" aria-labelledby="hw2-slides"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> HW2 Slides
+  
+  
+</h3>
+    
+
+<p>Slides for this HW can be
+found <a href="https://docs.google.com/presentation/d/12mvVbdoq7SKZy02u_i7Z7LCyrDCpbYmUhl_qqW95T_4/edit?usp=sharing">here</a>.
+Because this is a HW and not a project, we give spoilers for how to approach the HW. You may ignore them if you’d like a
+bigger challenge.</p>
+<h3 id="who-cares">
+  
+  
+    <a href="#who-cares" class="anchor-heading" aria-labelledby="who-cares"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Who cares?
+  
+  
+</h3>
+    
+
+<p>Given a composite systems comprised of randomly distributed insulating and metallic materials: what
+fraction of the materials need to be metallic so that the composite system is an electrical conductor? Given a porous
+landscape with water on the surface (or oil below), under what conditions will the water be able to drain through to the
+bottom (or the oil to gush through to the surface)? Scientists have defined an abstract process known as percolation to
+model such situations.</p>
+<h3 id="the-model">
+  
+  
+    <a href="#the-model" class="anchor-heading" aria-labelledby="the-model"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The Model
+  
+  
+</h3>
+    
+
+<p>We model a percolation system using an N-by-N grid of sites. Each site is either open or blocked. A <em>full
+site</em> is an open site that can be connected to an open site in the top row via a chain of neighboring (left, right, up,
+down) open sites. We say the system percolates if there is a full site in the bottom row. In other words, a system
+percolates if we fill all open sites connected to the top row and that process fills some open site on the bottom row.
+(For the insulating/metallic materials example, the open sites correspond to metallic materials, so that a system that
+percolates has a metallic path from top to bottom, with full sites conducting. For the porous substance example, the
+open sites correspond to empty space through which water might flow, so that a system that percolates lets water fill
+open sites, flowing from top to bottom.)</p>
+
+<p>In the diagrams below, you can see that in the system on the left, the water is able to start in a site on the top row
+and trickle down through empty sites until it reaches an empty site on the bottom row.</p>
+
+<p>Whereas on the right, the water in the site on the top row has no way of trickling down to an open site on the bottom
+row.</p>
+
+<p><img src="/homeworks/hw2/images/percolates.png" alt="percolates" /></p>
+<h2 id="percolationjava">
+  
+  
+    <a href="#percolationjava" class="anchor-heading" aria-labelledby="percolationjava"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">Percolation.java</code>
+  
+  
+</h2>
+    
+<h3 id="percolation-class">
+  
+  
+    <a href="#percolation-class" class="anchor-heading" aria-labelledby="percolation-class"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Percolation class
+  
+  
+</h3>
+    
+
+<p>To model a percolation system, complete the <code class="language-plaintext highlighter-rouge">Percolation</code> class
+with the following API:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Percolation</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="nf">Percolation</span><span class="o">(</span><span class="kt">int</span> <span class="no">N</span><span class="o">)</span>                <span class="c1">// create N-by-N grid, with all sites initially blocked</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">(</span><span class="kt">int</span> <span class="n">row</span><span class="o">,</span> <span class="kt">int</span> <span class="n">col</span><span class="o">)</span>       <span class="c1">// open the site (row, col) if it is not open already</span>
+   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isOpen</span><span class="o">(</span><span class="kt">int</span> <span class="n">row</span><span class="o">,</span> <span class="kt">int</span> <span class="n">col</span><span class="o">)</span>  <span class="c1">// is the site (row, col) open?</span>
+   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isFull</span><span class="o">(</span><span class="kt">int</span> <span class="n">row</span><span class="o">,</span> <span class="kt">int</span> <span class="n">col</span><span class="o">)</span>  <span class="c1">// is the site (row, col) full?</span>
+   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">numberOfOpenSites</span><span class="o">()</span>           <span class="c1">// number of open sites</span>
+   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">percolates</span><span class="o">()</span>              <span class="c1">// does the system percolate?</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h3 id="the-percolation-problem">
+  
+  
+    <a href="#the-percolation-problem" class="anchor-heading" aria-labelledby="the-percolation-problem"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The Percolation Problem
+  
+  
+</h3>
+    
+
+<p>In a famous scientific problem, researchers are interested in the following question:
+if sites are independently set to be open with probability $p$ (and therefore blocked with probability $1 − p$), what is the
+probability that the system percolates? When $p$ equals 0 (no site is open), the system does not percolate; when $p$ equals
+1 (all sites are open), the system percolates. The plots below show the site vacancy probability $p$ versus the
+percolation probability for 20-by-20 random grid (left) and 100-by-100 random grid (right).</p>
+
+<p class="center"><img src="/homeworks/hw2/images/percolation-threshold20.png" alt="threshold20" class="inline" />
+<img src="/homeworks/hw2/images/percolation-threshold100.png" alt="threshold100" class="inline" /></p>
+
+<p>When $N$ is sufficiently large, there is a threshold value $p^*$ such that when $p &lt; p^*$ a random N-by-N grid
+almost never percolates, and when $p &gt; p^*$, a random N-by-N grid almost always percolates. No mathematical solution
+for determining the percolation threshold $p^*$ has yet been derived. Your task is to write a computer program to
+estimate $p^*$.</p>
+
+<p class="task">Fill out <code class="language-plaintext highlighter-rouge">Percolation.java</code> by implementing all the methods given in the above API.</p>
+<h3 id="the-weightedquickunionuf-class">
+  
+  
+    <a href="#the-weightedquickunionuf-class" class="anchor-heading" aria-labelledby="the-weightedquickunionuf-class"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The <code class="language-plaintext highlighter-rouge">WeightedQuickUnionUF</code> class
+  
+  
+</h3>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">WeightedQuickUnionUF</code> class is provided by Princeton’s <code class="language-plaintext highlighter-rouge">algs4</code> library, and has the following API:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WeightedQuickUnionUF</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="nf">WeightedQuickUnionUF</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span>      <span class="c1">// creates a UF with n elements</span>
+   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">count</span><span class="o">()</span>                      <span class="c1">// number of disjoint sets</span>
+   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">find</span><span class="o">(</span><span class="kt">int</span> <span class="n">p</span><span class="o">)</span>                  <span class="c1">// the root of p's set</span>
+   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">connected</span><span class="o">(</span><span class="kt">int</span> <span class="n">p</span><span class="o">,</span> <span class="kt">int</span> <span class="n">q</span><span class="o">)</span>  <span class="c1">// whether p and q are in the same set</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">union</span><span class="o">(</span><span class="kt">int</span> <span class="n">p</span><span class="o">,</span> <span class="kt">int</span> <span class="n">q</span><span class="o">)</span>         <span class="c1">// join p and q's sets together</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote class="warning">
+  <p><strong>Your code must use the <a href="https://algs4.cs.princeton.edu/15uf/WeightedQuickUnionUF.java.html"><code class="language-plaintext highlighter-rouge">WeightedQuickUnionUF</code></a> class!</strong>
+It has already been implemented for you, so do not reimplement the Union Find ADT.</p>
+</blockquote>
+<h3 id="tips-and-corner-cases">
+  
+  
+    <a href="#tips-and-corner-cases" class="anchor-heading" aria-labelledby="tips-and-corner-cases"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Tips and Corner Cases
+  
+  
+</h3>
+    
+
+<p><strong>IMPORTANT</strong>: We’ve released a set of videos that contain some hints for how to approach this homework! Please do watch
+them; they might save you a lot of time on this assignment.</p>
+
+<ul>
+  <li><a href="https://youtu.be/-pr7psbTSOU">Video 1: A Small Hint</a></li>
+  <li><a href="https://youtu.be/gTqM4WvM9D8">Video 2: A Larger Hint</a></li>
+</ul>
+<h4 id="corner-cases">
+  
+  
+    <a href="#corner-cases" class="anchor-heading" aria-labelledby="corner-cases"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Corner Cases
+  
+  
+</h4>
+    
+
+<p>By convention, the row and column indices are integers between 0 and <code class="language-plaintext highlighter-rouge">N</code> − 1, where (0, 0) is the
+upper-left site: Throw a <code class="language-plaintext highlighter-rouge">java.lang.IndexOutOfBoundsException</code> if any argument to <code class="language-plaintext highlighter-rouge">open()</code>, <code class="language-plaintext highlighter-rouge">isOpen()</code>, or <code class="language-plaintext highlighter-rouge">isFull()</code> is
+outside its prescribed range. The constructor should throw a <code class="language-plaintext highlighter-rouge">java.lang.IllegalArgumentException</code> if <code class="language-plaintext highlighter-rouge">N</code> ≤ 0.</p>
+<h4 id="performance-requirements">
+  
+  
+    <a href="#performance-requirements" class="anchor-heading" aria-labelledby="performance-requirements"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Performance Requirements
+  
+  
+</h4>
+    
+
+<p>The constructor should take time proportional to $N^2$; all methods should take constant
+time plus a constant number of calls to the union-find methods <code class="language-plaintext highlighter-rouge">union()</code>, <code class="language-plaintext highlighter-rouge">find()</code>, <code class="language-plaintext highlighter-rouge">connected()</code>, and <code class="language-plaintext highlighter-rouge">count()</code>.
+Meeting these requirements is somewhat tricky! You might consider creating a solution that simply works, before figuring
+out a way to make it faster. For tips on meeting the speed requirements, see
+the <a href="https://www.youtube.com/watch?v=kIYKCsvG6UI&amp;list=PLNSdoiHk6ujjZs46s6XVXEbZUuF1MIO7g">video</a> at the beginning of
+this spec. Your <code class="language-plaintext highlighter-rouge">numberOfOpenSites()</code> method must take constant time. Part of the goal of this assignment is to learn
+how to cast one problem (Percolation) in terms of an already solved problem (Disjoint Sets, a.k.a Union Find).</p>
+
+<blockquote class="info">
+  <p>If you are at this part of the spec and are still unsure of how to start, go through
+these <a href="https://docs.google.com/presentation/d/12mvVbdoq7SKZy02u_i7Z7LCyrDCpbYmUhl_qqW95T_4/edit?usp=sharing">slides</a> and
+watch this <a href="https://www.youtube.com/watch?v=kIYKCsvG6UI&amp;list=PLNSdoiHk6ujjZs46s6XVXEbZUuF1MIO7g">video</a>.</p>
+</blockquote>
+<h2 id="percolationstatsjava">
+  
+  
+    <a href="#percolationstatsjava" class="anchor-heading" aria-labelledby="percolationstatsjava"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">PercolationStats.java</code>
+  
+  
+</h2>
+    
+
+<p><strong>Monte Carlo simulation.</strong> To estimate the percolation threshold, consider the following computational experiment:</p>
+
+<ul>
+  <li>Initialize all sites to be blocked.</li>
+  <li>Repeat the following until the system percolates:
+    <ul>
+      <li>Choose a site uniformly at random among all blocked sites.</li>
+      <li>Open the site.</li>
+    </ul>
+  </li>
+  <li>The fraction of sites that are opened when the system percolates provides an estimate of the percolation threshold.</li>
+</ul>
+
+<p>For example, if sites are opened in a 20-by-20 grid according to the snapshots below, then our estimate of the
+percolation threshold is 204/400 = 0.51 because the system percolates when the 204th site is opened. The images
+correspond to the 50, 100, 150, and 204 sites being open, respectively.</p>
+
+<p class="center"><img src="/homeworks/hw2/images/percolation-50.png" alt="percolation50" class="inline" />
+<img src="/homeworks/hw2/images/percolation-100.png" alt="percolation100" class="inline" />
+<img src="/homeworks/hw2/images/percolation-150.png" alt="percolation150" class="inline" />
+<img src="/homeworks/hw2/images/percolation-204.png" alt="percolation204" class="inline" /></p>
+
+<details>
+  <summary>
+
+    <p><strong>If you’re interested in the math behind the following calculations, click here.</strong></p>
+
+  </summary>
+
+  <p>By repeating this computation experiment $T$ times and averaging the results, we obtain a more accurate estimate of the
+percolation threshold. Let $x_t$ be the fraction of open sites in computational experiment $t$. The sample mean $\mu$
+provides an estimate of the percolation threshold; the sample standard deviation $\sigma$ measures the sharpness of the
+threshold.</p>
+
+  <p>$\mu = \frac{x_1 + x_2 + … + x_T}{T}$, $\sigma^2 = \frac{(x_1 - \mu)^2 + (x_2 - \mu)^2 + … + (x_T - \mu)
+^2}{T-1}$</p>
+
+  <p>Assuming $T$ is sufficiently large (say, at least 30), the following provides a 95% confidence interval for the
+percolation threshold:</p>
+
+  <p>$[\mu - \frac{1.96\sigma}{\sqrt{T}}, \mu + \frac{1.96\sigma}{\sqrt{T}}]$</p>
+
+</details>
+
+<p>To perform a series of computational experiments, we’ve given you a <code class="language-plaintext highlighter-rouge">PercolationStats</code> data type.</p>
+
+<p>The constructor takes two arguments <code class="language-plaintext highlighter-rouge">N</code> and <code class="language-plaintext highlighter-rouge">T</code>, and performs <code class="language-plaintext highlighter-rouge">T</code> independent computational experiments (
+discussed above) on an <code class="language-plaintext highlighter-rouge">N</code>-by-<code class="language-plaintext highlighter-rouge">N</code> grid. Using this experimental data, it calculates the mean, standard deviation,
+and the 95% confidence interval for the percolation threshold.</p>
+
+<blockquote class="task">
+  <p>Open <code class="language-plaintext highlighter-rouge">PercolationStats.java</code> and take a look at the provided constructor and methods.
+Then, run the <code class="language-plaintext highlighter-rouge">main</code> method, and interpret the results. What do these numbers tell you about the solution to the
+Percolation Problem?</p>
+
+  <p>There’s no deliverable for this portion of the assignment; if you’ve implemented <code class="language-plaintext highlighter-rouge">Percolation.java</code>
+correctly, you should now have a 95% confidence interval for the percolation threshold <code class="language-plaintext highlighter-rouge">p</code>.</p>
+</blockquote>
+<h2 id="runtime-analysis-ungraded">
+  
+  
+    <a href="#runtime-analysis-ungraded" class="anchor-heading" aria-labelledby="runtime-analysis-ungraded"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Runtime Analysis (Ungraded)
+  
+  
+</h2>
+    
+
+<p>This part of the HW will not be graded, but it is highly recommended that you at least read though and think about the
+following points:</p>
+
+<ul>
+  <li>
+    <p>Implement the <code class="language-plaintext highlighter-rouge">Percolation</code> data type using the quick-find algorithm in QuickFindUF.
+Use <a href="https://introcs.cs.princeton.edu/java/stdlib/Stopwatch.java.html">Stopwatch</a> to measure the total running time
+of <code class="language-plaintext highlighter-rouge">PercolationStats</code> for various values of <code class="language-plaintext highlighter-rouge">N</code> and <code class="language-plaintext highlighter-rouge">T</code>. How does doubling <code class="language-plaintext highlighter-rouge">N</code> affect the total running time? How does
+doubling <code class="language-plaintext highlighter-rouge">T</code> affect the total running time?</p>
+  </li>
+  <li>
+    <p>Now, implement the <code class="language-plaintext highlighter-rouge">Percolation</code> data type using the weighted quick-union algorithm in <code class="language-plaintext highlighter-rouge">WeightedQuickUnionUF</code>. Answer
+the same questions in the previous bullet.</p>
+  </li>
+</ul>
+<h2 id="provided-files">
+  
+  
+    <a href="#provided-files" class="anchor-heading" aria-labelledby="provided-files"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Provided Files
+  
+  
+</h2>
+    
+
+<p>We provide two clients that serve as large-scale visual traces.
+<strong>We highly recommend using them for testing and debugging your <code class="language-plaintext highlighter-rouge">Percolation</code> implementation.</strong></p>
+<h3 id="sample-data-files">
+  
+  
+    <a href="#sample-data-files" class="anchor-heading" aria-labelledby="sample-data-files"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Sample Data Files
+  
+  
+</h3>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">inputFiles</code> directory contains some sample files for use with the visualization client,
+including <code class="language-plaintext highlighter-rouge">input20.txt</code>, which we will use below.</p>
+
+<p><a href="/homeworks/hw2/outputs/">Here</a> are the expected output images corresponding to each input file.</p>
+<h3 id="file-based-visualization-client">
+  
+  
+    <a href="#file-based-visualization-client" class="anchor-heading" aria-labelledby="file-based-visualization-client"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> File-Based Visualization Client
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">PercolationPicture.java</code> visualizes by performing the following steps:</p>
+
+<ul>
+  <li>Read the grid size N from the file.</li>
+  <li>Create an N-by-N grid of sites (initially all blocked).</li>
+  <li>Read in a sequence of sites (row i, column j) to open from the file. After each site is opened, draw full sites in
+light blue, open sites (that aren’t full) in white, and blocked sites in black using standard draw, with site (0, 0)
+in the upper left-hand corner.</li>
+</ul>
+
+<p>For the input file, <code class="language-plaintext highlighter-rouge">input20.txt</code>, the program should produce output as shown in the following images. The images
+correspond to the 50, 100, 150, 204, and 250 sites being open, respectively.</p>
+
+<p class="center"><img src="/homeworks/hw2/images/percolation-50.png" alt="percolation50" class="inline" />
+<img src="/homeworks/hw2/images/percolation-100.png" alt="percolation100" class="inline" />
+<img src="/homeworks/hw2/images/percolation-150.png" alt="percolation150" class="inline" /></p>
+
+<p class="center"><img src="/homeworks/hw2/images/percolation-204.png" alt="percolation204" class="inline" />
+<img src="/homeworks/hw2/images/percolation-250.png" alt="percolation250" class="inline" /></p>
+
+<p>You can run the visualizer on this input by passing in the correct arguments to the IntelliJ
+program’s <code class="language-plaintext highlighter-rouge">Run -&gt; Edit Configurations -&gt; + -&gt; Application</code> tab. Here, set the “Main class” to <code class="language-plaintext highlighter-rouge">PercolationPicture</code>
+and set the “Program arguments” to an input file (for example, <code class="language-plaintext highlighter-rouge">inputFiles/input20.txt</code>). Finally, hit the “Run” button
+to begin running the visualizer.</p>
+
+<blockquote class="task">
+  <p>Open <code class="language-plaintext highlighter-rouge">PercolationPicture.java</code> and follow the steps above to run the visualizer.
+Use this tool to help you debug your <code class="language-plaintext highlighter-rouge">Percolation.java</code> methods!</p>
+</blockquote>
+<h3 id="interactive-visualization-client">
+  
+  
+    <a href="#interactive-visualization-client" class="anchor-heading" aria-labelledby="interactive-visualization-client"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Interactive Visualization Client
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">InteractivePercolationVisualizer.java</code> animates the results of opening sites in a
+percolation system, using the mouse as input. It takes a command-line integer <code class="language-plaintext highlighter-rouge">N</code> that specifies the grid size. As a
+bonus, it prints out the sequence of sites opened in the same format used by <code class="language-plaintext highlighter-rouge">PercolationPicture</code> (described above),
+so you can use it to prepare interesting files for testing. If you design an interesting data file, feel free to share
+it on Ed.</p>
+
+<blockquote class="task">
+  <p>Open <code class="language-plaintext highlighter-rouge">InteractivePercolationVisualizer.java</code> and follow the same steps as <code class="language-plaintext highlighter-rouge">PercolationPicture</code> to run the interactive visualizer. Note that for the interactive version, you <strong>do not</strong> need to provide a program argument.</p>
+
+  <p>Use this tool to help you debug your <code class="language-plaintext highlighter-rouge">Percolation.java</code> methods!</p>
+</blockquote>
+
+<p><em>Note: If you are using IntelliJ, you can choose which class to run (i.e. choose whose main method you want to run) in
+Run -&gt; Edit Configurations. For more information, please check the FAQ</em></p>
+<h2 id="testing">
+  
+  
+    <a href="#testing" class="anchor-heading" aria-labelledby="testing"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing
+  
+  
+</h2>
+    
+
+<p>You will find <code class="language-plaintext highlighter-rouge">InteractivePercolationVisualizer</code> to be quite helpful as a sanity check that your <code class="language-plaintext highlighter-rouge">Percolation</code> class is implemented properly. Clicking on cells should open (and fill, if necessary) those sites, if your implementation is correct. There will also be a note for the number of open sites and whether the system percolates.</p>
+
+<p>In the <code class="language-plaintext highlighter-rouge">tests</code> folder, we have provided two basic tests for you. <strong>You should add more tests to <code class="language-plaintext highlighter-rouge">PercolationTest.java</code> to test your code.</strong></p>
+<h2 id="submission--deliverables">
+  
+  
+    <a href="#submission--deliverables" class="anchor-heading" aria-labelledby="submission--deliverables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submission &amp; Deliverables
+  
+  
+</h2>
+    
+
+<p>You should submit the usual way, by pushing to GitHub and then submitting on Gradescope. There will be no velocity
+limiting for this assignment.</p>
+
+<p><strong>Deliverables:</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Percolation.java</code></li>
+</ul>
+<h2 id="credits">
+  
+  
+    <a href="#credits" class="anchor-heading" aria-labelledby="credits"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Credits
+  
+  
+</h2>
+    
+
+<p>This assignment originally developed by Kevin Wayne and Bob Sedgewick at Princeton University, with autograder built by
+Josh Hug for the Princeton Algorithms course.</p>
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

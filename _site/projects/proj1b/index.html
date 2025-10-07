@@ -1,0 +1,1393 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li:not(:nth-child(2)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(2) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(2) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(2) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Project 1B: ArrayDeque61B | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Project 1B: ArrayDeque61B" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Project 1B." />
+<meta property="og:description" content="Project 1B." />
+<link rel="canonical" href="http://localhost:4000/projects/proj1b/" />
+<meta property="og:url" content="http://localhost:4000/projects/proj1b/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Project 1B: ArrayDeque61B" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Project 1B.","headline":"Project 1B: ArrayDeque61B","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/projects/proj1b/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/projects/">Projects</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Project 1B: ArrayDeque61B</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">Project 1B: ArrayDeque61B<ul><li class="nav-list-item"><a href="#due-wednesday-february-19th-1159-pm-pt" class="nav-list-link">Due: Wednesday, February 19th, 11:59 PM PT</a></li><li class="nav-list-item"><a href="#introduction" class="nav-list-link">Introduction</a><ul><li class="nav-list-item"><a href="#style" class="nav-list-link">Style</a></li><li class="nav-list-item"><a href="#getting-the-skeleton-files" class="nav-list-link">Getting the Skeleton Files</a></li></ul></li><li class="nav-list-item"><a href="#deque-adt-and-api" class="nav-list-link">Deque: ADT and API</a></li><li class="nav-list-item"><a href="#creating-the-file" class="nav-list-link">Creating the File</a></li><li class="nav-list-item"><a href="#arraydeque61b" class="nav-list-link">ArrayDeque61B</a><ul><li class="nav-list-item"><a href="#constructor" class="nav-list-link">Constructor</a></li><li class="nav-list-item"><a href="#addfirst-and-addlast" class="nav-list-link">addFirst and addLast</a></li><li class="nav-list-item"><a href="#get" class="nav-list-link">get</a></li><li class="nav-list-item"><a href="#isempty-and-size" class="nav-list-link">isEmpty and size</a></li><li class="nav-list-item"><a href="#tolist" class="nav-list-link">toList</a></li><li class="nav-list-item"><a href="#removefirst-and-removelast" class="nav-list-link">removeFirst and removeLast</a></li><li class="nav-list-item"><a href="#getrecursive" class="nav-list-link">getRecursive</a></li><li class="nav-list-item"><a href="#resizing" class="nav-list-link">Resizing</a></li><li class="nav-list-item"><a href="#writing-tests" class="nav-list-link">Writing Tests</a></li><li class="nav-list-item"><a href="#suggestions" class="nav-list-link">Suggestions</a></li></ul></li><li class="nav-list-item"><a href="#deque61b-enhancements" class="nav-list-link">Deque61B Enhancements</a><ul><li class="nav-list-item"><a href="#object-methods" class="nav-list-link">Object Methods</a></li></ul></li><li class="nav-list-item"><a href="#maximizer61b" class="nav-list-link">Maximizer61B</a></li><li class="nav-list-item"><a href="#guitar-hero-optional" class="nav-list-link">Guitar Hero (Optional)</a><ul><li class="nav-list-item"><a href="#the-gh2-package" class="nav-list-link">The GH2 Package</a></li><li class="nav-list-item"><a href="#guitarstring" class="nav-list-link">GuitarString</a></li><li class="nav-list-item"><a href="#why-it-works" class="nav-list-link">Why It Works</a></li><li class="nav-list-item"><a href="#guitarherolite" class="nav-list-link">GuitarHeroLite</a></li><li class="nav-list-item"><a href="#submit-to-the-autograder" class="nav-list-link">Submit to the Autograder</a></li><li class="nav-list-item"><a href="#scoring" class="nav-list-link">Scoring</a></li></ul></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    Project 1B: ArrayDeque61B
+  
+  
+</h1>
+    
+<h2 id="due-wednesday-february-19th-1159-pm-pt">
+  
+  
+    <a href="#due-wednesday-february-19th-1159-pm-pt" class="anchor-heading" aria-labelledby="due-wednesday-february-19th-1159-pm-pt"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Due: Wednesday, February 19th, 11:59 PM PT
+  
+  
+</h2>
+    
+<h2 class="no_toc" id="faq">
+  
+  
+    <a href="#faq" class="anchor-heading" aria-labelledby="faq"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <a href="/projects/proj1b/faq/">FAQ</a>
+  
+  
+</h2>
+    
+
+<p>Each assignment will have an FAQ linked at the top. You can also access it by adding “/faq” to the end of the URL. The
+FAQ for Project 1B is located
+<a href="/projects/proj1b/faq/">here</a>.</p>
+
+<p>Note that this project has limited submission tokens. Please see <a href="#submit-to-the-autograder">Submit to the Autograder</a> for more details.</p>
+<h2 id="introduction">
+  
+  
+    <a href="#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>In Project 1A, we built <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code>. Now we’ll see a different
+implementation of the <code class="language-plaintext highlighter-rouge">Deque61B</code> interface that uses a <em>backing array</em>, rather
+than linked nodes.</p>
+
+<p>By the end of Project 1B, you will…</p>
+
+<ul>
+  <li>Gain an understanding of the implementation of a backing array in
+data structures.</li>
+  <li>Have more experience using testing and test-driven development to verify
+the correctness of these data structures.</li>
+</ul>
+
+<p class="info">Check out the <a href="https://docs.google.com/presentation/d/1kjbO8X7-i63NwQ_9wIt4HXr6APp2qc9PkghD-GO7_is/edit#slide=id.g1094ff4355_0_466">Project 1B slides</a> for some additional visually oriented tips.</p>
+
+<p class="info">Check out the <a href="https://www.youtube.com/watch?v=m1zy1tuA6o8">Getting Started Video</a> for an overview of this project.</p>
+
+<p>We will provide relatively little scaffolding. In other words, we’ll say what
+you should do, but not how.</p>
+
+<blockquote class="info">
+  <p>This section assumes you have watched and fully digested the lectures up till
+the <code class="language-plaintext highlighter-rouge">ArrayList</code> lecture, Lecture 7.</p>
+</blockquote>
+
+<blockquote class="task">
+  <p>For this project, you must work alone! Please carefully read the
+<a href="/policies/#collaboration-and-academic-misconduct">Policy on Collaboration and Cheating</a>
+to see what this means exactly. In particular, do not look for solutions online.</p>
+</blockquote>
+
+<blockquote class="danger">
+  <p>It should (still) go without saying that you may not use any of the built-in
+<code class="language-plaintext highlighter-rouge">java.util</code> data structures in your implementation! The whole point is to build
+your own versions! There are a few places where you may use specific data
+structures outside of tests, and we will clearly say where.</p>
+</blockquote>
+<h3 id="style">
+  
+  
+    <a href="#style" class="anchor-heading" aria-labelledby="style"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Style
+  
+  
+</h3>
+    
+
+<p>As in Project 1A, <strong>we will be enforcing style</strong>. You must follow the
+<a href="/resources/guides/style/">style guide</a>, or you will be penalized on the
+autograder. Note that style penalties do <strong>not</strong> apply to test files.</p>
+
+<p>You can and should check your style locally with the CS 61B plugin. <strong>We will
+not remove the velocity limit for failing to check style.</strong></p>
+<h3 id="getting-the-skeleton-files">
+  
+  
+    <a href="#getting-the-skeleton-files" class="anchor-heading" aria-labelledby="getting-the-skeleton-files"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Getting the Skeleton Files
+  
+  
+</h3>
+    
+
+<p>Follow the instructions in the
+<a href="/resources/guides/assignment-workflow/#assignment-workflow">Assignment Workflow guide</a>
+to get the skeleton code and open it in IntelliJ. For this project, we will be
+working in the <strong><code class="language-plaintext highlighter-rouge">proj1b</code></strong> directory.</p>
+
+<p>You see a <code class="language-plaintext highlighter-rouge">proj1b</code> directory appear in your repo with the following structure:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> proj1b
+├── src
+│   └── deque
+│       ├── Deque61B.java
+│       └── Maximizer61B.java
+└── tests
+    ├── ArrayDeque61BPreconditionTest.java
+    ├── ArrayDeque61BTest.java
+    └── Maximizer61BTest.java
+</code></pre></div></div>
+
+<p>Note that you’ll also see a <code class="language-plaintext highlighter-rouge">gh2</code> directory and the related test file <code class="language-plaintext highlighter-rouge">TestGuitarString.java</code>. 
+These are related to an optional <a href="#guitar-hero-optional">Guitar Hero</a> section, which you can read about further down.</p>
+
+<p>If you get some sort of error, STOP and either figure it out by carefully
+reading the <a href="/resources/guides/git/wtfs/">Git WTFs</a> or seek help at OH
+or Ed. You’ll potentially save yourself a lot of trouble vs. guess-and-check
+with git commands. If you find yourself trying to use commands recommended by
+Google like <code class="language-plaintext highlighter-rouge">force push</code>,
+<a href="https://twitter.com/heathercmiller/status/526770571728531456">don’t</a>.
+<strong>Don’t use force push, even if a post you found on Stack Overflow says to do it!</strong></p>
+
+<p>You can also watch Professor Hug’s <a href="https://www.youtube.com/watch?v=tABtNcN5y0A">demo</a>
+about how to get started and this <a href="https://www.youtube.com/watch?v=Squ8TmG5mX0">video</a>
+if you encounter some git issues.</p>
+<h2 id="deque-adt-and-api">
+  
+  
+    <a href="#deque-adt-and-api" class="anchor-heading" aria-labelledby="deque-adt-and-api"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Deque: ADT and API
+  
+  
+</h2>
+    
+
+<p>If you need a refresher on <code class="language-plaintext highlighter-rouge">Deque61B</code>s, refer to the
+<a href="/projects/proj1a/#deque-adt-and-api">Project 1A spec</a>
+and the <code class="language-plaintext highlighter-rouge">Deque61B.java</code> file.</p>
+<h2 id="creating-the-file">
+  
+  
+    <a href="#creating-the-file" class="anchor-heading" aria-labelledby="creating-the-file"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Creating the File
+  
+  
+</h2>
+    
+
+<p>Start by creating a file called <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code>. This file should be created
+in the <code class="language-plaintext highlighter-rouge">proj1b/src/deque</code> directory. To do this, right-click on the <code class="language-plaintext highlighter-rouge">deque</code> directory,
+navigate to “New -&gt; Java Class”, and give it the name <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code>.</p>
+
+<p>Just like you did in Project 1A We want our <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> to be able to hold several different types. To enable this, you should edit the declaration of your class so that it reads:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayDeque61B</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Recall from lecture that it doesn’t actually matter if we use <code class="language-plaintext highlighter-rouge">T</code> or some other
+string like <code class="language-plaintext highlighter-rouge">ArrayDeque61B&lt;Glerp&gt;</code>. However, we recommend using <code class="language-plaintext highlighter-rouge">&lt;T&gt;</code> for
+consistency with other Java code.</p>
+
+<p>We also want to tell Java that every <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> is a <code class="language-plaintext highlighter-rouge">Deque61B</code>, so that users can write code like <code class="language-plaintext highlighter-rouge">Deque61B&lt;String&gt; lld1 = new ArrayDeque61B&lt;&gt;();</code>. To enable this, change the declaration of your class so that it reads:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayDeque61B</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="nc">Deque61B</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>Once you’ve done this step, you’ll likely see a squiggly red line under the
+entire class declaration. This is because you said that your class implements
+an interface, but you haven’t actually implemented any of the interface methods
+yet.</p>
+
+<p>Hover over the red line with your mouse, and when the
+IntelliJ pop-up appears, click the “Implement methods” button. Ensure that all the
+methods in the list are highlighted, and click “OK”. Now, your class should
+be filled with a bunch of empty method declarations. These are the methods that you’ll
+need to implement for this project!</p>
+
+<p>Lastly, you should create an empty constructor. To do this, add the following
+code to your file, leaving the constructor blank for now.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">ArrayDeque61B</span><span class="o">()</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note: You can also generate the constructor by clicking “Code”, then “Generate”
+then “Constructor”, though I prefer the typing the code yourself approach.</p>
+
+<p>Now you’re ready to get started!</p>
+<h2 id="arraydeque61b">
+  
+  
+    <a href="#arraydeque61b" class="anchor-heading" aria-labelledby="arraydeque61b"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code>
+  
+  
+</h2>
+    
+
+<p>As your second deque implementation, you’ll build the <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> class. This
+deque <strong>must</strong> use a Java array as the backing data structure.</p>
+
+<p>You may add any private helper classes or methods in <code class="language-plaintext highlighter-rouge">ArrayDeque61B.java</code> if you
+deem it necessary.</p>
+<h3 id="constructor">
+  
+  
+    <a href="#constructor" class="anchor-heading" aria-labelledby="constructor"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Constructor
+  
+  
+</h3>
+    
+
+<p>You will need to somehow keep track of what array indices hold the deque’s
+front and back elements. We <strong>strongly recommend</strong> that you treat your array as
+circular for this exercise. In other words, if your front item is at position
+<code class="language-plaintext highlighter-rouge">0</code>, and you <code class="language-plaintext highlighter-rouge">addFirst</code>, the new front should loop back around to the end of
+the array (so the new front item in the deque will be the last item in the
+underlying array). This will result in far fewer headaches than non-circular
+approaches.</p>
+
+<blockquote class="info">
+  <p>See the <a href="https://docs.google.com/presentation/d/1kjbO8X7-i63NwQ_9wIt4HXr6APp2qc9PkghD-GO7_is/edit#slide=id.g1094ff4355_0_466">Project 1B demo slides</a>
+for more details. In particular, note that
+while the conceptual deque and the array contain the same elements, they do not
+contain them in the same order.</p>
+</blockquote>
+
+<p>We recommend using the <code class="language-plaintext highlighter-rouge">floorMod(int a, int b)</code> method from Java’s built-in <code class="language-plaintext highlighter-rouge">Math</code> class to assist you in 
+designing a circular approach. Whereas <code class="language-plaintext highlighter-rouge">a % b</code> might return negative numbers when a is negative, <code class="language-plaintext highlighter-rouge">floorMod(int a, int b)</code> always return non-negative numbers. In practice, this means that the output will have the same sign as the divisor. Here are a few examples
+using the <code class="language-plaintext highlighter-rouge">floorMod(int a, int b)</code> method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kt">int</span> <span class="n">value1</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">floorMod</span><span class="o">(</span><span class="mi">16</span><span class="o">,</span> <span class="mi">16</span><span class="o">);</span> <span class="c1">// value1 == 0</span>
+    <span class="kt">int</span> <span class="n">value2</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">floorMod</span><span class="o">(-</span><span class="mi">1</span><span class="o">,</span> <span class="mi">16</span><span class="o">);</span> <span class="c1">// value2 == 15</span>
+    <span class="kt">int</span> <span class="n">value3</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">floorMod</span><span class="o">(</span><span class="mi">20</span><span class="o">,</span> <span class="mi">16</span><span class="o">);</span> <span class="c1">// value3 == 4</span>
+</code></pre></div></div>
+
+<p>You can use the <code class="language-plaintext highlighter-rouge">floorMod(int a, int b)</code> method by adding the following import statement to the top of your file: 
+<code class="language-plaintext highlighter-rouge">import java.lang.Math;</code>.</p>
+
+<p class="warning">You cannot create an array of generics (e.g. <code class="language-plaintext highlighter-rouge">new T[1000]</code>) in Java for <a href="https://openjdk.org/projects/valhalla/">reasons beyond the scope of this course</a>. You will instead need to use the syntax <code class="language-plaintext highlighter-rouge">(T[]) new Object[1000]</code>.</p>
+
+<blockquote class="task">
+  <p>Declare the necessary instance variables, and implement the constructor.</p>
+
+  <p>The starting size of your backing array <strong>must</strong> be <code class="language-plaintext highlighter-rouge">8</code>.</p>
+</blockquote>
+<h3 id="addfirst-and-addlast">
+  
+  
+    <a href="#addfirst-and-addlast" class="anchor-heading" aria-labelledby="addfirst-and-addlast"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">addFirst</code> and <code class="language-plaintext highlighter-rouge">addLast</code>
+  
+  
+</h3>
+    
+
+<p>As before, implement <code class="language-plaintext highlighter-rouge">addFirst</code> and <code class="language-plaintext highlighter-rouge">addLast</code>. These two methods <strong>must not</strong>
+use looping or recursion. A single add operation must take “constant time,”
+that is, adding an element should take approximately the same amount of time no
+matter how large the deque is (with one exception). This means that you cannot
+use loops that iterate through all / most elements of the deque.</p>
+<h3 id="get">
+  
+  
+    <a href="#get" class="anchor-heading" aria-labelledby="get"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">get</code>
+  
+  
+</h3>
+    
+
+<p>Unlike in <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code>, this method must take <strong>constant time</strong>.</p>
+
+<p>As before, <code class="language-plaintext highlighter-rouge">get</code> should return <code class="language-plaintext highlighter-rouge">null</code> when the index is invalid (too large or
+negative). You should disregard the skeleton code comments for <code class="language-plaintext highlighter-rouge">Deque61B.java</code>
+for this case.</p>
+
+<blockquote class="task">
+  <p><strong>After you’ve written tests and verified that they fail</strong>, implement
+<code class="language-plaintext highlighter-rouge">get</code>.</p>
+</blockquote>
+<h3 id="isempty-and-size">
+  
+  
+    <a href="#isempty-and-size" class="anchor-heading" aria-labelledby="isempty-and-size"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">isEmpty</code> and <code class="language-plaintext highlighter-rouge">size</code>
+  
+  
+</h3>
+    
+
+<p>These two methods must take <strong>constant time</strong>. That is, the time it takes to for
+either method to finish execution should not depend on how many elements are in
+the deque.</p>
+
+<blockquote class="task">
+  <p><strong>Write tests</strong> for the <code class="language-plaintext highlighter-rouge">isEmpty</code> and <code class="language-plaintext highlighter-rouge">size</code> methods, and check that
+they fail. Then, implement the methods.</p>
+</blockquote>
+<h3 id="tolist">
+  
+  
+    <a href="#tolist" class="anchor-heading" aria-labelledby="tolist"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">toList</code>
+  
+  
+</h3>
+    
+
+<p><code class="language-plaintext highlighter-rouge">toList</code> will continue to be useful to test your <code class="language-plaintext highlighter-rouge">Deque61B</code>.</p>
+
+<p>Write the <code class="language-plaintext highlighter-rouge">toList</code> method. The first line of the method should be something
+like <code class="language-plaintext highlighter-rouge">List&lt;T&gt; returnList = new ArrayList&lt;&gt;()</code>. <strong>This is one location where you
+are allowed to use a Java data structure.</strong></p>
+
+<blockquote class="warning">
+  <p>Some later methods might seem easy if you use <code class="language-plaintext highlighter-rouge">toList</code>.
+<strong>You may not call <code class="language-plaintext highlighter-rouge">toList</code> inside <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code></strong>; there is a test that
+checks for this.</p>
+</blockquote>
+
+<blockquote class="info">
+  <p><strong>Hint</strong> One of the other methods may be helpful for implementing this method.</p>
+
+</blockquote>
+
+<blockquote class="task">
+  <p>Implement <code class="language-plaintext highlighter-rouge">toList</code>. You are not given tests this time, so you will
+need to write them!</p>
+</blockquote>
+
+<p>All that’s left is to test and implement all the remaining methods. For the
+rest of this project, we’ll describe our suggested steps at a high level. We
+<strong>strongly encourage</strong> you to follow the remaining steps in the order given.
+In particular, <strong>write tests before you implement the method’s functionality.</strong>
+This is called “test-driven development,” and helps ensure that you know what
+your methods are supposed to do before you do them.</p>
+<h3 id="removefirst-and-removelast">
+  
+  
+    <a href="#removefirst-and-removelast" class="anchor-heading" aria-labelledby="removefirst-and-removelast"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">removeFirst</code> and <code class="language-plaintext highlighter-rouge">removeLast</code>
+  
+  
+</h3>
+    
+
+<p>Lastly, write some tests that test the behavior of <code class="language-plaintext highlighter-rouge">removeFirst</code> and
+<code class="language-plaintext highlighter-rouge">removeLast</code>, and again ensure that the tests fail.</p>
+
+<p>Do not maintain references to items that are no longer in the deque.</p>
+
+<p><code class="language-plaintext highlighter-rouge">removeFirst</code> and <code class="language-plaintext highlighter-rouge">removeLast</code> <strong>may not</strong> use looping or recursion. Like <code class="language-plaintext highlighter-rouge">addFirst</code> and <code class="language-plaintext highlighter-rouge">addLast</code>,
+these operations must take "constant time." Refer to the section on writing <code class="language-plaintext highlighter-rouge">addFirst</code> and <code class="language-plaintext highlighter-rouge">addLast</code> 
+for more information on what this means.</p>
+<h3 id="getrecursive">
+  
+  
+    <a href="#getrecursive" class="anchor-heading" aria-labelledby="getrecursive"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">getRecursive</code>
+  
+  
+</h3>
+    
+
+<p>Although we are not using a linked list anymore for this project, it is still required to implement this method to keep consistent with our interface.
+This method technically shouldn’t be in the interface, but it’s here to make testing nice. You can just use this code block for it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="no">T</span> <span class="nf">getRecursive</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">UnsupportedOperationException</span><span class="o">(</span><span class="s">"No need to implement getRecursive for proj 1b"</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p class="task">“Implement” <code class="language-plaintext highlighter-rouge">getRecursive</code>.</p>
+<h3 id="resizing">
+  
+  
+    <a href="#resizing" class="anchor-heading" aria-labelledby="resizing"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Resizing
+  
+  
+</h3>
+    
+
+<p class="warning">We recommend you complete the other methods first, verify that they are working correctly without resizing, and come back to resizing after.</p>
+<h4 id="resizing-up">
+  
+  
+    <a href="#resizing-up" class="anchor-heading" aria-labelledby="resizing-up"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Resizing Up
+  
+  
+</h4>
+    
+
+<p>The exception to an Array Deque’s “constant time” requirement is when the array fills, and
+you need to “resize” to have enough space to add the next element. In this case, you
+can take “linear time” to resize the array before adding the element.</p>
+
+<p>Correctly resizing your array is very tricky, and will require some deep
+thought. Try drawing out various approaches by hand. It may take you quite some
+time to come up with the right approach, and we encourage you to debate the big
+ideas with your fellow students or TAs. Make sure that your actual
+implementation is <strong>by you alone</strong>.</p>
+
+<p>Make sure to resize by a geometric factor.</p>
+
+<blockquote class="danger">
+  <p>We <strong>do not</strong> recommend using <code class="language-plaintext highlighter-rouge">arraycopy</code> with a circular implementation. It
+will work, but results in a significantly more complex (and harder to debug!)
+implementation than necessary.</p>
+
+  <p>Instead, we suggest thinking forward to how you might implement <code class="language-plaintext highlighter-rouge">get</code> and using
+a <code class="language-plaintext highlighter-rouge">for</code> loop in some way.</p>
+</blockquote>
+
+<blockquote class="task">
+  <p>Remember to implement <code class="language-plaintext highlighter-rouge">addFirst</code> and <code class="language-plaintext highlighter-rouge">addLast</code> first, and write tests to verify that
+they are correct. Make sure to add enough elements so that
+your backing array resizes! For more info on resizing, check out <a href="https://docs.google.com/presentation/d/1AUaNTKX0f-nFqmqEWEEecLxIQh9hrpTDtz_lWVMl5Fw/edit#slide=id.g625dc7e36_0943">these slides</a>.</p>
+</blockquote>
+<h4 id="resizing-down">
+  
+  
+    <a href="#resizing-down" class="anchor-heading" aria-labelledby="resizing-down"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Resizing Down
+  
+  
+</h4>
+    
+
+<p>The amount of memory that your program uses at any given time must be
+proportional to the number of items. For example, if you add 10,000 items to
+the deque, and then remove 9,999 items, you shouldn’t still be using an array
+that can hold 10,000 items. For arrays of length 16 or more, your usage factor
+should always be at least 25%. This means that before performing a remove
+operation, if the number of elements in the array is at or under 25% the
+length of the array, you should resize the array down. For arrays
+length 15 or less, your usage factor can be arbitrarily low.</p>
+
+<blockquote class="danger">
+  <p>We, again, <strong>do not</strong> recommend using <code class="language-plaintext highlighter-rouge">arraycopy</code> with a circular
+implementation. If you followed our advice above to use a <code class="language-plaintext highlighter-rouge">for</code> loop to resize
+up, resizing down should look <strong>very similar</strong> to resizing up (perhaps a helper
+method?).</p>
+</blockquote>
+
+<blockquote class="task">
+  <p><strong>After you’ve written tests and verified that they fail</strong>, implement
+<code class="language-plaintext highlighter-rouge">removeFirst</code> and <code class="language-plaintext highlighter-rouge">removeLast</code>.</p>
+</blockquote>
+
+<blockquote class="danger">
+  <p>For the intended experience, follow these steps in order. If you do something
+else and ask us for help, we will refer you back to these steps.</p>
+</blockquote>
+<h3 id="writing-tests">
+  
+  
+    <a href="#writing-tests" class="anchor-heading" aria-labelledby="writing-tests"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Writing Tests
+  
+  
+</h3>
+    
+
+<p>Refer to the <a href="/projects/proj1a/#writing-tests">Project 1A spec</a> for
+a review of how to write tests. Similar to Project 1A, you will be scored on
+the coverage of your unit tests for Project 1B. You might find some of your
+tests from Project 1A to be reusable in this project; don’t be afraid to
+copy them over!</p>
+
+<blockquote class="info">
+  <p>Note that you should only be using variables and methods found in the <code class="language-plaintext highlighter-rouge">Deque</code>
+interface when writing your coverage tests. This is because we run our “own”
+Deque implementations against your tests to determine if they have 
+enough coverage.</p>
+
+  <p>You can test your coverage by submitting to the <code class="language-plaintext highlighter-rouge">[UNGRADED] Project 1B: 
+ArrayDeque Test Coverage</code> assignment, which will not be graded and has no
+velocity limit. Your final test coverage grade component will be determined 
+from your submission to the main <code class="language-plaintext highlighter-rouge">Project 1B: ArrayDeque</code> assignment.</p>
+</blockquote>
+<h3 id="suggestions">
+  
+  
+    <a href="#suggestions" class="anchor-heading" aria-labelledby="suggestions"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Suggestions
+  
+  
+</h3>
+    
+
+<ul>
+  <li>Try to get everything working for a fixed-size array first. This would be good point to start to familiarize yourself.</li>
+  <li>Once you are confident working solution for a fixed-size array, try resizing - consider having a helper method for it!</li>
+  <li><strong>DO NOT</strong> modify <code class="language-plaintext highlighter-rouge">Deque61B</code> interface.</li>
+  <li>When in doubt, draw it out! We suggest drawing box-and-pointer diagrams (or diagrams in general) when faced with issues in your methods, it will help you understand both your code as well as the intended logic better.</li>
+</ul>
+<h2 id="deque61b-enhancements">
+  
+  
+    <a href="#deque61b-enhancements" class="anchor-heading" aria-labelledby="deque61b-enhancements"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">Deque61B</code> Enhancements
+  
+  
+</h2>
+    
+
+<p>In this section of the project, you are going to expand upon the functionality of the <code class="language-plaintext highlighter-rouge">Deque61B</code> interface.</p>
+<h3 id="object-methods">
+  
+  
+    <a href="#object-methods" class="anchor-heading" aria-labelledby="object-methods"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Object Methods
+  
+  
+</h3>
+    
+
+<p>In order to implement the following methods, you should start by copying and pasting your Project 1A
+implementation of <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> into the <code class="language-plaintext highlighter-rouge">src</code> directory.</p>
+<h4 id="iterator">
+  
+  
+    <a href="#iterator" class="anchor-heading" aria-labelledby="iterator"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">iterator()</code>
+  
+  
+</h4>
+    
+
+<p>One shortcoming of our <code class="language-plaintext highlighter-rouge">Deque61B</code> interface is that it can not be iterated over. That is, the code below fails to compile with the error “foreach not applicable to type”.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">Deque61B</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lld1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedListDeque61B</span><span class="o">&lt;&gt;();</span>
+
+  <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"front"</span><span class="o">);</span>
+  <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"middle"</span><span class="o">);</span>
+  <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"back"</span><span class="o">);</span>
+  <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">s</span> <span class="o">:</span> <span class="n">lld1</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Similarly, if we try to write a test that our <code class="language-plaintext highlighter-rouge">Deque61B</code> contains a specific set of items, we’ll also get a compile error, in this case: “Cannot resolve method containsExactly in Subject”.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">addLastTestBasicWithoutToList</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Deque61B</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lld1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedListDeque61B</span><span class="o">&lt;&gt;();</span>
+
+    <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"front"</span><span class="o">);</span> <span class="c1">// after this call we expect: ["front"]</span>
+    <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"middle"</span><span class="o">);</span> <span class="c1">// after this call we expect: ["front", "middle"]</span>
+    <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"back"</span><span class="o">);</span> <span class="c1">// after this call we expect: ["front", "middle", "back"]</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">lld1</span><span class="o">).</span><span class="na">containsExactly</span><span class="o">(</span><span class="s">"front"</span><span class="o">,</span> <span class="s">"middle"</span><span class="o">,</span> <span class="s">"back"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Again the issue is that our item cannot be iterated over. The <code class="language-plaintext highlighter-rouge">Truth</code> library works by iterating over our object (as in the first example), but our <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> does not support iteration.</p>
+
+<p>To fix this, you should first modify the <code class="language-plaintext highlighter-rouge">Deque61B</code> interface so that the declaration reads:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Deque61B</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="nc">Iterable</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+</code></pre></div></div>
+
+<p>Next, implement the <code class="language-plaintext highlighter-rouge">iterator()</code> method using the techniques described in lecture 10.</p>
+
+<blockquote class="task">
+  <p><strong>Task</strong>: Implement the <code class="language-plaintext highlighter-rouge">iterator()</code> method in both <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> and
+<code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> according to lecture.</p>
+</blockquote>
+
+<p class="danger">You are not allowed to call <code class="language-plaintext highlighter-rouge">toList</code> here.</p>
+<h4 id="equals">
+  
+  
+    <a href="#equals" class="anchor-heading" aria-labelledby="equals"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">equals()</code>
+  
+  
+</h4>
+    
+
+<p>Consider the following code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testEqualDeques61B</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Deque61B</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lld1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedListDeque61B</span><span class="o">&lt;&gt;();</span>
+        <span class="nc">Deque61B</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lld2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedListDeque61B</span><span class="o">&lt;&gt;();</span>
+
+        <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"front"</span><span class="o">);</span>
+        <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"middle"</span><span class="o">);</span>
+        <span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"back"</span><span class="o">);</span>
+
+        <span class="n">lld2</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"front"</span><span class="o">);</span>
+        <span class="n">lld2</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"middle"</span><span class="o">);</span>
+        <span class="n">lld2</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"back"</span><span class="o">);</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">lld1</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">lld2</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we run this code, we see that we fail the test, with the following message:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>expected: [front, middle, back]
+but was : (non-equal instance of same class with same string representation)
+</code></pre></div></div>
+
+<p>The issue is that the <code class="language-plaintext highlighter-rouge">Truth</code> library is using the <code class="language-plaintext highlighter-rouge">equals</code> method of the <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> class. The default implementation is given by the <a href="https://github.com/openjdk/jdk17/blob/master/src/java.base/share/classes/java/lang/Object.java#L162">code below</a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">obj</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>That is, the equals method simply checks to see if the addresses of the two objects are the same. We want to be able to check whether the two <code class="language-plaintext highlighter-rouge">Deque61B</code> objects are equal in terms of elements and order so therefore we need a different <code class="language-plaintext highlighter-rouge">equals</code> method.</p>
+
+<p>Override the equals method in the <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> and <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> classes. For guidance on writing an <code class="language-plaintext highlighter-rouge">equals</code> method, see the <a href="https://docs.google.com/presentation/d/1lIR4--P9NrBqRL9xqP_RQYyK1WJBrBEbriLVpatrRqk/edit#slide=id.g4f922fa56b_2_47">lecture slides</a> or the <a href="https://github.com/Berkeley-CS61B/lectureCode-sp23/blob/main/lec12_inheritance4/ArraySet.java">lecture code repository</a>.</p>
+
+<blockquote class="info">
+  <p>Note: You might ask why we’re implementing the same method in two classes rather than providing a <code class="language-plaintext highlighter-rouge">default</code> method in
+the <code class="language-plaintext highlighter-rouge">Deque61B</code> interface. Interfaces are not allowed to provide <code class="language-plaintext highlighter-rouge">default</code> methods that override <code class="language-plaintext highlighter-rouge">Object</code> methods. For more
+see <a href="https://stackoverflow.com/questions/24595266/why-is-it-not-allowed-add-tostring-to-interface-as-default-method">https://stackoverflow.com/questions/24595266/why-is-it-not-allowed-add-tostring-to-interface-as-default-method</a>.</p>
+
+  <p>However, one workaround for this is to provide a <code class="language-plaintext highlighter-rouge">default</code>, non-<code class="language-plaintext highlighter-rouge">Object</code> helper method in the <code class="language-plaintext highlighter-rouge">Deque61B</code> interface and have the implementing classes call it.</p>
+</blockquote>
+
+<p class="task">Override the <code class="language-plaintext highlighter-rouge">equals()</code> method in the <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> and <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> classes.</p>
+
+<blockquote class="warning">
+  <p>Important: You should not use <code class="language-plaintext highlighter-rouge">getClass</code>, and there’s no need to do any casting in your <code class="language-plaintext highlighter-rouge">equals</code> method. That is, you shouldn’t be doing <code class="language-plaintext highlighter-rouge">(ArrayDeque61B) o</code>. Such <code class="language-plaintext highlighter-rouge">equals</code> methods are old fashioned and overly complex. Use <code class="language-plaintext highlighter-rouge">instanceof</code> instead.</p>
+
+  <p>Note: The <code class="language-plaintext highlighter-rouge">instanceof</code> operator behaves a little strangely with generic types, for reasons beyond the scope of this course. For example, if you want to check if <code class="language-plaintext highlighter-rouge">lst</code> is an instance of a <code class="language-plaintext highlighter-rouge">List&lt;Integer&gt;</code>, you should use <code class="language-plaintext highlighter-rouge">lst instanceof List&lt;?&gt;</code> rather than <code class="language-plaintext highlighter-rouge">lst instanceof List&lt;Integer&gt;</code>. Unfortunately, this is not able to check the types of the elements, but it’s the best we can do.</p>
+</blockquote>
+
+<p class="warning">Important: Make sure you use the <code class="language-plaintext highlighter-rouge">@Override</code> tag when overriding methods. A common mistake in student code is to try to override <code class="language-plaintext highlighter-rouge">equals(ArrayList&lt;T&gt; other)</code> rather than <code class="language-plaintext highlighter-rouge">equals(Object other)</code>. Using the optional <code class="language-plaintext highlighter-rouge">@Override</code> tag will prevent your code from compiling if you make this mistake. <code class="language-plaintext highlighter-rouge">@Override</code> is  a great safety net.</p>
+
+<p class="danger">You are not allowed to call <code class="language-plaintext highlighter-rouge">toList</code> here.</p>
+<h4 id="tostring">
+  
+  
+    <a href="#tostring" class="anchor-heading" aria-labelledby="tostring"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">toString()</code>
+  
+  
+</h4>
+    
+
+<p>Consider the code below, which prints out a <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Deque61B</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lld1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedListDeque61B</span><span class="o">&lt;&gt;();</span>
+
+<span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"front"</span><span class="o">);</span>
+<span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"middle"</span><span class="o">);</span>
+<span class="n">lld1</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="s">"back"</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">lld1</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>This code outputs something like <code class="language-plaintext highlighter-rouge">deque.proj1a.LinkedListDeque61B@1a04f701</code>. This is because the print statement implicitly calls the <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> <code class="language-plaintext highlighter-rouge">toString</code> method. Since you didn’t override this method, it uses the default, which is given by the code below (you don’t need to understand how this code works).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"@"</span> <span class="o">+</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">toHexString</span><span class="o">(</span><span class="n">hashCode</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>In turn the <code class="language-plaintext highlighter-rouge">hashCode</code> method, which you have also not overridden, simply returns the address of the object, which in the example above was <code class="language-plaintext highlighter-rouge">1a04f701</code>.</p>
+
+<p class="task"><strong>Task</strong>: Override the <code class="language-plaintext highlighter-rouge">toString()</code> method in the <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> and <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> classes, such that the code above prints out <code class="language-plaintext highlighter-rouge">[front, middle, back]</code>.</p>
+
+<blockquote class="warning">
+  <p>Hint: Java’s implementation of the <code class="language-plaintext highlighter-rouge">List</code> interface has a <code class="language-plaintext highlighter-rouge">toString</code> method.</p>
+
+  <p>Hint: There is a one line solution (see hint 1).</p>
+
+  <p>Hint: Your implementation for <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> and <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> should be exactly the same.</p>
+</blockquote>
+<h4 id="testing-the-object-methods">
+  
+  
+    <a href="#testing-the-object-methods" class="anchor-heading" aria-labelledby="testing-the-object-methods"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Testing The Object Methods
+  
+  
+</h4>
+    
+
+<p>We haven’t provided you with test files for these three object methods; however, we strongly encourage you to use the
+techniques you have learned so far to write your own tests. You can structure these tests however you’d like,
+since we won’t be testing them. One possible (and suggested) structure is to create a new file in the <code class="language-plaintext highlighter-rouge">tests</code> directory
+called <code class="language-plaintext highlighter-rouge">LinkedListDeque61BTest</code> so that you have a testing file for each implementation.</p>
+<h2 id="maximizer61b">
+  
+  
+    <a href="#maximizer61b" class="anchor-heading" aria-labelledby="maximizer61b"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">Maximizer61B</code>
+  
+  
+</h2>
+    
+
+<blockquote class="warning">
+  <p>This section requires information covered in Lecture 9: Subtype Polymorphism, Comparators and Lecture 10: Iterators, Object Methods.</p>
+</blockquote>
+
+<p>For the final part of this project you will build the <code class="language-plaintext highlighter-rouge">Maximizer61B</code> class. This class is independent of the part where you wrote <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code>.</p>
+
+<p>This part of the project is admittedly disconnected from the previous parts, but we wanted to get you some practice with Iterables, Comparables, and Comparators.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">Maximizer61B</code> class has two static methods:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">public static &lt;T extends Comparable&lt;T&gt;&gt; T max(Iterable&lt;T&gt; iterable)</code>: returns the maximum element in the given iterable.</li>
+  <li><code class="language-plaintext highlighter-rouge">public static &lt;T&gt; T max(Iterable&lt;T&gt; iterable, Comparator&lt;T&gt; comp)</code>: returns the maximum element in the given iterable according to the specified comparator.</li>
+</ul>
+
+<p>If the iterable is empty, simply return <code class="language-plaintext highlighter-rouge">null</code>.</p>
+<h2 id="guitar-hero-optional">
+  
+  
+    <a href="#guitar-hero-optional" class="anchor-heading" aria-labelledby="guitar-hero-optional"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Guitar Hero (Optional)
+  
+  
+</h2>
+    
+
+<p>Now that you have created a deque, let’s use it for something interesting! In this part of the project, we will create another package for generating synthesized musical instruments using
+the <code class="language-plaintext highlighter-rouge">deque</code> package we just made. We’ll get the opportunity to use our data structure for implementing an algorithm that
+allows us to simulate the plucking of a guitar string.</p>
+<h3 id="the-gh2-package">
+  
+  
+    <a href="#the-gh2-package" class="anchor-heading" aria-labelledby="the-gh2-package"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> The GH2 Package
+  
+  
+</h3>
+    
+
+<p>The <code class="language-plaintext highlighter-rouge">gh2</code> package has just one primary component that you will edit:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">GuitarString</code>, a class which uses a <code class="language-plaintext highlighter-rouge">Deque61B&lt;Double&gt;</code> to implement the
+<a href="http://en.wikipedia.org/wiki/Karplus%E2%80%93Strong_string_synthesis">Karplus-Strong algorithm</a>
+to synthesize a guitar string sound.</li>
+</ul>
+
+<p>We’ve provided you with skeleton code for <code class="language-plaintext highlighter-rouge">GuitarString</code> which is where you will use your <code class="language-plaintext highlighter-rouge">deque</code> package that you made
+in the first part of this project.</p>
+<h3 id="guitarstring">
+  
+  
+    <a href="#guitarstring" class="anchor-heading" aria-labelledby="guitarstring"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">GuitarString</code>
+  
+  
+</h3>
+    
+
+<p>We want to finish the <code class="language-plaintext highlighter-rouge">GuitarString</code> file, which should use the <code class="language-plaintext highlighter-rouge">deque</code> package to replicate the sound of a plucked
+string. Note that this file uses the word “buffer”, which is a synonym for “deque” in this context.</p>
+
+<p>We’ll be using the Karplus-Strong algorithm, which is quite easy to implement with a <code class="language-plaintext highlighter-rouge">Deque61B</code>. It is simply the following three steps:</p>
+
+<ol>
+  <li>Replace every item in a <code class="language-plaintext highlighter-rouge">Deque61B</code> with random noise (<code class="language-plaintext highlighter-rouge">double</code> values between -0.5 and 0.5).</li>
+  <li>Play the <code class="language-plaintext highlighter-rouge">double</code> at the front of the <code class="language-plaintext highlighter-rouge">Deque61B</code>.</li>
+  <li>Remove the front <code class="language-plaintext highlighter-rouge">double</code> in the <code class="language-plaintext highlighter-rouge">Deque61B</code> and average it with the next <code class="language-plaintext highlighter-rouge">double</code> in the <code class="language-plaintext highlighter-rouge">Deque61B</code> (hint: use <code class="language-plaintext highlighter-rouge">removeFirst)</code>
+and <code class="language-plaintext highlighter-rouge">get()</code>) multiplied by an energy decay factor of 0.996 (we’ll call this entire quantity
+<code class="language-plaintext highlighter-rouge">newDouble</code>). Then, add <code class="language-plaintext highlighter-rouge">newDouble</code> to the back of the <code class="language-plaintext highlighter-rouge">Deque61B</code>. Go back to step 2 (and repeat forever).</li>
+</ol>
+
+<p>Or visually, if the <code class="language-plaintext highlighter-rouge">Deque61B</code> is as shown on the top, we’d play the 0.2, remove it, combine it with the 0.4 to form 0.2988, and add the
+0.2988.</p>
+
+<p><img src="/projects/proj1b/karplus-strong.png" alt="karplus-strong" /></p>
+
+<p>You can play a <code class="language-plaintext highlighter-rouge">double</code> value with the <code class="language-plaintext highlighter-rouge">StdAudio.play</code> method. For example
+<code class="language-plaintext highlighter-rouge">StdAudio.play(0.333)</code> will tell the diaphragm of your speaker to extend itself to 1/3rd of its total
+reach, <code class="language-plaintext highlighter-rouge">StdAudio.play(-0.9)</code> will tell it to stretch its little heart backwards almost as far as it can reach. Movement
+of the speaker diaphragm displaces air, and if you displace air in nice patterns, these disruptions will be interpreted
+by your consciousness as pleasing thanks to billions of years of evolution.
+See <a href="http://electronics.howstuffworks.com/speaker6.htm">this page</a> for more. If you simply do <code class="language-plaintext highlighter-rouge">StdAudio.play(0.9)</code> and
+never play anything again, the diaphragm shown in the image would just be sitting still 9/10ths of the way forwards.</p>
+
+<p>Complete <code class="language-plaintext highlighter-rouge">GuitarString.java</code> so that it implements the Karplus-Strong algorithm. Note that you will
+have to fill your <code class="language-plaintext highlighter-rouge">Deque61B</code> buffer with zeros in the <code class="language-plaintext highlighter-rouge">GuitarString</code> constructor. Part of the process will be handled by the client of the
+<code class="language-plaintext highlighter-rouge">GuitarString</code> class. You are only required to complete the tasks labeled with <code class="language-plaintext highlighter-rouge">TODO</code>.</p>
+
+<blockquote class="danger">
+  <p>Do not call <code class="language-plaintext highlighter-rouge">StdAudio.play</code> in <code class="language-plaintext highlighter-rouge">GuitarString.java</code>. This will cause the
+autograder to break. <code class="language-plaintext highlighter-rouge">GuitarPlayer.java</code> does this for you already.</p>
+</blockquote>
+
+<p class="info">Make sure to add the libraries, as usual, otherwise IntelliJ won’t be able to find <code class="language-plaintext highlighter-rouge">StdAudio</code>.</p>
+
+<p>For example, the provided <code class="language-plaintext highlighter-rouge">TestGuitarString</code> class provides a sample test
+<code class="language-plaintext highlighter-rouge">testPluckTheAString</code> that attempts to play an A-note on a guitar string. If you run the test should hear an A-note when
+you run this test. If you don’t, you should try the
+<code class="language-plaintext highlighter-rouge">testTic</code> method and debug from there. Consider adding a <code class="language-plaintext highlighter-rouge">print</code> or <code class="language-plaintext highlighter-rouge">toString</code>
+method to <code class="language-plaintext highlighter-rouge">GuitarString.java</code> that will help you see what’s going on between tics.</p>
+<h3 id="why-it-works">
+  
+  
+    <a href="#why-it-works" class="anchor-heading" aria-labelledby="why-it-works"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Why It Works
+  
+  
+</h3>
+    
+
+<p>The two primary components that make the Karplus-Strong algorithm work are the ring buffer feedback mechanism and the
+averaging operation.</p>
+
+<ul>
+  <li><strong>The ring buffer feedback mechanism</strong>. The ring buffer models the medium (a string tied down at both ends) in which
+the energy travels back and forth. The length of the ring buffer determines the fundamental frequency of the resulting
+sound. Sonically, the feedback mechanism reinforces only the fundamental frequency and its harmonics (frequencies at
+integer multiples of the fundamental). The energy decay factor (.996 in this case) models the slight dissipation in
+energy as the wave makes a round trip through the string.</li>
+  <li><strong>The averaging operation</strong>. The averaging operation serves as a gentle low-pass filter (which removes higher
+frequencies while allowing lower frequencies to pass, hence the name). Because it is in the path of the feedback, this
+has the effect of gradually attenuating the higher harmonics while keeping the lower ones, which corresponds closely
+with how a plucked guitar string sounds.</li>
+</ul>
+<h3 id="guitarherolite">
+  
+  
+    <a href="#guitarherolite" class="anchor-heading" aria-labelledby="guitarherolite"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">GuitarHeroLite</code>
+  
+  
+</h3>
+    
+
+<p>You should now also be able to use the <code class="language-plaintext highlighter-rouge">GuitarHeroLite</code> class. Running it will provide a graphical interface, allowing
+the user (you!) to interactively play sounds using the <code class="language-plaintext highlighter-rouge">gh2</code> package’s <code class="language-plaintext highlighter-rouge">GuitarString</code> class.</p>
+<h3 id="submit-to-the-autograder">
+  
+  
+    <a href="#submit-to-the-autograder" class="anchor-heading" aria-labelledby="submit-to-the-autograder"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submit to the Autograder
+  
+  
+</h3>
+    
+
+<p>Once you’ve written local tests and passed them, try submitting to the
+autograder. You may or may not pass everything.</p>
+
+<ul>
+  <li>If you fail any of the coverage tests, it means that there is a case that
+your local tests did not cover. The autograder test name and the test
+coverage component will give you hints towards the missing case.</li>
+  <li>If you fail a correctness test, this means that there is a case that your
+local tests did not cover, despite having sufficient coverage for flags.
+This is <strong>expected</strong>. Coverage flags are an approximation! They also do not
+provide describe every single behavior that needs to be tested, nor do they
+guarantee that you assert everything. <a href="/projects/proj1b/flags/">Here</a> is a list of them!</li>
+  <li>If you fail any of the timing tests, it means that your implementation does
+not meet the timing constraints described above.</li>
+  <li>You will have a token limit of 4 tokens every 24 hours. <strong>We will not reinstate tokens for failing to add/commit/push your code, run style, etc.</strong></li>
+  <li>You may find messages in the autograder response that look something like this: <code class="language-plaintext highlighter-rouge">WARNING: A terminally deprecated method in java.lang.System has been called</code>. You can safely ignore any line tagged as a <code class="language-plaintext highlighter-rouge">WARNING</code>.</li>
+</ul>
+<h3 id="scoring">
+  
+  
+    <a href="#scoring" class="anchor-heading" aria-labelledby="scoring"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Scoring
+  
+  
+</h3>
+    
+
+<p>This project, similar to Project 0, is divided into individual components, each
+of which you must implement <em>completely correctly</em> to receive credit.</p>
+
+<ol>
+  <li><strong>Adding (20%)</strong>: Correctly implement <code class="language-plaintext highlighter-rouge">addFirst</code>, <code class="language-plaintext highlighter-rouge">addLast</code>, and <code class="language-plaintext highlighter-rouge">toList</code>.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">isEmpty</code>, <code class="language-plaintext highlighter-rouge">size</code> (3.33%)</strong>: Correctly implement <code class="language-plaintext highlighter-rouge">isEmpty</code> and <code class="language-plaintext highlighter-rouge">size</code> with
+add methods working.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">get</code> (3.33%)</strong>: Correctly implement <code class="language-plaintext highlighter-rouge">get</code>.</li>
+  <li><strong>Removing (20%)</strong>: Correctly implement <code class="language-plaintext highlighter-rouge">removeFirst</code> and <code class="language-plaintext highlighter-rouge">removeLast</code>.</li>
+  <li><strong>Memory (16.67%)</strong>: Correctly implement resizing so that you do not use
+too much memory.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code> Object Methods (10%)</strong>: Correctly implement <code class="language-plaintext highlighter-rouge">iterator</code>, <code class="language-plaintext highlighter-rouge">equals</code>, and <code class="language-plaintext highlighter-rouge">toString</code> in <code class="language-plaintext highlighter-rouge">LinkedListDeque61B</code>.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">ArrayDeque61B</code> Object Methods (10%)</strong>: Correctly implement <code class="language-plaintext highlighter-rouge">iterator</code>, <code class="language-plaintext highlighter-rouge">equals</code>, and <code class="language-plaintext highlighter-rouge">toString</code> in <code class="language-plaintext highlighter-rouge">ArrayDeque61B</code>.</li>
+  <li><strong><code class="language-plaintext highlighter-rouge">Maximizer61B</code> Functionality (10%)</strong>: Correctly implement <code class="language-plaintext highlighter-rouge">max()</code> and <code class="language-plaintext highlighter-rouge">max(Comparator&lt;T&gt; comp)</code> in <code class="language-plaintext highlighter-rouge">Maximizer61B</code>.</li>
+  <li><strong>Test Coverage (6.67%)</strong>: Write tests to capture a sufficient number of flags.</li>
+</ol>
+
+<p>For the <strong>test coverage</strong> component, we will run your
+tests against a staff solution and check how many scenarios and edge cases are
+tested. You can receive partial credit for this component. <a href="/projects/proj1b/flags/">Here</a> is a list of them!</p>
+
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

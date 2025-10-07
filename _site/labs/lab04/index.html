@@ -1,0 +1,1171 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li:not(:nth-child(4)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(3) > ul > li:nth-child(4) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(3) > button svg,
+.site-nav > ul.nav-list:first-child > li:nth-child(3) > ul > li:nth-child(4) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(3) > ul.nav-list,
+.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(3) > ul.nav-list > li.nav-list-item:nth-child(4) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 04: Git | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Lab 04: Git" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data Structures Mock Site for T550 Final Project" />
+<meta property="og:description" content="Data Structures Mock Site for T550 Final Project" />
+<link rel="canonical" href="http://localhost:4000/labs/lab04/" />
+<meta property="og:url" content="http://localhost:4000/labs/lab04/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 04: Git" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Data Structures Mock Site for T550 Final Project","headline":"Lab 04: Git","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/labs/lab04/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/labs/">Labs</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Lab 04: Git</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">Lab 04: Git<ul><li class="nav-list-item"><a href="#faq" class="nav-list-link">FAQ</a></li><li class="nav-list-item"><a href="#introduction" class="nav-list-link">Introduction</a></li><li class="nav-list-item"><a href="#git-vs-github" class="nav-list-link">Git vs Github</a><ul><li class="nav-list-item"><a href="#git" class="nav-list-link">Git</a></li><li class="nav-list-item"><a href="#github" class="nav-list-link">Github</a></li></ul></li><li class="nav-list-item"><a href="#git-commands" class="nav-list-link">Git Commands</a><ul><li class="nav-list-item"><a href="#init" class="nav-list-link">init</a></li><li class="nav-list-item"><a href="#add-commit" class="nav-list-link">add, commit</a></li><li class="nav-list-item"><a href="#status" class="nav-list-link">status</a></li><li class="nav-list-item"><a href="#log" class="nav-list-link">log</a></li><li class="nav-list-item"><a href="#restore" class="nav-list-link">restore</a></li></ul></li><li class="nav-list-item"><a href="#git-exercise-part-11" class="nav-list-link">Git Exercise (Part 1.1)</a></li><li class="nav-list-item"><a href="#git-commands-continued" class="nav-list-link">Git Commands Continued</a><ul><li class="nav-list-item"><a href="#remote-add" class="nav-list-link">remote add</a></li><li class="nav-list-item"><a href="#switch" class="nav-list-link">switch</a></li><li class="nav-list-item"><a href="#restore-revisited" class="nav-list-link">restore Revisited</a></li><li class="nav-list-item"><a href="#push" class="nav-list-link">push</a></li><li class="nav-list-item"><a href="#pull" class="nav-list-link">pull</a></li></ul></li><li class="nav-list-item"><a href="#common-git-issues" class="nav-list-link">Common Git Issues</a><ul><li class="nav-list-item"><a href="#fatal-refusing-to-merge-unrelated-histories" class="nav-list-link">Fatal: refusing to merge unrelated histories</a></li><li class="nav-list-item"><a href="#merge-conflict" class="nav-list-link">Merge Conflict</a></li><li class="nav-list-item"><a href="#your-branch-is-ahead-of-originmain-by-x-commits" class="nav-list-link">Your branch is ahead of ‘origin/main’ by X commits.</a></li></ul></li><li class="nav-list-item"><a href="#git-exercise-part-12" class="nav-list-link">Git Exercise (Part 1.2)</a></li><li class="nav-list-item"><a href="#git-exercise-part-2" class="nav-list-link">Git Exercise (Part 2)</a><ul><li class="nav-list-item"><a href="#part-21" class="nav-list-link">Part 2.1</a></li><li class="nav-list-item"><a href="#part-22" class="nav-list-link">Part 2.2</a></li><li class="nav-list-item"><a href="#part-23" class="nav-list-link">Part 2.3</a></li></ul></li><li class="nav-list-item"><a href="#submission" class="nav-list-link">Submission</a></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    Lab 04: Git
+  
+  
+</h1>
+    
+<h2 id="faq">
+  
+  
+    <a href="#faq" class="anchor-heading" aria-labelledby="faq"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> FAQ
+  
+  
+</h2>
+    
+
+<p>The FAQ for Lab 04 is <a href="/labs/lab04/faq/">here</a>.</p>
+<h2 id="introduction">
+  
+  
+    <a href="#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>Up until this point, we’ve been using Git and Github to submit assignments, but
+haven’t talked much beyond what is needed. In this lab assignment, we’ll revisit
+some previous git commands that we’ve shown as well as introduce new ones, so that
+you’ll gain more familiarity with Git (and Github). There will be exercises throughout
+this lab to help reinforce your understanding of Git.</p>
+
+<p class="warning">Please don’t skip around in this lab and <strong>do not run commands you find online</strong>
+if you get stuck (this could lead to potential issues in the lab). When going
+through this lab, read through the commands and instructions and make sure you understand them!</p>
+
+<p class="info">Please make sure to pull from the skeleton in your <code class="language-plaintext highlighter-rouge">sp25-s***</code> repository to obtain
+the required files. In this lab, we will only have one file, <code class="language-plaintext highlighter-rouge">magic_word.txt</code>.</p>
+<h2 id="git-vs-github">
+  
+  
+    <a href="#git-vs-github" class="anchor-heading" aria-labelledby="git-vs-github"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Git vs Github
+  
+  
+</h2>
+    
+
+<p>Before we explore the Git commands, let’s talk about the difference between Git and Github.</p>
+<h3 id="git">
+  
+  
+    <a href="#git" class="anchor-heading" aria-labelledby="git"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Git
+  
+  
+</h3>
+    
+
+<p>Git is a version control system that is free and open-source (this means that the source code
+is available for use by users and developers). As a version control system, we use Git to
+help manage different versions of code and track changes made in the source code. This makes it
+even more useful if there are multiple developers working on one program. Without a version control
+system, there wouldn’t be much communication between developers and changes to the source code
+will go unknown to other developers.</p>
+
+<p>For the most part, Git’s data model or representation is based on a linked list. We’ll talk
+more about this a little later, but whenever we want to save a snapshot of our repository,
+we commit it (like we’ve been doing up until this point when we want to submit an assignment).
+These commits are, in a way, chained together. Here’s a visualization of what that looks
+like below:</p>
+
+<p><img src="/labs/lab04/img/git_structure.png" alt="git_structure" style="max-height: 325;" /></p>
+
+<p>This linked list of commits forms a history of the changes you’ve made. The most recent
+commit/latest snapshot is the green circle above.</p>
+<h3 id="github">
+  
+  
+    <a href="#github" class="anchor-heading" aria-labelledby="github"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Github
+  
+  
+</h3>
+    
+
+<p>Github is an online hosting service for git repositories. Git repositories are central locations
+where any changes made to our files and directories are tracked and managed (this is your <code class="language-plaintext highlighter-rouge">sp25-s***</code>
+repository). Repositories can be made locally on your computer as well as on Github.</p>
+
+<p>Github allows for easier collaboration with other developers, as you can more easily share code, and
+also allows us to save our code on a remote server. If you have some code stored locally,
+you can save it to Github. You’ll then have a copy of your code saved somewhere else
+in the event that your local code is somehow destroyed. This is why we say to commit often so you
+save your work and progress on assignments!</p>
+<h2 id="git-commands">
+  
+  
+    <a href="#git-commands" class="anchor-heading" aria-labelledby="git-commands"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Git Commands
+  
+  
+</h2>
+    
+
+<p>In this section, we describe some of the more common Git commands you might end up using. Please keep
+in mind that this is not comprehensive of all the Git commands that may be available. Let’s begin!</p>
+<h3 id="init">
+  
+  
+    <a href="#init" class="anchor-heading" aria-labelledby="init"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">init</code>
+  
+  
+</h3>
+    
+
+<p>The following command can be run in a directory that you want to make into a Git repository:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+
+<p>This initializes a git repository in that directory.</p>
+<h3 id="add-commit">
+  
+  
+    <a href="#add-commit" class="anchor-heading" aria-labelledby="add-commit"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">add</code>, <code class="language-plaintext highlighter-rouge">commit</code>
+  
+  
+</h3>
+    
+
+<p>When we want to save the changes we’ve made in a git repository, we want to first select
+what changes should be saved:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add some_file.txt
+</code></pre></div></div>
+
+<p>If you want to select all changes that have been made, you can run the following shortcut:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nb">.</span>
+</code></pre></div></div>
+
+<p><strong>The changes we’ve selected have not actually been saved yet.</strong> When we <code class="language-plaintext highlighter-rouge">add</code> certain files/changes, this
+means we’ve put them into a staging area, which stores information about what will go into our next commit.
+To actually save our changes, or take a snapshot of our current repository, we run <code class="language-plaintext highlighter-rouge">git commit -m</code>, like below:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-m</span> <span class="s2">"We put a commit message here to describe what changes we made."</span>
+</code></pre></div></div>
+
+<p>When we commit any changes, it’s good practice to place a descriptive commit message - this makes it easier
+to keep track of what changes are made over time as well as make it easier for other developers to understand
+what you’ve changed.</p>
+<h3 id="status">
+  
+  
+    <a href="#status" class="anchor-heading" aria-labelledby="status"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">status</code>
+  
+  
+</h3>
+    
+
+<p>If you want to see what changes have been made, you can run <code class="language-plaintext highlighter-rouge">git status</code> in your repository. It might look
+a little bit different from below, but it will show what files have been modified. If they are under
+“changes not staged for commit”, it means they haven’t been added to the staging area. Once they are
+added, those files will show up under “Changes to be committed”.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>On branch main
+Your branch is up to <span class="nb">date </span>with <span class="s1">'origin/main'</span><span class="nb">.</span>
+
+Changes not staged <span class="k">for </span>commit:
+  <span class="o">(</span>use <span class="s2">"git add &lt;file&gt;..."</span> to update what will be committed<span class="o">)</span>
+  <span class="o">(</span>use <span class="s2">"git restore &lt;file&gt;..."</span> to discard changes <span class="k">in </span>working directory<span class="o">)</span>
+	modified:   proj1a/src/LinkedListDeque61B.java
+	modified:   proj1b/src/ArrayDeque61B.java
+	modified:   proj1b/tests/ArrayDeque61BTest.java
+</code></pre></div></div>
+
+<p>In this example, <code class="language-plaintext highlighter-rouge">git status</code> shows that we’ve modified three files that have not been staged for commit. Once
+we <code class="language-plaintext highlighter-rouge">git add</code> them, <code class="language-plaintext highlighter-rouge">git status</code> will change:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>On branch main
+Your branch is up to <span class="nb">date </span>with <span class="s1">'origin/main'</span><span class="nb">.</span>
+
+Changes to be committed:
+  <span class="o">(</span>use <span class="s2">"git restore --staged &lt;file&gt;..."</span> to unstage<span class="o">)</span>
+	modified:   proj1a/src/LinkedListDeque61B.java
+	modified:   proj1b/src/ArrayDeque61B.java
+	modified:   proj1b/tests/ArrayDeque61BTest.java
+</code></pre></div></div>
+
+<p>In both cases, “Changes not staged for commit” and “Changes to be committed” are for files that are already
+<strong>tracked</strong> or have been saved before in a previous version of your repository. Git will also show
+<strong>untracked</strong> files, which have not been saved in a previous version of your repository.</p>
+<h3 id="log">
+  
+  
+    <a href="#log" class="anchor-heading" aria-labelledby="log"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">log</code>
+  
+  
+</h3>
+    
+
+<p>Running <code class="language-plaintext highlighter-rouge">git log</code> in a git repository will display all the history of our committed history. For example, you
+would get something similar to the below:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git log
+
+commit 8g955d88159fc8e4504d7220e33fad34f8f2c6bd
+Author: Diego Huezo &lt;huezodiego@Huezos-MacBook-Pro.local&gt;
+Date:   Tue Feb 7 19:06:48 2016 <span class="nt">-0800</span>
+
+    Added common Git problems to lab04.
+</code></pre></div></div>
+
+<p>What this means is that you’re able to view the entire history of all the commits you made. Remember
+the message you always add when you commit? It will show up in <code class="language-plaintext highlighter-rouge">git log</code>. In this example, the
+commit message would be “Added common Git problems to lab04.” That is to say, we ran
+<code class="language-plaintext highlighter-rouge">git commit -m "Added common Git problems to lab04."</code> when we committed.</p>
+
+<p>To scroll up and down in <code class="language-plaintext highlighter-rouge">git log</code>, you can use the up and down arrow keyboard keys. To exit out of <code class="language-plaintext highlighter-rouge">git log</code>, press the keyboard key <code class="language-plaintext highlighter-rouge">q</code>.</p>
+
+<p>Another <strong>important</strong> thing is what is besides the “commit” heading. It looks like a long
+string of random characters and numbers, but it represents the <strong>commit id</strong>. The commit
+id is a unique id that Git assigned to identify the specific changes that were made
+in the commit. <strong>It is important for the next section.</strong></p>
+<h3 id="restore">
+  
+  
+    <a href="#restore" class="anchor-heading" aria-labelledby="restore"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">restore</code>
+  
+  
+</h3>
+    
+
+<p>What if we want to restore changes from a previous version of our program? We can use <code class="language-plaintext highlighter-rouge">git restore</code>!
+There are a couple ways to do this.</p>
+
+<p>If we want to restore files to the versions in the most recent commit, then we can run <code class="language-plaintext highlighter-rouge">git restore</code>
+without specifying a commit id:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git restore <span class="o">[</span>path_to_file]
+</code></pre></div></div>
+
+<p>If we want to restore to a <strong>specific</strong> commit, we can identify that commit’s id and restore the
+files from that commit.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git restore <span class="nt">--source</span><span class="o">=[</span>commitID] <span class="o">[</span>path_to_file]
+</code></pre></div></div>
+<h2 id="git-exercise-part-11">
+  
+  
+    <a href="#git-exercise-part-11" class="anchor-heading" aria-labelledby="git-exercise-part-11"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Git Exercise (Part 1.1)
+  
+  
+</h2>
+    
+
+<p>Now you’re ready to start using git! Your next task is to work through a small
+git workflow by setting up a repository and making a couple commits. At the end,
+you will need to be checked off by filling out the form linked on Beacon.</p>
+
+<p class="danger">This is meant to be done on your local computer, but <strong>outside your <code class="language-plaintext highlighter-rouge">sp25-s***</code></strong>
+repository. Make sure you don’t initialize a repository in your <code class="language-plaintext highlighter-rouge">sp25-s***</code>!</p>
+
+<blockquote class="info">
+  <p>If you need help with creating directories, creating files, changing
+directories, etc., refer back to <a href="terminal"><em>How to Use the Terminal</em></a>.</p>
+</blockquote>
+
+<ol>
+  <li>Create a directory called <code class="language-plaintext highlighter-rouge">lab04-checkoff</code>. You can put this directory
+anywhere on your computer <strong>(but not in your <code class="language-plaintext highlighter-rouge">sp25-s***</code> repo)</strong>.</li>
+  <li>Move into the <code class="language-plaintext highlighter-rouge">lab04-checkoff</code> directory, and initialize a git repository.</li>
+  <li>Create a file called <code class="language-plaintext highlighter-rouge">61b.txt</code> in any way you’d like. In this text file,
+add the text “Created 61b.txt”.</li>
+  <li>Create another file called <code class="language-plaintext highlighter-rouge">61boba.txt</code> in any way you’d like. In this text file,
+add the text “Created 61boba.txt”.</li>
+  <li>Begin tracking <strong>only</strong> <code class="language-plaintext highlighter-rouge">61b.txt</code>, and create a new commit containing just
+this file, with the following commit message: <code class="language-plaintext highlighter-rouge">Add 61b.txt</code>.</li>
+  <li>Make a modification in <code class="language-plaintext highlighter-rouge">61b.txt</code> by changing the text in the file to: “61b.txt
+changed to version 2”.</li>
+  <li>Make another commit, this time containing both <code class="language-plaintext highlighter-rouge">61b.txt</code> and <code class="language-plaintext highlighter-rouge">61boba.txt</code>.
+The commit message should be: <code class="language-plaintext highlighter-rouge">Updated 61b.txt and added 61boba.txt</code>.</li>
+  <li>
+    <p>Make one more modification to <code class="language-plaintext highlighter-rouge">61b.txt</code> by changing the text in
+the file to: “61b.txt changed to final version”. <strong>Don’t commit this version.</strong></p>
+
+    <p>At this point, if you were to type in <code class="language-plaintext highlighter-rouge">git status</code> and <code class="language-plaintext highlighter-rouge">git log</code>, you’d see
+something similar to the following:</p>
+
+    <p><img src="/labs/lab04/img/git_checkoff.png" alt="git_checkoff" /></p>
+  </li>
+  <li><strong>Using git only</strong>, restore <code class="language-plaintext highlighter-rouge">61b.txt</code> to the version in the most recent
+commit.
+<!-- markdownlint-disable MD030 --></li>
+  <li><strong>Using git only</strong>, restore <code class="language-plaintext highlighter-rouge">61b.txt</code> to the version in the first commit.</li>
+</ol>
+
+<!-- markdownlint-restore -->
+
+<p>Be sure to save this repository and directory until you complete the
+form on <a href="">Beacon</a>.</p>
+
+<p class="task">Do the steps above, and complete the first google form. There is a second
+google form to fill out before you get the magic word.</p>
+<h2 id="git-commands-continued">
+  
+  
+    <a href="#git-commands-continued" class="anchor-heading" aria-labelledby="git-commands-continued"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Git Commands Continued
+  
+  
+</h2>
+    
+
+<p>Let’s continue on! In this section, we go a little more in-depth about remote repositories
+and what branching is.</p>
+<h3 id="remote-add">
+  
+  
+    <a href="#remote-add" class="anchor-heading" aria-labelledby="remote-add"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">remote add</code>
+  
+  
+</h3>
+    
+
+<p>Sometimes, we want to be able to pull changes from another repository, specifically one
+that is hosted on Github. To do so, we can add that repository as a “remote”.
+For example, in Lab01, we used the following command to add the skeleton
+repository in our personal repository:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add skeleton https://github.com/Berkeley-CS61B/skeleton-sp25.git
+</code></pre></div></div>
+
+<p>Let’s break this down. When we want to add a remote, we specify the name of the remote, as well as the remote URL.
+In this example, the name is <code class="language-plaintext highlighter-rouge">skeleton</code> and the url is <code class="language-plaintext highlighter-rouge">https://github.com/Berkeley-CS61B/skeleton-sp25.git</code>. We can
+then refer to the remote repository with its name when we want to <a href="#pull">pull</a> or <a href="#push">push</a> from it.</p>
+
+<p>So, to add a remote, we can run the following command:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add <span class="o">[</span>remote-name] <span class="o">[</span>remote-url]
+</code></pre></div></div>
+
+<p class="info">You can run <code class="language-plaintext highlighter-rouge">git remote -v</code> in your repository to check what remotes have been added.</p>
+<h3 id="switch">
+  
+  
+    <a href="#switch" class="anchor-heading" aria-labelledby="switch"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">switch</code>
+  
+  
+</h3>
+    
+
+<p>We haven’t talked a lot about another feature of Git, which is branches! You won’t use it much
+(or at all!) in this class (except this lab), but it is a useful thing to know.</p>
+
+<p>Most version control systems have some kind of branching system. When we say branching, it means that
+we “diverge” away from the “main” branch. Branches allow us to keep track of multiple versions of
+our work at the same time (think of it like alternate dimensions). A reason why we would want to
+create another branch is if we want to develop another feature of our program, but we still wanted
+to maintain the current version that we had.</p>
+
+<p>Let’s consider a visualization.</p>
+
+<p><img src="/labs/lab04/img/on_cool_branch.png" alt="cool_branch" style="max-height: 325;" /></p>
+
+<p>In this image above, there are two branches, <code class="language-plaintext highlighter-rouge">master</code> and <code class="language-plaintext highlighter-rouge">cool_branch</code>. Notice that we’ve
+already made several commits. At some point, we ended up “branching” away from <code class="language-plaintext highlighter-rouge">master</code>
+(at the commit with the message “diverge commit”) and diverging away from that specific branch.
+Now, if we wanted to stop working on our current branch (<code class="language-plaintext highlighter-rouge">cool_branch</code>), we can switch back to our
+<code class="language-plaintext highlighter-rouge">master</code> branch. We do this by running the following command:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git switch <span class="o">[</span>branch-name]
+</code></pre></div></div>
+
+<p><img src="/labs/lab04/img/on_master_branch.png" alt="master_branch" style="max-height: 325;" /></p>
+
+<p>In this example, we would run <code class="language-plaintext highlighter-rouge">git switch master</code>. Notice that the HEAD tag is now pointing back to
+the latest commit on <code class="language-plaintext highlighter-rouge">master</code>.</p>
+
+<p class="info">We won’t cover it here, but feel free to look up how you might create a branch.</p>
+
+<p>If you get an error that the <code class="language-plaintext highlighter-rouge">.idea</code> folder is untracked when you try to switch out of a branch, you can create another commit including the <code class="language-plaintext highlighter-rouge">.idea</code> folder using <code class="language-plaintext highlighter-rouge">git add</code> and <code class="language-plaintext highlighter-rouge">git commit</code>. You do not have to push these changes.</p>
+<h3 id="restore-revisited">
+  
+  
+    <a href="#restore-revisited" class="anchor-heading" aria-labelledby="restore-revisited"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">restore</code> Revisited
+  
+  
+</h3>
+    
+
+<p>Now that we have an idea of what remotes and branches are, let’s revisit the <code class="language-plaintext highlighter-rouge">restore</code> command.
+In the earlier section, we talked about using <code class="language-plaintext highlighter-rouge">restore</code> to revert back to previous commits
+based on the most recent commit or based on a commit id, but we can also use the command
+to revert a change back based on a remote repository and a specified branch. This is what
+it would look like:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git restore <span class="nt">--source</span><span class="o">=[</span>remote-name]/[branch-name] <span class="o">[</span>file_name]
+</code></pre></div></div>
+
+<p>It would revert the file back based on the contents of the latest commit on the branch
+of the remote repository.</p>
+<h3 id="push">
+  
+  
+    <a href="#push" class="anchor-heading" aria-labelledby="push"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">push</code>
+  
+  
+</h3>
+    
+
+<p>If we want to push any commits we made on our local computer to a remote repository, we can use <code class="language-plaintext highlighter-rouge">git push</code>:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push <span class="o">[</span>remote-name] <span class="o">[</span>branch]
+</code></pre></div></div>
+
+<p>In this class, we use <code class="language-plaintext highlighter-rouge">git push origin main</code> to push any of our changes from the local repository
+to our remote repository. <code class="language-plaintext highlighter-rouge">origin</code> is the remote repo that represents our personal repository that’s hosted
+on Github and <code class="language-plaintext highlighter-rouge">main</code> is the branch that we work off of.</p>
+
+<p>Here’s a visualization of what this looks like with a couple of local commits we haven’t pushed yet.
+The local repository is on the left, and the remote one is on the right.</p>
+
+<p><img src="/labs/lab04/img/remote_push_before.png" alt="remote_push_before" style="max-height: 325;" /></p>
+
+<p>After pushing, our commits are now saved in our remote repository:</p>
+
+<p><img src="/labs/lab04/img/remote_push_after.png" alt="remote_push_after" style="max-height: 325;" /></p>
+<h3 id="pull">
+  
+  
+    <a href="#pull" class="anchor-heading" aria-labelledby="pull"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <code class="language-plaintext highlighter-rouge">pull</code>
+  
+  
+</h3>
+    
+
+<p>Conversely, if we want to pull any changes from our remote repository to our local one, we can run <code class="language-plaintext highlighter-rouge">git pull</code>:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull <span class="o">[</span>remote-name] <span class="o">[</span>branch]
+</code></pre></div></div>
+
+<p>We’ve done this before when pulling from the skeleton: <code class="language-plaintext highlighter-rouge">git pull skeleton main</code>. Here’s a visualization of
+what this looks like with a couple of remote commits we haven’t pulled from yet:</p>
+
+<p><img src="/labs/lab04/img/remote_pull_before.png" alt="remote_pull_before" style="max-height: 325;" /></p>
+
+<p>After pulling, our remote commits are now in our local repository:</p>
+
+<p><img src="/labs/lab04/img/remote_pull_after.png" alt="remote_pull_after" style="max-height: 325;" /></p>
+<h2 id="common-git-issues">
+  
+  
+    <a href="#common-git-issues" class="anchor-heading" aria-labelledby="common-git-issues"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Common Git Issues
+  
+  
+</h2>
+    
+
+<p>In this section, we’ll cover some common issues you might see with Git. This is not
+comprehensive of all issues you may see. You can read more about git issues in our
+Using Git guide <a href="/resources/guides/git/">here</a> and Git WTFs <a href="/troubleshooting/git-wtfs/">here</a>.</p>
+
+<p class="danger">While this is meant to help diagnose a Git issue and go through the common ways to
+resolve them, always ask for help if you aren’t too sure!</p>
+<h3 id="fatal-refusing-to-merge-unrelated-histories">
+  
+  
+    <a href="#fatal-refusing-to-merge-unrelated-histories" class="anchor-heading" aria-labelledby="fatal-refusing-to-merge-unrelated-histories"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Fatal: refusing to merge unrelated histories
+  
+  
+</h3>
+    
+
+<p>This occurs when the history of your local respository and the remote repository are separate. This usually happens when someone has changed files in the skeleton code after you
+have pulled. To fix, run <code class="language-plaintext highlighter-rouge">git pull &lt;remote-repo&gt; main --allow-unrelated-histories --no-rebase</code>.
+This may force a merge conflict (more information below).</p>
+<h3 id="merge-conflict">
+  
+  
+    <a href="#merge-conflict" class="anchor-heading" aria-labelledby="merge-conflict"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Merge Conflict
+  
+  
+</h3>
+    
+
+<p>Merge conflict messages can show up like below:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git pull origin main
+From github.com:Berkeley-CS61B/course-materials-sp16
+ <span class="k">*</span> branch            main     -&gt; FETCH_HEAD
+Auto-merging proj/proj0/solution/canonical/Planet.java
+CONFLICT <span class="o">(</span>content<span class="o">)</span>: Merge conflict <span class="k">in </span>proj/proj0/solution/canonical/Planet.java
+Automatic merge failed<span class="p">;</span> fix conflicts and <span class="k">then </span>commit the result.
+</code></pre></div></div>
+
+<p>Merge conflicts occur when different modifications have been made to the same file that
+impact the same lines of code, and thus, cannot coexist. Git will indicate which files
+have conflicts; <strong>to fix them, open the files in IntelliJ and resolve them manually.</strong>
+These conflicts will appear like below in the file:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    public Planet<span class="o">(</span>Planet p<span class="o">)</span> <span class="o">{</span>
+<span class="o">&lt;&lt;&lt;&lt;&lt;&lt;</span>&lt; HEAD
+        this.xPos <span class="o">=</span> p.xPos<span class="p">;</span>
+        this.yPos <span class="o">=</span> p.yPos<span class="p">;</span>
+<span class="o">=======</span>
+        this.xxPos <span class="o">=</span> p.xxPos<span class="p">;</span>
+        this.yyPos <span class="o">=</span> p.yyPos<span class="p">;</span>
+<span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> 27ddd0c71515e5cfc7f58a43bcf0e2144c127aed
+</code></pre></div></div>
+
+<p>Everything between <code class="language-plaintext highlighter-rouge">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> and <code class="language-plaintext highlighter-rouge">=======</code> is from your local version. Everything between <code class="language-plaintext highlighter-rouge">=======</code> and
+<code class="language-plaintext highlighter-rouge">27ddd0c71515e5cfc7f58a43bcf0e2144c127aed</code> is from your remote repository. Between these two options,
+choose the modifications that you would like to keep. Once you have resolved all conflicts,
+add and commit your changes. Run git status to check the state of your repo.</p>
+
+<p>We’ve provided more reading on merge conflicts <a href="/resources/guides/git/#merging">here</a>
+and <a href="/troubleshooting/git-wtfs/#error-you-have-not-concluded-your-merge-merge_head-exists">here</a>.</p>
+<h3 id="your-branch-is-ahead-of-originmain-by-x-commits">
+  
+  
+    <a href="#your-branch-is-ahead-of-originmain-by-x-commits" class="anchor-heading" aria-labelledby="your-branch-is-ahead-of-originmain-by-x-commits"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Your branch is ahead of ‘origin/main’ by X commits.
+  
+  
+</h3>
+    
+<p>This occurs when the local repo is no longer in sync with its remote counterpart.
+If you want to keep the local versions of your files, use <code class="language-plaintext highlighter-rouge">git push</code>.
+If you want to overwrite your local changes with the versions in the remote repo,
+use <code class="language-plaintext highlighter-rouge">git reset --hard origin/main</code>.</p>
+<h2 id="git-exercise-part-12">
+  
+  
+    <a href="#git-exercise-part-12" class="anchor-heading" aria-labelledby="git-exercise-part-12"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Git Exercise (Part 1.2)
+  
+  
+</h2>
+    
+
+<p>Just as you did in Part 1.1, navigate to <a href="">Beacon</a> and
+complete the second form.</p>
+
+<p>Once you finish both google forms (in Part 1.1 and 1.2) and receive full credit,
+you should be able to obtain a <strong>magic word</strong>. Place this magic word on the
+<strong>first line</strong> of <code class="language-plaintext highlighter-rouge">magic_word.txt</code>.</p>
+<h2 id="git-exercise-part-2">
+  
+  
+    <a href="#git-exercise-part-2" class="anchor-heading" aria-labelledby="git-exercise-part-2"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Git Exercise (Part 2)
+  
+  
+</h2>
+    
+
+<p>In this exercise, we’ll have you clone a git repository, and you’ll be using some of the commands you’ve learned to find
+the passwords that are hidden away in the repository. Copy and paste the following command to clone your repository, <strong>outside
+your <code class="language-plaintext highlighter-rouge">sp25-s***</code> repository and outside your <code class="language-plaintext highlighter-rouge">lab04-checkoff</code> repository that you created in part 1.1</strong>. The exact location is up to you, as long as it’s not in another repository or in one of the repositories we mentioned in the previous sentence.</p>
+
+<p class="danger">Before running the command, <strong>double check that you are not in your personal repository or the lab04-checkoff repository.</strong> If you are, a message will show
+up preventing you from cloning the repository inside your <code class="language-plaintext highlighter-rouge">sp25-s***</code> and <code class="language-plaintext highlighter-rouge">lab04-checkoff</code> repository.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-sS</span> https://sp25.datastructur.es/labs/lab04/lab04.sh | bash
+</code></pre></div></div>
+
+<p>Check that a repository called <code class="language-plaintext highlighter-rouge">git-exercise-sp25</code> shows up. If it’s there, <code class="language-plaintext highlighter-rouge">cd</code> into it, open up
+<code class="language-plaintext highlighter-rouge">git-exercise-sp25</code> in IntelliJ, and you’re ready to continue on with the exercise!</p>
+<h3 id="part-21">
+  
+  
+    <a href="#part-21" class="anchor-heading" aria-labelledby="part-21"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Part 2.1
+  
+  
+</h3>
+    
+
+<p>When you open up the repository, you’ll notice a <code class="language-plaintext highlighter-rouge">password.txt</code> file. This is where the password for the first task will
+be in. It doesn’t seem to be here, but it might be in a previous commit… See if you can find that commit and revert
+back to the commit with some of the commands we’ve learned (you may need to scroll using the arrow keys!).</p>
+
+<p class="task">Find the password for Task 1. When you do, you can store the password on the <strong>second line</strong> of <code class="language-plaintext highlighter-rouge">magic_word.txt</code> file in your
+lab04 directory. <strong>You will also want to restore your file to the most recent commit before moving on.</strong></p>
+<h3 id="part-22">
+  
+  
+    <a href="#part-22" class="anchor-heading" aria-labelledby="part-22"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Part 2.2
+  
+  
+</h3>
+    
+
+<p>Once you’ve completed Task 1, let’s try to figure out where the second password it is. The repository you cloned
+has multiple branches, but the branch called <code class="language-plaintext highlighter-rouge">erik</code> might have something we want. Let’s try switching to the branch
+and seeing if the password is in there.</p>
+
+<p class="task">Find the password for Task 2. You can verify that it is the password by checking the commit message of the commit
+that you are on. When you do, you can store the password on the <strong>third line</strong> of <code class="language-plaintext highlighter-rouge">magic_word.txt</code> file in your
+lab04 directory. When you find the password, <strong>switch back to the <code class="language-plaintext highlighter-rouge">main</code> branch.</strong></p>
+<h3 id="part-23">
+  
+  
+    <a href="#part-23" class="anchor-heading" aria-labelledby="part-23"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Part 2.3
+  
+  
+</h3>
+    
+
+<p>It doesn’t seem like the third password is in this repository, but in another one! The password is in this repository
+(note that this is not a command, but the ssh url):</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git@github.com:Berkeley-CS61B/git-exercise-remote.git
+</code></pre></div></div>
+
+<p>We want to try pulling from it, so first, <strong>add this repository as a remote in our <code class="language-plaintext highlighter-rouge">git-exercise-sp25</code> repository</strong>. You may
+give the remote a name of your choosing. Once it’s added, run the following command (without the brackets around the remote’s
+name):</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull <span class="o">[</span>remote-name] main <span class="nt">--allow-unrelated-histories</span> <span class="nt">--no-rebase</span>
+</code></pre></div></div>
+
+<p>The reason we add the flags <code class="language-plaintext highlighter-rouge">--allow-unrelated-histories</code> and <code class="language-plaintext highlighter-rouge">--no-rebase</code> is because our two repositories don’t have any related history, so
+we’re going to try to merge these two branches (our local one and the one we’re pulling from).</p>
+
+<p class="danger">Do not add the flags if you are not sure if it should be used. If you do use the flag without it being needed, you may
+end up putting yourself into an interactive rebase and destroying some of your work. In most, if not all cases of pulling
+from the skeleton in your personal repository, this flag should not be added, and running <code class="language-plaintext highlighter-rouge">git pull skeleton main</code> is
+enough.</p>
+
+<p class="task">Once you’ve pulled, you’ll see Git trying to merge the branches. Go ahead and merge it and the final password should show
+up in your IntelliJ. You can store the password on the <strong>fourth line</strong> of <code class="language-plaintext highlighter-rouge">magic_word.txt</code>.</p>
+<h2 id="submission">
+  
+  
+    <a href="#submission" class="anchor-heading" aria-labelledby="submission"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Submission
+  
+  
+</h2>
+    
+
+<p>At this point, you should have <strong>four passwords on each line, as specified in the previous exercises</strong>. Ensure that they
+are in the specific order mentioned and that there are no extra spaces at the end. Your magic word text file
+should look similar to below:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git_exercise_1_password
+git_exercise_2.1_password
+git_exercise_2.2_password
+git_exercise_2.3_password
+</code></pre></div></div>
+
+<p>The passwords should be placed at the top 4 lines of your <code class="language-plaintext highlighter-rouge">magic_word.txt</code>. When you are ready, please submit <strong>only</strong> <code class="language-plaintext highlighter-rouge">magic_word.txt</code> to Gradescope. You will <strong>not</strong> submit the <code class="language-plaintext highlighter-rouge">lab04-checkoff</code> or <code class="language-plaintext highlighter-rouge">git-exercise-sp25</code> repositories.</p>
+
+<p>If you want to play around with the visualizer which we used to make some of the images in this lab,
+you can find it <a href="https://git-school.github.io/visualizing-git/#free-remote">here</a>.</p>
+
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+

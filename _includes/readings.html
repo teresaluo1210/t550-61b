@@ -1,0 +1,51 @@
+<td class="{{ include.is_even }}" rowspan="{{ include.rowspan }}">
+{%- if include.element != nil -%}
+  {%- for reading in include.element -%}
+    <a href="{{ reading.link }}">{{ reading.title }}</a>{% unless forloop.last %}, {% endunless %}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- comment -%}
+BEGIN: CS 61B COMMENT
+This is all commented out because CS 61B readings are textbook links, not PDFs
+in the website repo. ~peyrin Nov 2024
+{%- endcomment -%}
+
+{%- comment -%}
+  - Build note filenames automatically from the note number.
+  - First pad number (2-->02), then create a base filepath,
+    then create filename (see lectures.yml for more on filenames).
+{%- endcomment -%}
+{%- comment -%}
+{%- assign filenumber = include.number | prepend: '00' | slice: -2, 2 -%}
+{%- assign notes_path = "/assets/notes/cs188-sp23-note" | append: filenumber | append: ".pdf" -%}
+{%- endcomment -%}
+
+{%- comment -%}
+  - Automatically check if files exist.
+{%- endcomment -%}
+{%- comment -%}
+{%- assign notes_exists = false -%}
+{%- for page in site.static_files -%}
+  {%- if page.path == notes_path -%}
+    {%- assign notes_exists = true -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- endcomment -%}
+
+{%- comment -%}
+  - Slightly hacky way to ensure notes links don't show when there's nonumber.
+{%- endcomment -%}
+{%- comment -%}
+{%- if include.element.nonumber -%}
+  {%- assign notes_exists = false -%}
+{%- endif -%}
+{%- endcomment -%}
+
+{%- comment -%}
+{%- if notes_exists -%}
+  <br>
+  <a href="{{ notes_path | relative_url }}">Note {{ include.number }}</a>
+{%- endif -%}
+{%- endcomment -%}
+</td>

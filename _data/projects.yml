@@ -1,0 +1,73 @@
+#####################################
+# Instructions for updating website #
+#####################################
+
+# To add a project to the website:
+# 1. Upload any necessary files to /assets/projects.
+# 2. Put the project spec in the projects folder (if not already there).
+# 3. In this file, uncomment the "link" attribute to display a link to the spec.
+
+#####################################
+# Additional documentation          #
+#####################################
+
+# Each element in the array corresponds to one box on the website.
+# This includes boxes that are blank or don't have a homework.
+
+# The website automatically numbers each element in the array.
+# To skip numbering (e.g. for a blank box), add
+# "nonumber: True" as an attribute.
+
+projects:
+  - rowspan: 1
+    nonumber: True
+    classes:
+      - blank
+  - title: "Mini-Project 0: 2048"
+    due: "2/3"
+    link: projects/proj0
+    rowspan: 5
+    nonumber: True
+  - title: "Project 1A: LinkedListDeque"
+    due: "2/10"
+    link: projects/proj1a
+    rowspan: 3
+    nonumber: True
+  - title: "Project 1B: ArrayDeque, Deque"
+    due: "2/19"
+    link: projects/proj1b
+    rowspan: 4
+    nonumber: True
+  - rowspan: 4
+    nonumber: True
+    classes:
+      - blank
+  - title: "Project 2A: NGrams"
+    due: "3/12"
+    link: projects/proj2a
+    rowspan: 6
+    nonumber: True
+  - title: "Project 2B: Checkpoint"
+    link: projects/proj2b
+    due: "3/21"
+    rowspan: 4
+    nonumber: True
+  - title: "Project 2B: Wordnet"
+    link: projects/proj2b
+    due: "4/4"
+    rowspan: 7
+    nonumber: True
+  - title: "Project 3A: World Generation"
+    due: "4/18"
+    link: projects/proj3
+    rowspan: 6
+    nonumber: True
+  - title: "Project 3B: Interactivity"
+    due: "4/29"
+    link: projects/proj3/proj3b
+    rowspan: 3
+    nonumber: True
+  - rowspan: 10
+    nonumber: True
+    classes:
+      - blank

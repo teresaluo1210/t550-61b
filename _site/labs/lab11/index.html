@@ -1,0 +1,1290 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+  <link rel="stylesheet" href="/assets/css/just-the-docs-head-nav.css" id="jtd-head-nav-stylesheet">
+
+  <style id="jtd-nav-activation">
+  
+
+.site-nav > ul.nav-list:first-child > li:not(:nth-child(1)) > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > a,
+.site-nav > ul.nav-list:first-child > li > ul > li > ul > li > a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:not(:first-child) a,
+.site-nav li.external a {
+  background-image: none;
+}
+
+.site-nav > ul.nav-list:first-child > li:nth-child(1) > a {
+  font-weight: 600;
+  text-decoration: none;
+}.site-nav > ul.nav-list:first-child > li:nth-child(1) > button svg {
+  transform: rotate(-90deg);
+}.site-nav > ul.nav-list:first-child > li.nav-list-item:nth-child(1) > ul.nav-list {
+  display: block;
+}
+  </style>
+
+  
+
+  
+    <script src="/assets/js/vendor/lunr.min.js"></script>
+  
+
+  <script src="/assets/js/just-the-docs.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Lab 11: Comparison-Based Sorts (Optional) | Mock CS 61B (T550 Version)</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="Lab 11: Comparison-Based Sorts (Optional)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data Structures Mock Site for T550 Final Project" />
+<meta property="og:description" content="Data Structures Mock Site for T550 Final Project" />
+<link rel="canonical" href="http://localhost:4000/labs/lab11/" />
+<meta property="og:url" content="http://localhost:4000/labs/lab11/" />
+<meta property="og:site_name" content="Mock CS 61B (T550 Version)" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Lab 11: Comparison-Based Sorts (Optional)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Data Structures Mock Site for T550 Final Project","headline":"Lab 11: Comparison-Based Sorts (Optional)","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/bee.png"}},"url":"http://localhost:4000/labs/lab11/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <link rel="preload" href="/assets/css/just-the-docs-dark.css" as="style" />
+
+<!-- Intentionally duplicates the default theme stylesheet so there's a fallback when changing themes -->
+<link id="jtdThemeCSS" rel="stylesheet" href="/assets/css/just-the-docs-default.css">
+
+<script>
+  /* Script to enable persistent dark mode. */
+
+  jtd.getTheme = function() {
+    var cssFileHref = (document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]')).getAttribute('href');
+    return cssFileHref.substring(cssFileHref.lastIndexOf('-') + 1, cssFileHref.length - 4);
+  }
+
+  jtd.setTheme = function(theme) {
+    var cssFile = document.getElementById('jtdThemeCSS') || document.querySelector('[rel="stylesheet"]');
+    cssFile.setAttribute('href', cssFile.getAttribute('href').replace(jtd.getTheme(), theme));
+  }
+
+  let toggleDark = () => {
+    let setDark = jtd.getTheme() !== 'dark';
+    jtd.setTheme(setDark ? 'dark' : 'default');
+    localStorage.setItem('darkMode', String(setDark));
+  };
+
+  /* Read local storage state. */
+  if (localStorage.getItem('darkMode') === 'true') {
+    toggleDark();
+  }
+</script>
+
+<!-- Script for LaTeX rendering. -->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script>
+function renderKaTeX() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true},
+    ],
+  });
+}
+</script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderKaTeX();"></script>
+
+
+</head>
+
+<body>
+  <a class="skip-to-main" href="#main-content">Skip to main content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="svg-link" viewBox="0 0 24 24">
+  <title>Link</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+  </svg>
+</symbol>
+
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+  <title>Menu</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</symbol>
+
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+  <title>Expand</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+</symbol>
+
+  <!-- Feather. MIT License: https://github.com/feathericons/feather/blob/master/LICENSE -->
+<symbol id="svg-external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+  <title id="svg-external-link-title">(external link)</title>
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+</symbol>
+
+  
+    <symbol id="svg-doc" viewBox="0 0 24 24">
+  <title>Document</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline>
+  </svg>
+</symbol>
+
+    <symbol id="svg-search" viewBox="0 0 24 24">
+  <title>Search</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</symbol>
+
+  
+  
+    <!-- Bootstrap Icons. MIT License: https://github.com/twbs/icons/blob/main/LICENSE.md -->
+<symbol id="svg-copy" viewBox="0 0 16 16">
+  <title>Copy</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+  </svg>
+</symbol>
+<symbol id="svg-copied" viewBox="0 0 16 16">
+  <title>Copied</title>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+  </svg>
+</symbol>
+
+  
+</svg>
+
+  
+    <div class="side-bar">
+    <div class="site-header" role="banner">
+        <a href="/" class="site-title lh-tight">
+  <div class="site-logo" role="img" aria-label="Mock CS 61B (T550 Version)"></div>
+
+</a>
+        <button id="menu-button" class="site-button btn-reset" aria-label="Toggle menu" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+        </button>
+    </div><nav aria-label="Main" id="site-nav" class="site-nav">
+  
+  
+    <ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-list-link">Home</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Course Info category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/policies/" class="nav-list-link">Course Info</a><ul class="nav-list"><li class="nav-list-item"><a href="/policies/exams/" class="nav-list-link">Exam Policies</a></li><li class="nav-list-item"><a href="/policies/extensions/" class="nav-list-link">Extensions Policy</a></li><li class="nav-list-item"><a href="/policies/47b/" class="nav-list-link">CS 47B</a></li><li class="nav-list-item"><a href="/policies/academic-misconduct/" class="nav-list-link">Academic Misconduct</a></li><li class="nav-list-item"><a href="/policies/fa25-faqs/" class="nav-list-link">FA25 FAQs</a></li><li class="nav-list-item"><a href="/policies/incompletes/" class="nav-list-link">Incomplete Grades</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Labs category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/labs/" class="nav-list-link">Labs</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 01: Setup category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab01/" class="nav-list-link">Lab 01: Setup</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab01/faq/" class="nav-list-link">FAQ</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab04/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/terminal/" class="nav-list-link">How to Use the Terminal</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/linux/" class="nav-list-link">Linux/Unix</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/mac/" class="nav-list-link">Mac OS</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab01/windows/" class="nav-list-link">Windows</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 02: Debugging (Part 1) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab02/" class="nav-list-link">Lab 02: Debugging (Part 1)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab02/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 03: Debugging (Part 2) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab03/" class="nav-list-link">Lab 03: Debugging (Part 2)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab03/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 04: Git category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab04/" class="nav-list-link">Lab 04: Git</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab04/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 05: Project 1 Review category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab05/" class="nav-list-link">Lab 05: Project 1 Review</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab05/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 06: BSTMap category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab06/" class="nav-list-link">Lab 06: BSTMap</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab06/asymptotics-soln/" class="nav-list-link">Asymptotics Problems Solutions</a>
+              </li><li class="nav-list-item">
+                <a href="/labs/lab06/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 07: Hashmaps category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab07/" class="nav-list-link">Lab 07: Hashmaps</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab07/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 08: LLRBs category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab08/" class="nav-list-link">Lab 08: LLRBs</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/lab08/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 09: Introduction to Project 3 (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab09/" class="nav-list-link">Lab 09: Introduction to Project 3 (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab 10: Tetris (Optional) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/lab10/" class="nav-list-link">Lab 10: Tetris (Optional)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/labs/lab11/" class="nav-list-link">Lab 11: Comparison-Based Sorts (Optional)</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Lab X: Disjoint Sets category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/labs/disjoint-sets/" class="nav-list-link">Lab X: Disjoint Sets</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/labs/disjoint-sets/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Projects category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/projects/" class="nav-list-link">Projects</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/" class="nav-list-link">Project 0: 2048</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj0/faq/" class="nav-list-link">FAQ</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 0: 2048 (Hard Mode) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj0/hardmode/" class="nav-list-link">Project 0: 2048 (Hard Mode)</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1A: LinkedListDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1a/" class="nav-list-link">Project 1A: LinkedListDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1a/faq/" class="nav-list-link">FAQ - Project 1A: Linked List Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1a/flags/" class="nav-list-link">Coverage Tests - Project 1A: Linked List Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 1B: ArrayDeque61B category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj1b/" class="nav-list-link">Project 1B: ArrayDeque61B</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj1b/faq/" class="nav-list-link">FAQ - Project 1B: Array Deque 61B</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj1b/flags/" class="nav-list-link">Coverage Tests - Project 1B: Array Deque 61B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2A: Ngordnet (NGrams) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2a/" class="nav-list-link">Project 2A: Ngordnet (NGrams)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2a/faq/" class="nav-list-link">FAQ - Project 2A</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 2B: Ngordnet (Wordnet) category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj2b/" class="nav-list-link">Project 2B: Ngordnet (Wordnet)</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj2b/faq/" class="nav-list-link">FAQ - Project 2B</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Project 3: Build Your Own World category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/projects/proj3/" class="nav-list-link">Project 3: Build Your Own World</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/projects/proj3/partnerships/" class="nav-list-link">Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/setup/" class="nav-list-link">Setup</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3a/" class="nav-list-link">3A: World Generation</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/proj3b/" class="nav-list-link">3B: Gameplay</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/ambition/" class="nav-list-link">BYOW Ambition Features</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/checkoff/" class="nav-list-link">BYOW Checkoff Script</a>
+              </li><li class="nav-list-item">
+                <a href="/projects/proj3/common-bugs/" class="nav-list-link">BYOW Common Bugs</a>
+              </li></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homeworks category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/homeworks/" class="nav-list-link">Homeworks</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 0 category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw0/" class="nav-list-link">Homework 0</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0a/" class="nav-list-link">Homework 0A: Java Syntax</a>
+              </li><li class="nav-list-item">
+                <a href="/homeworks/hw0/hw0b/" class="nav-list-link">Homework 0B: Data Structures</a>
+              </li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Homework 2: Percolation category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/homeworks/hw2/" class="nav-list-link">Homework 2: Percolation</a><ul class="nav-list"></ul></li><li class="nav-list-item"><a href="/homeworks/hw3/" class="nav-list-link">Homework 3: Midterm 2 Review FAQ</a></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Resources category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/resources/" class="nav-list-link">Resources</a><ul class="nav-list"><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Guides category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/guides/" class="nav-list-link">Guides</a><ul class="nav-list"><li class="nav-list-item">
+                <a href="/resources/guides/asymptotics/" class="nav-list-link">Asymptotics</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/beacon/" class="nav-list-link">Beacon Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/ed/" class="nav-list-link">Ed Policies and Guidelines</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/gitbug/" class="nav-list-link">Gitbugs</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/intellij/" class="nav-list-link">IntelliJ</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/oh/" class="nav-list-link">Online OH Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/partnerships/" class="nav-list-link">Project 3 Partnerships</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/style/" class="nav-list-link">Style Guide</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/git/" class="nav-list-link">Using Git</a>
+              </li><li class="nav-list-item">
+                <a href="/resources/guides/soda-machines/" class="nav-list-link">Using the Soda Lab Machines</a>
+              </li></ul></li><li class="nav-list-item"><a href="/resources/academic/" class="nav-list-link">Academic Resources</a></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Conceptual Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/conceptual/" class="nav-list-link">Conceptual Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Exam Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/exams/" class="nav-list-link">Exam Resources</a><ul class="nav-list"></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Support Resources category" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+          </button><a href="/resources/support/" class="nav-list-link">Support Resources</a><ul class="nav-list"></ul></li></ul></li><li class="nav-list-item"><button class="nav-list-expander btn-reset" aria-label="toggle items in Troubleshooting category" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use xlink:href="#svg-arrow-right"></use></svg>
+    </button><a href="/troubleshooting/" class="nav-list-link">Troubleshooting</a><ul class="nav-list"><li class="nav-list-item"><a href="/troubleshooting/git-wtfs/" class="nav-list-link">Git WTFS</a></li><li class="nav-list-item"><a href="/troubleshooting/intellij-wtfs/" class="nav-list-link">IntelliJ WTFS</a></li></ul></li></ul>
+
+  
+</nav>
+
+
+    
+    
+    <footer class="site-footer" aria-label="just-the-docs-footer">
+        This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
+    </footer>
+    
+</div>
+  
+  <div class="main" id="top">
+    <div id="main-header" class="main-header">
+  
+    
+
+<div class="search" role="search">
+  <div class="search-input-wrap">
+    <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search Mock CS 61B (T550 Version)" aria-label="Search Mock CS 61B (T550 Version)" autocomplete="off">
+    <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
+  </div>
+  <div id="search-results" class="search-results"></div>
+</div>
+
+  
+  <script>
+  // Adding the site logo and title to the navbar like this until JTD adds support for it:
+  // https://github.com/just-the-docs/just-the-docs/issues/938
+  const logoWrapper = document.querySelector(".site-title");
+  const siteLogo = document.querySelector(".site-logo");
+  siteLogo.style.width = "50px";
+  const siteTitle = document.createElement("span");
+  siteTitle.textContent = "CS 61B";
+  logoWrapper.appendChild(siteTitle);
+</script>
+
+  
+    <nav aria-label="Auxiliary" class="aux-nav">
+  <ul class="aux-nav-list">
+    
+      <li class="aux-nav-list-item">
+        <a href="#" class="site-button"
+          
+        >
+          Dark Mode
+        </a>
+      </li>
+    
+  </ul>
+</nav>
+
+  
+</div>
+
+    <div class="main-content-wrap">
+      <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-nav-list">
+    <li class="breadcrumb-nav-list-item"><a href="/labs/">Labs</a></li>
+    <li class="breadcrumb-nav-list-item"><span>Lab 11: Comparison-Based Sorts (Optional)</span></li>
+  </ol>
+</nav>
+      <div id="main-content" class="main-content">
+        <main>
+          
+            <nav class="content-nav ">
+      <ul class="nav-list js-toc"><li class="nav-list-item">Lab 11: Comparison-Based Sorts (Optional)<ul><li class="nav-list-item"><a href="#faq" class="nav-list-link">FAQ</a></li><li class="nav-list-item"><a href="#introduction" class="nav-list-link">Introduction</a></li><li class="nav-list-item"><a href="#order-and-stability" class="nav-list-link">Order and Stability</a></li><li class="nav-list-item"><a href="#space-complexity" class="nav-list-link">Space Complexity</a></li><li class="nav-list-item"><a href="#some-thoughts-sorting-by-hand" class="nav-list-link">Some Thoughts: Sorting by Hand</a></li><li class="nav-list-item"><a href="#insertion-sort" class="nav-list-link">Insertion Sort</a><ul><li class="nav-list-item"><a href="#thought-exercise-runtime" class="nav-list-link">Thought Exercise: Runtime</a></li><li class="nav-list-item"><a href="#non-coding-exercise-insertionsort" class="nav-list-link">Non-Coding Exercise: InsertionSort</a></li></ul></li><li class="nav-list-item"><a href="#selection-sort" class="nav-list-link">Selection Sort</a><ul><li class="nav-list-item"><a href="#disussion-runtime" class="nav-list-link">Disussion: Runtime</a></li><li class="nav-list-item"><a href="#non-coding-exercise-selectionsort" class="nav-list-link">Non-Coding Exercise: SelectionSort</a></li></ul></li><li class="nav-list-item"><a href="#heapsort" class="nav-list-link">HeapSort</a><ul><li class="nav-list-item"><a href="#disussion-runtime-1" class="nav-list-link">Disussion: Runtime</a></li><li class="nav-list-item"><a href="#exercise-heapsort" class="nav-list-link">Exercise: HeapSort</a></li></ul></li><li class="nav-list-item"><a href="#new-idea-divide-and-conquer" class="nav-list-link">New Idea: “Divide and Conquer”</a></li><li class="nav-list-item"><a href="#merge-sort" class="nav-list-link">Merge Sort</a></li><li class="nav-list-item"><a href="#exercise-mergesort" class="nav-list-link">Exercise: mergeSort</a></li><li class="nav-list-item"><a href="#quicksort" class="nav-list-link">Quicksort</a></li><li class="nav-list-item"><a href="#exercise-quicksort" class="nav-list-link">Exercise: quicksort</a></li><li class="nav-list-item"><a href="#though-exercise-quicksort" class="nav-list-link">Though Exercise: Quicksort</a><ul><li class="nav-list-item"><a href="#thought-exercise-1-runtime" class="nav-list-link">Thought Exercise 1: Runtime</a></li><li class="nav-list-item"><a href="#thought-exercise-2-choosing-a-pivot" class="nav-list-link">Thought Exercise 2: Choosing a Pivot</a></li></ul></li><li class="nav-list-item"><a href="#quicksort-in-practice" class="nav-list-link">Quicksort in Practice</a><ul><li class="nav-list-item"><a href="#timing" class="nav-list-link">Timing</a></li></ul></li><li class="nav-list-item"><a href="#summary" class="nav-list-link">Summary</a><ul><li class="nav-list-item"><a href="#deliverables" class="nav-list-link">Deliverables</a></li></ul></li></ul></li></ul>
+    </nav>
+    <div class="content-container">
+<h1 class="title">
+  
+  
+    Lab 11: Comparison-Based Sorts (Optional)
+  
+  
+</h1>
+    
+<h2 id="faq">
+  
+  
+    <a href="#faq" class="anchor-heading" aria-labelledby="faq"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> <a href="/labs/lab11/faq/">FAQ</a>
+  
+  
+</h2>
+    
+
+<p>Each assignment will have an FAQ linked at the top. You can also access it by
+adding “/faq” to the end of the URL. The FAQ for Lab11 is located
+<a href="/labs/lab11/faq/">here</a>.</p>
+<h2 id="introduction">
+  
+  
+    <a href="#introduction" class="anchor-heading" aria-labelledby="introduction"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Introduction
+  
+  
+</h2>
+    
+
+<p>This lab is optional. You are encouraged to work through it on your own time to strengthen 
+your understanding of comparison-based sorting algorithms. There is no in-section component 
+or required submission.</p>
+
+<p>As usual, pull the files from the skeleton and make a new IntelliJ project.</p>
+
+<p>In this lab, we’ll be discussing <strong>sorting</strong>, algorithms for rearranging elements
+in a collection to be in a specific order. There are many problems you can more easily solve with a sorted collection, including performing binary search in \(O(\log N)\) time,
+efficiently identifying adjacent pairs within a list, finding the \(k^{th}\)
+largest element, and so forth.</p>
+
+<p>There are several kinds of sorting algorithms, each of which is appropriate for
+different situations. At the highest level, we will distinguish between two
+types of sorting algorithms:</p>
+
+<ul>
+  <li><strong>Comparison-based sorts</strong>, which rely on making pairwise comparisons between
+elements.</li>
+  <li><strong>Counting-based sorts</strong>, which group elements based on their individual
+digits before sorting and combining each group. Counting sorts do not need to
+compare individual elements to each other.</li>
+</ul>
+
+<p>In this lab and the following lab, we will discuss several <strong>comparison-based sorts</strong> including
+<em>insertion sort</em>, <em>selection sort</em>, <em>heap sort</em>, <em>merge sort</em> and <em>quick sort</em>. Why all the
+different sorts? Each sort has a different set of advantages and disadvantages:
+under certain conditions, one sort may be faster than the other, or one sort may
+take less memory than the other, and so forth. When working with large datasets
+(or even medium and small datasets), choosing the right sorting algorithm can
+make a big difference. Along the way, we’ll develop an intuition for how each
+sort works by exploring examples and writing our own implementations of each
+sort.</p>
+
+<p><a href="https://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html">Here</a> is a nice
+visualizer for some of the sorts.</p>
+<h2 id="order-and-stability">
+  
+  
+    <a href="#order-and-stability" class="anchor-heading" aria-labelledby="order-and-stability"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Order and Stability
+  
+  
+</h2>
+    
+
+<p>To put elements in order implies that we can enforce an ordering between any two
+elements. Given any two elements in a list, according to <strong>total order</strong>, we
+should be able to decide which of the two elements is <em>larger</em> or <em>smaller</em> than
+the other.</p>
+
+<p>However, it’s also possible that neither element is necessarily larger or
+smaller than the other. For instance, if we wish to determine the ordering
+between two strings, <code class="language-plaintext highlighter-rouge">["sorting", "example"]</code>, and we want to order by the
+<em>length of the string</em>, it’s not clear which one should come first because both
+strings are of the same length 7.</p>
+
+<p>In this case, we can defer to the notion of <strong>stability</strong>: if a sort is stable,
+then it will preserve the relative orderings between elements in the list. In
+the above example then, the resultant array will be <code class="language-plaintext highlighter-rouge">["sorting", "example"]</code> in
+a <em>stable sort</em> rather than <code class="language-plaintext highlighter-rouge">["example", "sorting"]</code> as is possible in an
+<em>unstable sort</em>. Remember that, according to our total order by the <em>length of the strings</em>, the second list is still considered correctly sorted even though
+the relative order of equivalent elements is not preserved.</p>
+
+<p>What is the benefit of stable sorting? It allows us to <strong>sort values based off multiple attributes.</strong> For example, we could stably sort a library catalog by
+alphabetical order, then by genre, author, etc. Without stable sorting, we are not guaranteed that the relative ordering of the previous sorts
+would persist so it is possible that the catalog would only be sorted by our
+last sort.</p>
+
+<p>Consider the following example where we sort a list of animals by alphabetical
+order and then length of string.</p>
+
+<p>Original collection:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cow
+giraffe
+octopus
+cheetah
+bat
+ant
+</code></pre></div></div>
+
+<p>First, sort by alphabetical order:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ant
+bat
+cheetah
+cow
+giraffe
+octopus
+</code></pre></div></div>
+
+<p>Second, <strong>stable</strong> sort by length of string:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ant
+bat
+cow
+cheetah
+giraffe
+octopus
+</code></pre></div></div>
+
+<p>After the two sort calls on the same list, now the collection is sorted by length and elements with the same length are in
+alphabetical order with each other. If our sorting algorithm was not stable,
+then we would potentially lose the alphabetical information we achieved in the
+previous sort.</p>
+<h2 id="space-complexity">
+  
+  
+    <a href="#space-complexity" class="anchor-heading" aria-labelledby="space-complexity"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Space Complexity
+  
+  
+</h2>
+    
+
+<p>Thus far, in this class, we’ve mostly talked about time complexity. Similarly to how we can do asymptotic analysis for runtime, we can also analyze how much <em>space</em> (i.e. memory) a given algorithm uses. For sorting algorithms, one common trait we look for is if the algorithm is <strong>in-place</strong>.</p>
+
+<p>Any sorting algorithm that takes in an input of size N is going to have to work with some amount of memory proportional to N to store the size of the input itself. An in-place algorithm is one that doesn’t use a significant amount of <em>additional</em> memory. In this class, this means that the algorithm must use a constant amount of additional memory (for example, a few variables to keep track of your current index or something). Another way to think about it is if we can do the entire algorithm within the original given list, without creating an additional data structure. All the algorithms we discuss in this lab are in-place and do not need to create another data structure.</p>
+
+<p>Note that the definition of in-place can vary–though in our class we say only a constant amount of space counts, some measures say using a logarithmic amount is okay. If you see other articles online, just be wary!</p>
+<h2 id="some-thoughts-sorting-by-hand">
+  
+  
+    <a href="#some-thoughts-sorting-by-hand" class="anchor-heading" aria-labelledby="some-thoughts-sorting-by-hand"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Some Thoughts: Sorting by Hand
+  
+  
+</h2>
+    
+
+<p>Think about how you would sort a hand of 13 playing cards if you
+are dealt the cards one-by-one. Your hand should end up sorted first by suit,
+and then by rank within each suit.</p>
+
+<p>Then, think about how you would sort a pile of 300 CS 61BL exams by student ID. If
+it’s different than your card-sorting algorithm of the previous step, explain
+why.</p>
+
+<p>Can you tell if one is faster than the other? How so?</p>
+<h2 id="insertion-sort">
+  
+  
+    <a href="#insertion-sort" class="anchor-heading" aria-labelledby="insertion-sort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Insertion Sort
+  
+  
+</h2>
+    
+
+<p>The first comparison-based sort we’ll learn is called an <em>insertion sort</em>. The
+basic idea for insertion sort can be formally summed up by this pseudocode:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for each element in the collection:
+    while the previous element is smaller than the element:
+        swap the two elements
+</code></pre></div></div>
+
+<p>You might have intuitively come up with insertion sort when we asked you how to sort cards. This is like when you sort cards by continually putting the next card in the right spot in a group of sorted cards that you’re holding.</p>
+
+<p>Note that insertion sort is stable. We never swap elements if they are equal so
+the relative order of equal elements is preserved.</p>
+
+<p>Now that you’ve read the above explanation, we recommend watching this <a href="https://youtu.be/JtS5yGftYZ8">video</a> to solidify your understanding.</p>
+<h3 id="thought-exercise-runtime">
+  
+  
+    <a href="#thought-exercise-runtime" class="anchor-heading" aria-labelledby="thought-exercise-runtime"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Thought Exercise: Runtime
+  
+  
+</h3>
+    
+
+<p>For the following questions, think on your own and then verify your
+answers.</p>
+
+<p>Assume we have an array of \(N\) integers. What would the array have to look
+like before we ran insertion sort that would make insertion sort run the
+fastest, i.e. minimizing the number of steps needed?</p>
+
+<details><summary> Click to reveal answer! </summary>
+Sorted List
+</details>
+
+<p>What is the runtime of running insertion sort on this array?</p>
+
+<details><summary> Click to reveal answer! </summary>
+Theta(N)
+</details>
+
+<p>What type of initial ordering of a list would maximize the number of comparisons and result in the slowest runtime?</p>
+
+<details><summary> Click to reveal answer! </summary>
+Reverse Sorted Array
+</details>
+
+<p>What is the runtime of running insertion sort on the type of array you identified above?</p>
+
+<details><summary> Click to reveal answer! </summary>
+Theta(N^2)
+</details>
+<h3 id="non-coding-exercise-insertionsort">
+  
+  
+    <a href="#non-coding-exercise-insertionsort" class="anchor-heading" aria-labelledby="non-coding-exercise-insertionsort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Non-Coding Exercise: <code class="language-plaintext highlighter-rouge">InsertionSort</code>
+  
+  
+</h3>
+    
+
+<p>Read the solution <code class="language-plaintext highlighter-rouge">sort()</code> in <code class="language-plaintext highlighter-rouge">InsertionSort.java</code> and understand the provided helper methods.</p>
+<h2 id="selection-sort">
+  
+  
+    <a href="#selection-sort" class="anchor-heading" aria-labelledby="selection-sort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Selection Sort
+  
+  
+</h2>
+    
+
+<p>Selection sort on a collection of \(N\) elements can be described by the
+following pseudocode:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for each element in the collection:
+    find the smallest remaining element, E, in the *unsorted* part of the array
+    remove E and add E to the end of the *sorted* part of the array
+    repeat unsorted collection's original length number of times (or repeat until unsorted collection has no more elements)
+</code></pre></div></div>
+
+<p>In selection sort we swap the minimum element in the unsorted
+collection with the element at the beginning of the unsorted collection. This can
+rearrange the relative ordering of equal elements. Thus, selection sort is
+unstable.</p>
+
+<p>After reading the above, we recommend watching this <a href="https://youtu.be/yZtvSYeTQi4">video</a> on selection sort!</p>
+<h3 id="disussion-runtime">
+  
+  
+    <a href="#disussion-runtime" class="anchor-heading" aria-labelledby="disussion-runtime"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Disussion: Runtime
+  
+  
+</h3>
+    
+
+<p>Now, let’s determine the asymptotic runtime of selection sort. One may observe
+that, in the first iteration of the loop, we will look through all \(N\)
+elements of the array to find the minimum element. On the next iteration, we
+will look through \(N - 1\) elements to find the minimum. On the next, we’ll
+look through  \(N - 2\) elements, and so on.  Thus, the total amount of work
+will be the \(N + (N - 1) + ... + 1\), no matter what the ordering of elements
+in the array or linked list prior to sorting.</p>
+
+<p>Hence, we have an \(\Theta(N^2)\) algorithm, equivalent to insertion sort’s
+normal case. But notice that selection sort <em>doesn’t</em> have a better case, while
+insertion sort does.</p>
+<h3 id="non-coding-exercise-selectionsort">
+  
+  
+    <a href="#non-coding-exercise-selectionsort" class="anchor-heading" aria-labelledby="non-coding-exercise-selectionsort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Non-Coding Exercise: <code class="language-plaintext highlighter-rouge">SelectionSort</code>
+  
+  
+</h3>
+    
+
+<p>Read the solution to <code class="language-plaintext highlighter-rouge">sort()</code> and understand the helper methods in <code class="language-plaintext highlighter-rouge">SelectionSort.java</code>.</p>
+<h2 id="heapsort">
+  
+  
+    <a href="#heapsort" class="anchor-heading" aria-labelledby="heapsort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> HeapSort
+  
+  
+</h2>
+    
+
+<p>Recall the basic structure for selection sort</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for each element in the collection:
+    find the smallest remaining element, E, in the unsorted collection
+    remove E and add E to the end of the sorted collection
+</code></pre></div></div>
+
+<p>Adding something to the end of a sorted array or linked list can be done in
+constant time. What hurt our runtime was finding the smallest element in the
+collection, which always took linear time in an array.</p>
+
+<p>Is there a data structure we can use that allows us to find and remove the
+smallest element quickly? A heap will!</p>
+
+<p>We’ll modify our approach to make it better suited for a heap by removing the 
+largest element and placing it at the end of the array. Here’s the pseudocode for 
+HeapSort:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>construct a max heap from the given collection by bubbling down every
+element from the end of the collection 
+while there are elements remaining in the heap (unsorted part of the collection)
+    swap the root of the heap with the last element
+    bubble down the new root till the end of the heap
+</code></pre></div></div>
+
+<p>HeapSort is not stable because the heap operations (recall <code class="language-plaintext highlighter-rouge">bubbleUp</code> and
+<code class="language-plaintext highlighter-rouge">bubbleDown</code>) can change the relative order of equal elements.</p>
+
+<p>Once again, wrap up learning about HeapSort with this helpful <a href="https://youtu.be/WuuQqsDftGU">video</a>.</p>
+<h3 id="disussion-runtime-1">
+  
+  
+    <a href="#disussion-runtime-1" class="anchor-heading" aria-labelledby="disussion-runtime-1"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Disussion: Runtime
+  
+  
+</h3>
+    
+
+<p>Now, let’s determine the runtime of heap sort. Removal of the largest element from a
+heap of \(N\) elements can be done in time proportional to \(\log N\), allowing
+us to sort our elements in \(O(N \log N)\) time. 
+We can also build a heap in \(O(N \log N)\) time by calling bubble down on every element. 
+This step is only done once, so it doesn’t make our overall runtime worse than \(O(N \log N)\)
+that we previously established. So, once the heap is created, sorting can be
+done in \(O(N \log N)\).</p>
+
+<details><summary> Out of scope note:</summary>
+The tighter runtime for building the heap is actually O(N) but it doesn't affect the 
+overall runtime. The actual calculation for the run time of heap sort is complicated and out
+of scope for this class. You can take a look at this <u><a href="https://stackoverflow.com/a/18742428">stackoverflow answer</a></u> for more a formal calculation of this runtime.
+</details>
+<h3 id="exercise-heapsort">
+  
+  
+    <a href="#exercise-heapsort" class="anchor-heading" aria-labelledby="exercise-heapsort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Exercise: <code class="language-plaintext highlighter-rouge">HeapSort</code>
+  
+  
+</h3>
+    
+
+<p>Complete <code class="language-plaintext highlighter-rouge">sort()</code> and suggested helper methods in <code class="language-plaintext highlighter-rouge">HeapSort.java</code>. The heap in this lab is rooted at index 0 instead of 1 as we’re using it to sort through a pre-existing array. 
+We’ve provided the appropriate <code class="language-plaintext highlighter-rouge">getLeftChild</code> and <code class="language-plaintext highlighter-rouge">getRightChild</code> methods as part of the skeleton, so you don’t have to worry about this in your implementation.</p>
+<h2 id="new-idea-divide-and-conquer">
+  
+  
+    <a href="#new-idea-divide-and-conquer" class="anchor-heading" aria-labelledby="new-idea-divide-and-conquer"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> New Idea: “Divide and Conquer”
+  
+  
+</h2>
+    
+
+<p>The first few sorting algorithms we’ve previously introduced work by iterating through each
+item in the collection one-by-one. With insertion sort and selection sort, both
+maintain a “sorted section” and an “unsorted section” and gradually sort the
+entire collection by moving elements over from the unsorted section into the
+sorted section. Another approach to sorting is by way of <em>divide and conquer</em>.
+Divide and conquer takes advantage of the fact that empty collections or
+one-element collections are already sorted. This essentially forms the base case
+for a recursive procedure that breaks the collection down into smaller pieces
+before merging adjacent pieces to form a completely sorted
+collection.</p>
+
+<p>The idea behind divide and conquer can be broken down into the following 3-step
+procedure.</p>
+
+<ol>
+  <li>Split the elements to be sorted into two collections.</li>
+  <li>Sort each collection recursively.</li>
+  <li>Combine the sorted collections.</li>
+</ol>
+
+<p>Compared to selection sort, which involves comparing every element with <em>every
+other element</em>, divide and conquer can reduce the number of unnecessary
+comparisons between elements by sorting or enforcing order on sub-ranges of the
+full collection. The runtime advantage of divide and conquer comes largely from
+the fact that merging already-sorted sequences is very fast.</p>
+
+<p>Two algorithms that apply this approach are <em>merge sort</em> and <em>quicksort</em>.</p>
+<h2 id="merge-sort">
+  
+  
+    <a href="#merge-sort" class="anchor-heading" aria-labelledby="merge-sort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Merge Sort
+  
+  
+</h2>
+    
+
+<p>Merge sort works by executing the following procedure until the base case of an
+empty or one-element collection is reached.</p>
+
+<ol>
+  <li>Split the collection to be sorted in half.</li>
+  <li>Recursively call merge sort on each half.</li>
+  <li>Merge the sorted half-lists.</li>
+</ol>
+
+<p>The reason merge sort is fast is because merging two lists that are already
+sorted takes linear time proportional to the sum of the lengths of the two
+lists. In addition, splitting the collection in half requires a single pass
+through the elements. The processing pattern is depicted in the diagram below.</p>
+
+<p><img src="/labs/lab11/img/mergesort.png" alt="Merge Sort" /></p>
+
+<p>Each level in the diagram is a collection of processes that all together run in
+linear time. Since there are \(2 \log N\) levels with each level doing work
+proportional to \(N\), the total time is proportional to \(N \log N\).</p>
+
+<p>To be specific, each level does work proportional to \(N\) because of the merging process, 
+which happens in a zipper-like fashion. Given two sorted lists, <code class="language-plaintext highlighter-rouge">merge</code> should continually
+compare the first elements of both lists and interweave the elements into a singular sorted list.
+For example, given the lists [2, 6, 7] and [1, 4, 5, 8], <code class="language-plaintext highlighter-rouge">merge</code> compares the front of both lists (1 and 2). Because
+1 &lt; 2, 1 is moved into the next open spot (in this case, the first position) of the overall sorted list. Note
+that 2 does not enter the overall list, because we now must effectively compare [2, 6, 7] with [4, 5, 8] and repeat the process
+until there are no more elements that need to be compared and merged.</p>
+
+<p>Merge sort is stable as long as we make sure when merging two halves together
+that we favor equal elements in the left half.</p>
+
+<p>Now, watch <a href="https://youtu.be/JJrAzmJcMh0">this video</a> on <code class="language-plaintext highlighter-rouge">mergeSort</code> before attempting the exercise below!</p>
+<h2 id="exercise-mergesort">
+  
+  
+    <a href="#exercise-mergesort" class="anchor-heading" aria-labelledby="exercise-mergesort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Exercise: <code class="language-plaintext highlighter-rouge">mergeSort</code>
+  
+  
+</h2>
+    
+
+<p>To test your understanding of merge sort, fill out the <code class="language-plaintext highlighter-rouge">sort</code> method in
+<code class="language-plaintext highlighter-rouge">MergeSort.java</code>. Be sure to take advantage of the helper <code class="language-plaintext highlighter-rouge">merge</code> method!</p>
+
+<p>This method should be non-destructive, so the original <code class="language-plaintext highlighter-rouge">int[] arr</code> should not be
+modified.</p>
+<h2 id="quicksort">
+  
+  
+    <a href="#quicksort" class="anchor-heading" aria-labelledby="quicksort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Quicksort
+  
+  
+</h2>
+    
+
+<p>Another example of dividing and conquering is the <em>quicksort</em> algorithm, which
+proceeds as follows:</p>
+
+<ol>
+  <li>Split the collection to be sorted into three collections by <em>partitioning</em>
+around a <em>pivot</em> (or “divider”). One collection consists of elements smaller
+than the pivot, the second collection consists of elements equal to the
+pivot, and the third consists of elements greater than or equal to the pivot.</li>
+  <li>Recursively call quicksort on each collection.</li>
+  <li>Merge the sorted collections by concatenation.</li>
+</ol>
+
+<p>Specifically, this version of quicksort is called “three-way partitioning
+quicksort” due to the three partitions that the algorithm makes on every call.</p>
+
+<p>Here’s an example of how this might work, sorting an array containing 3, 1, 4,
+5, 9, 2, 8, 6.</p>
+
+<p><img src="/labs/lab11/img/quicksort.png" alt="Quicksort" /></p>
+
+<ol>
+  <li>Choose 3 as the pivot. (We’ll explore how to choose the pivot shortly.)</li>
+  <li>Put 4, 5, 9, 8, and 6 into the “large” collection and 1 and 2 into the
+“small” collection. No elements go in the “equal” collection.</li>
+  <li>Sort the large collection into 4, 5, 6, 8, 9; sort the small collection into
+1, 2; combine the two collections with the pivot to get 1, 2, 3, 4, 5, 6, 8,
+9.</li>
+</ol>
+
+<p>Depending on the implementation, quicksort is not stable because when we move
+elements to the left and right of our pivot the relative ordering of equal
+elements can change.</p>
+
+<p>Before moving on to the next part of the lab, check out <a href="https://www.youtube.com/watch?v=7cjXkEW1STY&amp;t=1h24m55s">this video</a> to solidify your understanding of quicksort. Note this was taken from summer 2021’s lecture, so you can stop after the section on quicksort. That is, you can stop at 1:41:00.</p>
+<h2 id="exercise-quicksort">
+  
+  
+    <a href="#exercise-quicksort" class="anchor-heading" aria-labelledby="exercise-quicksort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Exercise: <code class="language-plaintext highlighter-rouge">quicksort</code>
+  
+  
+</h2>
+    
+
+<p>To test your understanding of quicksort, fill out the <code class="language-plaintext highlighter-rouge">sort</code> method in
+<code class="language-plaintext highlighter-rouge">QuickSort.java</code>. Be sure to take advantage of the helper <code class="language-plaintext highlighter-rouge">partition</code> method!</p>
+
+<p>This method is destructive, where the original <code class="language-plaintext highlighter-rouge">int[] arr</code> should be
+modified.</p>
+<h2 id="though-exercise-quicksort">
+  
+  
+    <a href="#though-exercise-quicksort" class="anchor-heading" aria-labelledby="though-exercise-quicksort"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Though Exercise: Quicksort
+  
+  
+</h2>
+    
+<h3 id="thought-exercise-1-runtime">
+  
+  
+    <a href="#thought-exercise-1-runtime" class="anchor-heading" aria-labelledby="thought-exercise-1-runtime"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Thought Exercise 1: Runtime
+  
+  
+</h3>
+    
+
+<p>First, let’s consider the best-case scenario where each partition divides a
+range optimally in half. Using some of the strategies picked up from the merge
+sort analysis, we can determine that quicksort’s best case asymptotic runtime
+behavior is \(O(N \log N)\). Think about why this is the case, and
+any differences between quicksort’s best case runtime and merge sort’s runtime.</p>
+
+<p>However, quicksort is faster in practice and tends to have better constant
+factors (which aren’t included in the big-Oh analysis). To see this, let’s
+examine exactly how quicksort works.</p>
+
+<p>We know concatenation for linked lists can be done in constant time, and for arrays it can be done in linear time.
+Partitioning can be done in time proportional to the number of elements \(N\). 
+If the partitioning is optimal and splits each range more or less in half,
+we have a similar logarithmic division of levels downward
+like in merge sort. On each division, we still do the same linear amount of work
+as we need to decide whether each element is greater or less than the pivot.</p>
+
+<p>However, once we’ve reached the base case, we don’t need as many steps to
+reassemble the sorted collection. Remember that with merge sort, while each list
+of one element is sorted, the entire set of one-element
+lists is not necessarily in order, which is why there are \(\log N\) steps to
+merge upwards in merge sort. This isn’t the case with quicksort as each element
+<em>is</em> in order. Thus, merging in quicksort is simply one level of linear-time
+concatenation.</p>
+
+<p>Unlike merge sort, quicksort has a worst-case runtime different from its
+best-case runtime. Suppose we always choose the first element in a range as our
+pivot. Then, which of the following conditions would cause the worst-case
+runtime for quicksort? Think about it, then verify your understanding
+by highlighting the line below for the answer.</p>
+
+<p><span style="color:white"><em>Sorted or Reverse Sorted Array. This is because
+  the pivot will always be an extreme value (the largest or smallest unsorted value)
+  and we will thus have N recursive calls, rather than log(n).</em></span></p>
+
+<p>What is the runtime of running quicksort on this array?</p>
+
+<p><span style="color:white"><em>Theta(N^2)</em></span></p>
+
+<p>Under these conditions, does this special case of quicksort remind you of any
+other sorting algorithm we’ve discussed in this lab?</p>
+
+<p>We see that quicksort’s worst case scenario is pretty bad… You might be wondering why we’d even bother with it then! However, though it’s outside the scope of this class for you to prove why, we can show that on <em>average</em>, quicksort has \(O(N \log(N))\) runtime! In practice, quicksort ends up being very fast.</p>
+<h3 id="thought-exercise-2-choosing-a-pivot">
+  
+  
+    <a href="#thought-exercise-2-choosing-a-pivot" class="anchor-heading" aria-labelledby="thought-exercise-2-choosing-a-pivot"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Thought Exercise 2: Choosing a Pivot
+  
+  
+</h3>
+    
+
+<p>Given a random collection of integers, what’s the best possible choice of pivot
+for quicksort that will break the problem down into \(\log N\) levels? Try to describe an algorithm 
+to find this pivot element. What is its runtime? It’s okay if you think your solution isn’t the most efficient.</p>
+<h2 id="quicksort-in-practice">
+  
+  
+    <a href="#quicksort-in-practice" class="anchor-heading" aria-labelledby="quicksort-in-practice"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Quicksort in Practice
+  
+  
+</h2>
+    
+
+<p>How fast was the pivot-finding algorithm that you came up with? Finding the
+exact median of our elements may take so much time that it may not help the
+overall runtime of quicksort at all. It may be worth it to choose an approximate
+median, if we can do so really quickly. Options include picking a random
+element, or picking the median of the first, middle, and last elements. These
+will at least avoid the worst case we discussed above.</p>
+
+<p>In practice, quicksort turns out to be the fastest of the general-purpose
+sorting algorithms we have covered so far. For example, it tends to have better
+constant factors than that of merge sort. For this reason, Java uses this
+algorithm for sorting arrays of <strong>primitive types</strong>, such as <code class="language-plaintext highlighter-rouge">int</code>s or <code class="language-plaintext highlighter-rouge">float</code>s.
+With some tuning, the most likely worst-case scenarios are avoided, and the
+average case performance is excellent.</p>
+
+<p>Here are some improvements to the quicksort algorithm as implemented in the Java
+standard library:</p>
+
+<ul>
+  <li>When there are only a few items in a sub-collection (near the base case of the
+recursion), insertion sort is used instead.</li>
+  <li>For larger arrays, more effort is expended on finding a good pivot.</li>
+  <li>Various machine-dependent methods are used to optimize the partitioning
+algorithm and the <code class="language-plaintext highlighter-rouge">swap</code> operation.</li>
+  <li><a href="https://www.geeksforgeeks.org/dual-pivot-quicksort/">Dual pivots</a></li>
+</ul>
+
+<p>For <strong>object types</strong>, however, Java uses a hybrid of <em>merge sort and insertion
+sort</em> called “Timsort” instead of quicksort. Can you come up with an explanation
+as to why? <em>Hint</em>: Think about stability!</p>
+
+<p>To learn more about the performance difference between Quicksort and Mergesort, watch this video <a href="https://www.youtube.com/watch?v=es2T6KY45cA">Quicksort versus Mergesort</a></p>
+<h3 id="timing">
+  
+  
+    <a href="#timing" class="anchor-heading" aria-labelledby="timing"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Timing
+  
+  
+</h3>
+    
+
+<p>So far we’ve measured the speed and efficiency of our algorithms by theoretically
+performing asymptotic analysis on them. Another (less formal) way of determining 
+the speed of a given program is to test it on a variety of inputs and measure 
+the time it takes for each one. This is called a timing experiment, and we 
+refer to this process as finding the efficiency of a program empirically. 
+In this lab, we will be doing some timing experiments to see how the different sorting 
+classes you implemented in this lab perform.</p>
+
+<p>Open <code class="language-plaintext highlighter-rouge">TimingTest.java</code> and run it’s <code class="language-plaintext highlighter-rouge">main</code> method. This class will sort random arrays of
+different sizes using the sorting algorithms you implemented and plot the results.</p>
+
+<p>Here’s the result of running the test on one of our computers:</p>
+
+<p><img src="/labs/lab11/img/times.png" alt="Sorting Algos Timing Test Results" /></p>
+
+<p>Notice how by the time we reach an array size of 1000000, Selection Sort and Insertion Sort 
+take more than a minute to run while Heap Sort and Merge Sort manages to sort the same array in just over
+one-tenth of a second!</p>
+
+<p>If you run it multiple times, you will also notice that Quicksort’s runtime varies more than others—you are seeing
+the different pivot’s runtime on this algorithm’s performance in action!</p>
+
+<p>Please note that the result you see my be different from the picture above. 
+If the tests are taking too long on your computer, try lowering the bounds provided in the class.</p>
+<h2 id="summary">
+  
+  
+    <a href="#summary" class="anchor-heading" aria-labelledby="summary"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Summary
+  
+  
+</h2>
+    
+
+<p>In this lab, we learned about more comparison-based algorithms for sorting
+collections. Within comparison-based algorithms, we examined two different
+paradigms for sorting:</p>
+
+<ol>
+  <li>Simple sorts like <strong>insertion sort</strong> and <strong>selection sort</strong> which
+demonstrated algorithms that maintained a sorted section and moved unsorted
+elements into this sorted section one-by-one. With optimization like <strong>heapsort</strong> or the right conditions (relatively sorted list in the case of insertion
+sort), these simple sorts can be fast!</li>
+  <li>Divide and conquer sorts like <strong>merge sort</strong> and <strong>quicksort</strong>. These
+algorithms take a different approach to sorting: we instead take advantage of
+the fact that collections of one element are sorted with respect to
+themselves.  Using recursive procedures, we can break larger sorting problems
+into smaller subsequences that can be sorted individually and quickly
+recombined to produce a sorting of the original collection.</li>
+</ol>
+
+<p>Here are several online resources for visualizing sorting algorithms. If you’re
+having trouble understanding these sorts, use these resources as tools to help
+build intuition about how each sort works.</p>
+
+<ul>
+  <li><a href="http://visualgo.net/sorting">VisuAlgo</a></li>
+  <li><a href="http://sorting.at/">Sorting.at</a></li>
+  <li><a href="http://www.sorting-algorithms.com/">Sorting Algorithms Animations</a></li>
+  <li><a href="http://www.cs.usfca.edu/~galles/visualization/ComparisonSort.html">USF Comparison of Sorting Algorithms</a></li>
+  <li><a href="https://www.youtube.com/user/AlgoRythmics/videos">AlgoRhythmics</a>: sorting demos through folk dance including
+<a href="https://www.youtube.com/watch?v=ROalU379l3U">insertion sort</a>, <a href="https://www.youtube.com/watch?v=Ns4TPTC8whw">selection sort</a>, <a href="https://www.youtube.com/watch?v=XaqR3G*NVoo">merge sort</a>, and <a href="https://www.youtube.com/watch?v=ywWBy6J5gz8">quicksort</a></li>
+</ul>
+
+<p>To summarize the sorts that we’ve learned, take a look at the following table.</p>
+
+<div class="table-wrapper"><table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Best Case Runtime</th>
+      <th>Worst Case Runtime</th>
+      <th>Stable</th>
+      <th>In Place</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://youtu.be/JtS5yGftYZ8">Insertion Sort</a></td>
+      <td>\(\Theta(N)\)</td>
+      <td>\(\Theta(N^2)\)</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://youtu.be/yZtvSYeTQi4">Selection Sort</a></td>
+      <td>\(\Theta(N^2)\)</td>
+      <td>\(\Theta(N^2)\)</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>Can be made stable under certain conditions.</td>
+    </tr>
+    <tr>
+      <td><a href="https://youtu.be/WuuQqsDftGU">Heap Sort</a></td>
+      <td>\(\Theta(N \log N)\)</td>
+      <td>\(\Theta(N \log N)\)</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>If all elements are equal then runtime is \(\Theta(N)\). Hard to make stable.</td>
+    </tr>
+    <tr>
+      <td><a href="https://youtu.be/JJrAzmJcMh0">Merge Sort</a></td>
+      <td>\(\Theta(N \log N)\)</td>
+      <td>\(\Theta(N \log N)\)</td>
+      <td>Yes</td>
+      <td>Not usually. Typical implementations are not, and making it in-place is terribly complicated.</td>
+      <td>An optimized sort called “Timsort” is used by Java for arrays of reference types.</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.youtube.com/watch?v=7cjXkEW1STY&amp;t=1h24m55s">Quicksort</a></td>
+      <td>\(\Theta(N \log N)\)</td>
+      <td>\(\Theta(N^2)\)</td>
+      <td>Depends</td>
+      <td>Most implementations use log(N) additional space for the recursive stack frames</td>
+      <td>Stability and runtime depend on partitioning strategy; three-way partition quicksort is stable. If all elements are equal, then the runtime using three-way partition quicksort is \(\Theta(N)\). Used by Java for arrays of primitive types. Fastest in practice.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<blockquote>
+  <p>You may have noticed that there seems to be a lower bound on how fast our sorting algorithms can go. For <em>comparison</em> based sorts, we can prove the best we can do is \(O(N\log(N))\). You can watch a very brief video explanation <a href="https://www.youtube.com/watch?v=j4Lmzhs6r-Y&amp;list=PLNF4Mv5EsHj4QLTEw3uz42vJGKblD9usL&amp;index=3">here</a> at timestamp 11:42. You can also read a more in-depth <a href="https://www.cs.cmu.edu/~avrim/451f11/lectures/lect0913.pdf">proof</a>, if you’re into that kind of thing. There are also <em>counting</em> sorts, which can do even better when we’re able to use them.</p>
+</blockquote>
+<h3 id="deliverables">
+  
+  
+    <a href="#deliverables" class="anchor-heading" aria-labelledby="deliverables"><svg viewBox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Deliverables
+  
+  
+</h3>
+    
+
+<p>To get credit for this lab:</p>
+<ul>
+  <li>Complete the following classes:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">HeapSort.java</code></li>
+      <li><code class="language-plaintext highlighter-rouge">MergeSort.java</code></li>
+      <li><code class="language-plaintext highlighter-rouge">QuickSort.java</code></li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+          
+
+          
+        </main>
+        
+
+  <hr>
+  <footer>
+    
+
+    <script>
+(function() {
+  var navList = document.querySelector('.aux-nav-list');
+  if (!navList || !navList.firstElementChild) return;
+  var darkToggle = navList.firstElementChild;
+  darkToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleDark();
+  });
+})();
+</script>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!--
+<script src="/assets/js/clipboard.min.js"></script>
+<script>
+// adapted from https://stackoverflow.com/a/48078807/1217368
+// Waiting for https://github.com/just-the-docs/just-the-docs/pull/945
+$(document).ready(function () {
+  $('pre.highlight').each(function (i) {
+    // create an id for the current code section
+    var currentId = 'codeBlock' + i
+
+    // find the code section and add the id to it
+    var codeSection = $(this).find('code')
+    codeSection.attr('id', currentId)
+
+    // now create the button, setting the clipboard target to the id
+    var btn = document.createElement('a')
+    btn.setAttribute('type', 'btn')
+    btn.setAttribute('class', 'badge badge-light btn-copy-code')
+    btn.setAttribute('data-clipboard-target', '#' + currentId)
+    btn.innerHTML = '<i class="fal fa-copy"></i> Copy'
+    $(this).after(btn)
+  })
+
+  new ClipboardJS('.btn-copy-code')
+})
+</script>
+-->
+
+<script src="/assets/js/tocbot.min.js"></script>
+<script>
+// Tries to mirror the HTML TOC
+tocbot.init({
+  tocSelector: '.js-toc',
+  contentSelector: '.main-content',
+  headingSelector: 'h2, h3',
+  ignoreSelector: '.no_toc',
+  hasInnerContainers: true,
+  linkClass: 'nav-list-link',
+  activeLinkClass: 'active',
+  listClass: 'nav-list',
+  listItemClass: 'nav-list-item',
+  activeListItemClass: 'active',
+  collapseDepth: 3,
+  scrollSmooth: false,
+});
+</script>
+
+
+<script>
+// adds tabindex = 0 to div elements with class highlight in order to make them keyboard accessible
+document.addEventListener('DOMContentLoaded', (event) => {
+// Select all elements with class 'highlight'
+const highlights = document.querySelectorAll('div.highlight');
+
+// Add tabindex="0" to each selected element
+highlights.forEach(element => {
+element.setAttribute('tabindex', '0');
+});
+});
+</script>
+
+
+    
+  </footer>
+
+
+      </div>
+    </div>
+    
+      
+
+<div class="search-overlay"></div>
+
+    
+  </div>
+
+  
+</body>
+</html>
+
